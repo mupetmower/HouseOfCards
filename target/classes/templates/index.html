@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="ISO-8859-1">
-
-	<title>Insert title here</title>
-
-</head>
-
-<body>
-
-	<h2>'Ello Spring Beans!</h2>
-
-
-</body>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    
+    <!-- This will not need to go here since it will be in ever page's header. So this will go in the 
+    headerincludes.html page instead.. You can see how you need to format the paths for the src/rel in 
+    there. If you need help with those, ask Alex to help. --for now I have placed an example css file in static/css
+    which just has some random formatting for tables. You guys can change anything in there if you want. For now,
+    I just have that and some jquery bootstap stuff to make the pages look ok until we start doing
+    our own formatting.
+    <link rel="stylesheet" href="styles/main.css">
+    -->
+    
+    
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not haha.
+    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
+    links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    
+    <title>Main Page</title>
+    
+  </head>
+  <body>
+    <header>
+      <h1> <img src="images/ChadDay.png" alt="TestImage">House of Cards Winston</h1>
+      <hr> </header>
+    <nav id="nav_menu">
+      <ul>
+        <li><a href="index.html" class="current">Home</a></li>
+        <li><a href="placeholder.html">Second Page</a></li>
+        <li><a href="placeholder.html">Third Page</a></li>
+        <li><a href="placeholder.html">Fourth Page</a></li>
+      </ul>
+    </nav>
+    <main>
+      <p>Here is a WHOLE BUNCH of test text that I put into a paragraph in the
+        &lt;main&gt;&lt;/main&gt; tag</p>
+      <br>
+    </main>
+    <footer>4007 Country Club Rd C, <br>
+      Winston-Salem, NC 27104<br>
+      (336) 930-5151<br>
+      Visit us on <a href="https://www.facebook.com/houseofcardswinston/">Facebook</a>
+      too!<br>
+      <br>
+      House of Cards, 2018 </footer>
+  </body>
 </html>
