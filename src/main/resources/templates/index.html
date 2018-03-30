@@ -2,8 +2,28 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Main Page</title>
+    
+    
+    <!-- This will not need to go here since it will be in ever page's header. So this will go in the 
+    headerincludes.html page instead.. You can see how you need to format the paths for the src/rel in 
+    there. If you need help with those, ask Alex to help. --for now I have placed an example css file in static/css
+    which just has some random formatting for tables. You guys can change anything in there if you want. For now,
+    I just have that and some jquery bootstap stuff to make the pages look ok until we start doing
+    our own formatting.
     <link rel="stylesheet" href="styles/main.css">
+    -->
+    
+    
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not haha.
+    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
+    links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    
+    <title>Main Page</title>
+    
   </head>
   <body>
     <header>
