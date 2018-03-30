@@ -7,7 +7,7 @@ HTML files (.html) - src/main/resources/templates
 JavaScript files (.js) - src/main/resources/static/js
 JQuery files - src/main/resources/static/jquery
 
-Images - src/main/resources/images
+Images - src/main/resources/static/images
 ```
 
 
