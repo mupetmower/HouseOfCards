@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<html xmlns:th="http://www.thymeleaf.org">
+  <head lang="en">
     
+        
+    <title>Main Page</title>
     
     <!-- This will not need to go here since it will be in ever page's header. So this will go in the 
     headerincludes.html page instead.. You can see how you need to format the paths for the src/rel in 
@@ -19,35 +20,54 @@
     links/src stuff for js, jquery pugins, navigation stuff, etc -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+        
     
-    
-    <title>Main Page</title>
     
   </head>
   <body>
-    <header>
-      <h1> <img src="images/ChadDay.png" alt="TestImage">House of Cards Winston</h1>
-      <hr> </header>
-    <nav id="nav_menu">
-      <ul>
-        <li><a href="index.html" class="current">Home</a></li>
-        <li><a href="placeholder.html">Second Page</a></li>
-        <li><a href="placeholder.html">Third Page</a></li>
-        <li><a href="placeholder.html">Fourth Page</a></li>
-      </ul>
-    </nav>
-    <main>
-      <p>Here is a WHOLE BUNCH of test text that I put into a paragraph in the
-        &lt;main&gt;&lt;/main&gt; tag</p>
-      <br>
-    </main>
-    <footer>4007 Country Club Rd C, <br>
-      Winston-Salem, NC 27104<br>
-      (336) 930-5151<br>
-      Visit us on <a href="https://www.facebook.com/houseofcardswinston/">Facebook</a>
-      too!<br>
-      <br>
-      House of Cards, 2018 </footer>
+  
+	<header>
+    	<div class="container">
+    	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    	    	
+    	
+    		<div class="text-center">
+    			<img src="images/CHAD.jpg" alt="TestImage" />
+    		</div>
+    		
+    		
+    		
+    		
+    	</div>
+    </header>
+    
+    
+    
+    <div class="container">
+    	<div class="text-center">
+		    <main>
+		      <p>Here is a WHOLE BUNCH of test text that I put into a paragraph in the
+		        &lt;main&gt;&lt;/main&gt; tag</p>
+		      <br>
+		    </main>
+    	</div>
+    </div>
+    
+    
+    <footer>
+	    <div class="container">
+	    	<div class="text-center"
+			    4007 Country Club Rd C, <br>
+			    Winston-Salem, NC 27104<br>
+			    (336) 930-5151<br>
+			    Visit us on <a href="https://www.facebook.com/houseofcardswinston/">Facebook</a>
+			    too!<br>
+			    <br>
+			    House of Cards, 2018
+			</div>
+	    </div>
+    </footer>      
+    
+      
   </body>
 </html>

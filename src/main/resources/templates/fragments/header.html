@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="en" th:fragment="header">
 <meta charset="ISO-8859-1" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
           rel="stylesheet" media="screen"/>
@@ -19,9 +21,44 @@
 	
 </head>
 <body>
-	<!-- Nav bars and other elements that will appear on all/most pages will also go in here or in another dedicated fragment file -->
+	<!-- Nav bars and other elements that will appear on all/most pages will also go in here or in another 
+	dedicated fragment file.. For now, I have put our nav-menu in here..-->
+ 	
+<div class="container">
+    <div th:fragment="header">
+    
+    
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                
+                    <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+                    <ul class="nav navbar-nav">                    	
+	        			<li><a href="placeholder.html">Second Page</a></li>
+	        			<li><a href="placeholder.html">Third Page</a></li>
+	        			<li><a href="placeholder.html">Fourth Page</a></li>
+	        			<!--  Example for th:href nav -->
+                        <li><a href="#" th:href="@{/gamesession/new}">Fifth Page</a></li>
+                    </ul>
  
+                </div>
+            </div>
+        </nav>
+        
  
+        <div class="jumbotron">
+            <div class="row text-center">
+            
+                <div class="home-sign">
+                    <h2>House of Cards</h2>
+ 
+                    <h3>Something</h3>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
  
 </body>
 </html>
