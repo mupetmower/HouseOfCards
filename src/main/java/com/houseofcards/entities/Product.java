@@ -23,7 +23,7 @@ public class Product {
 
 
     @Id
-    @Column(name = "PKProductID", nullable = true)
+    @Column(name = "PK_ProductID", nullable = true)
     private Integer productId;
     
     @Column(name = "ProductName")
@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "ProductDescription")
     private String description;
     
-    @Column(name = "ImageURI")
+    @Column(name = "ThumbnailURI")
     private String imageUri;
     
     @Column(name = "Price")

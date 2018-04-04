@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.houseofcards.entities.Product;
+import com.houseofcards.services.CrudService;
+import com.houseofcards.services.EventService;
 import com.houseofcards.services.ProductService;
-import com.houseofcards.services.ProductServiceImpl;
+import com.houseofcards.services.SaleService;
 
 
 @Configuration
@@ -21,7 +24,19 @@ public class RepositoryConfiguration {
     
     @Bean
     ProductService productService(){
-        return new ProductServiceImpl();
+        return new ProductService();
     }
+
+    @Bean
+    EventService eventService(){
+        return new EventService();
+    }
+
+    @Bean
+    SaleService saleService(){
+        return new SaleService();
+    }
+    
+    
 
 }

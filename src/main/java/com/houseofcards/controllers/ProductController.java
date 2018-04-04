@@ -30,32 +30,32 @@ public class ProductController {
     
     @RequestMapping(value = "product", method = RequestMethod.POST)
     public String saveProduct(Product product){
-	productService.saveProduct(product);
+	productService.save(product);
 	return "redirect:/product/" + product.getProductId();
     }
     
     @RequestMapping("product/{id}")
     public String showProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.getById(id));
         return "productshow";
     }
     
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String list(Model model){
-        model.addAttribute("products", productService.listAllProducts());
+        model.addAttribute("products", productService.listAll());
         return "products";
     }
     
     @RequestMapping("product/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-	model.addAttribute("product", productService.getProductById(id));
+	model.addAttribute("product", productService.getById(id));
 	return "productform";
     }
     
     
     @RequestMapping("product/delete/{id}")
     public String delete(@PathVariable Integer id){
-	productService.deleteProduct(id);
+	productService.delete(id);
 	return "redirect:/products";
     }
     
