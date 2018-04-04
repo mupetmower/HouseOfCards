@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="ISO-8859-1" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+	<!-- ANYTHING THAT WILL GO WITH THE LEFT NAV BAR WILL GO HERE-->
+ 	
+
+<div th:fragment="leftnav">
+
+    <!-- Left Vertical Nav -->
+    
+	<h1 class="my-4">House of Cards</h1>
+	<div class="list-group">
+    	<a href="#" class="list-group-item" th:href="@{/events}">Events</a>
+    	<a href="#" class="list-group-item" th:href="@{/products}">Products</a>
+    	<a href="#" class="list-group-item">
+        	Category 3
+    	</a>
+	</div>
+   	
+</div>
+
+ 
+</body>
+</html>
