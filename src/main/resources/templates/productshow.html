@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Image Url:</label>
+                    <label class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${product.imageUrl}">URL</p>
+                        <p class="form-control-static"><img th:src="@{__${product.imageUri}__}"></p>
                     </div>
                 </div>
             </form>

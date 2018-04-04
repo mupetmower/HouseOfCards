@@ -32,7 +32,7 @@ public class Event extends com.houseofcards.entities.Entity {
     @Override
     public void print() {
 	System.out.printf("Event Id: %d%n"
-		+ "Name: %.2f",
+		+ "Name: %s%n",
 		getPK_EventID(), getEventName());
     }
     

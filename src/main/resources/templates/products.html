@@ -5,24 +5,25 @@
     <title>Spring Framework Guru</title>
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
 </head>
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     
-    <p>Going to change this.. just here for testing..</p>
-    <button><a href=# th:href="@{/product/new}">Add Product</a></button>
-    
+    <div class="row">
+        
     <div th:if="${not #lists.isEmpty(products)}">
         <h2>Product List</h2>
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
                 <th>Product Id</th>
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Image</th>
                 <th>View</th>
                 <th>Edit</th>
             </tr>
@@ -32,16 +33,20 @@
                 <td th:text="${product.productName}">Product Name</td>
                 <td th:text="${product.description}">Description</td>
                 <td th:text="${product.price}">Price</td>
+                <td><img class="product-thumbnail" th:src="@{__${product.imageUri}__}"></td>
                 <td><a th:href="${ '/product/' + product.productId}">View</a></td>
                 <td><a th:href="${'/product/edit/' + product.productId}">Edit</a></td>
             </tr>
         </table>
 
     </div>
-    <div th:if="${not #lists.isEmpty(products)}">
+    
+    <div th:unless="${not #lists.isEmpty(products)}">
     	<h2>Products List is Empty</h2>
     </div>
     
+    
+    </div>
     
 </div>
 

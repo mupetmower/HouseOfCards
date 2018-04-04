@@ -12,7 +12,7 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product extends com.houseofcards.entities.Entity {
     
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,11 +73,11 @@ public class Product {
         this.productId = productId;
     }
 
-    public String getImageUrl() {
+    public String getImageUri() {
         return imageUri;
     }
 
-    public void setImageUrl(String imageUri) {
+    public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
 
@@ -104,4 +104,13 @@ public class Product {
     public void setQuantity(Integer quantity) {
 	this.quantity = quantity;
     }
+
+	@Override
+	public void print() {
+		System.out.printf("Product Id: %d%n"
+				+ "Name: %s%n"
+				+ "Price: %.2f%n",
+				productId, productName, price);
+		
+	}
 }
