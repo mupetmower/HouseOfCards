@@ -1,15 +1,40 @@
 package com.houseofcards.services;
 
-import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.houseofcards.entities.Product;
+import com.houseofcards.repositories.ProductRepository;
 
-public interface ProductService {
-    Iterable<Product> listAllProducts();
+
+public class ProductService implements EntityService<Product, ProductRepository> {
     
-    Product getProductById(Integer id);
- 
-    Product saveProduct(Product product);
+	private ProductRepository productRepository;
+
+	@Autowired
+	public void setRepository(ProductRepository productRepository) {
+	    this.productRepository = productRepository;
+	}
+	
+	@Override
+	public Iterable <Product> listAll() {
+	    return productRepository.findAll();
+	}
+	
+	@Override
+	public Product getById(Integer id) {
+	    return productRepository.findById(id).get();
+	    
+	}
+	
+	@Override
+	public Product save(Product product) {
+	    return productRepository.save(product);
+	}
+	
+	@Override
+	public void delete(Integer id) {
+	    productRepository.deleteById(id);
+	}
     
-    void deleteProduct(Integer id);
 }
