@@ -15,9 +15,13 @@
     -->
     
     
-    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not haha.
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
     I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
     links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!-- This specific fragment holds all of the links and sources we need to include on each page.
+    These are things like css files, javascript files, etc.. This is where our bootstrap
+    source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
         
@@ -43,6 +47,7 @@
     
     
     
+    
     <div class="container">
     	<div class="text-center">
 		    <main>
@@ -56,7 +61,7 @@
     
     <footer>
 	    <div class="container">
-	    	<div class="text-center"
+	    	<div class="text-center">
 			    4007 Country Club Rd C, <br>
 			    Winston-Salem, NC 27104<br>
 			    (336) 930-5151<br>
