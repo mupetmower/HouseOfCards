@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Events List</title>
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-2">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        </div>
+    <div class="col-lg-9">  
+        
+    <div th:if="${not #lists.isEmpty(events)}">
+        <h2>Event List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Event Id</th>
+                <th>Event Name</th>
+                <th>Description</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                
+                <th>Discounts</th>
+                
+                <th>Image</th>                                
+                
+            </tr>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.pkEventId}">Id</td>
+                
+                <td th:text="${event.eventName}">Product Name</td>
+                <td th:text="${event.eventDescription}">Description</td>
+                <td th:text="${event.dateBegin}">Begin Date</td>
+                <td th:text="${event.dateEnd}">End Date</td>
+                <td th:each="discount : ${event.discounts}"><p th:text="${discount.discountPercentage}"></p></td>
+                <td><img class="event-thumbnail" th:src="@{__${event.eventImageUri}__}"></td>
+            </tr>
+        </table>
+
+    </div>
+    
+    <div th:unless="${not #lists.isEmpty(events)}">
+    	<h2>There are no current events.</h2>
+    </div>
+    
+    
+    </div>
+    
+</div>
+
+</body>
+</html>

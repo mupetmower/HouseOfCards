@@ -27,6 +27,8 @@ public class Event extends com.houseofcards.entities.Entity {
     private Date dateBegin;
     
     private Date dateEnd;
+    
+    private String eventImageUri;
         
     
     @Override
@@ -82,5 +84,15 @@ public class Event extends com.houseofcards.entities.Entity {
     public void setDateEnd(Date dateEnd) {
 	this.dateEnd = dateEnd;
     }
+
+
+	public String getEventImageUri() {
+		return eventImageUri;
+	}
+
+
+	public void setEventImageUri(String eventImageUri) {
+		this.eventImageUri = eventImageUri;
+	}
     
 }

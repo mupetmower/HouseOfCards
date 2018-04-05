@@ -3,11 +3,11 @@ package com.houseofcards.services;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.houseofcards.entities.Entity;
-import com.houseofcards.entities.Event;
+import com.houseofcards.entities.generated.Events;
 import com.houseofcards.repositories.EntityRepository;
 import com.houseofcards.repositories.EventRepository;
 
-public class EventService implements EntityService<Event, EventRepository> {
+public class EventService implements EntityService<Events, EventRepository> {
     
     private EventRepository eventRepository;
 
@@ -17,17 +17,17 @@ public class EventService implements EntityService<Event, EventRepository> {
     }
     
     @Override
-    public Iterable<Event> listAll() {
+    public Iterable<Events> listAll() {
 	return eventRepository.findAll();
     }
 
     @Override
-    public Event getById(Integer id) {
+    public Events getById(Integer id) {
 	return eventRepository.findById(id).get();
     }
 
     @Override
-    public Event save(Event event) {
+    public Events save(Events event) {
 	return eventRepository.save(event);
     }
 

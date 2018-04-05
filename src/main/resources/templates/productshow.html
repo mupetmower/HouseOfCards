@@ -6,23 +6,30 @@
 
 	<!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
 
+	
 </head>
 <body>
 <div class="container">
-    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-
+    
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    <div class="row">
+    	<div class="col-lg-2">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        </div>
+    <div class="col-lg-9">  
     <h2>Product Details</h2>
         <div>
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Product Id:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${product.productId}">Product Id</p></div>
+                        <p class="form-control-static" th:text="${product.pkProductId}">Product Id</p></div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Description:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${product.description}">Description</p>
+                        <p class="form-control-static" th:text="${product.productDescription}">Description</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -31,15 +38,51 @@
                         <p class="form-control-static" th:text="${product.price}">Price</p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"></label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static"><img th:src="@{__${product.imageUri}__}"></p>
-                    </div>
+                
+                
+               	<div th:unless="${not #lists.isEmpty(product.productimages)}">
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label"></label>
+	                    <div class="col-sm-10">
+	                        <p class="form-control-static"><img th:src="@{__${product.thumbnailUri}__}"></p>
+	                    </div>
+	                </div>
                 </div>
+                
+                <div th:if="${not #lists.isEmpty(product.productimages)}">
+	                <div class="form-group">
+	                    <label class="col-sm-2 control-label"></label>
+	                    <div class="bxslider">
+		                    <div th:each="image : ${product.productimages}">
+		                    	<div><img th:src="@{__${image.imageUri}__}" th:title="${image.viewName}" width="400px"></div>
+		                    </div>
+	                    </div>
+	                    <script>
+	                    	$(function(){
+	                    	  $('.bxslider').bxSlider({
+	                    	    mode: 'fade',
+	                    	    captions: true,
+	                    	    slideWidth: 400
+	                    	  });
+	                    	});
+	                    </script>	                    
+	                </div>
+                </div>
+            
+                
+                
+                
             </form>
     </div>
+    </div>
+    </div>
 </div>
+
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
 
 </body>
 </html>

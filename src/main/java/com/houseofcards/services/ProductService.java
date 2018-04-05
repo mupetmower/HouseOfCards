@@ -3,11 +3,11 @@ package com.houseofcards.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.houseofcards.entities.Product;
+import com.houseofcards.entities.generated.Products;
 import com.houseofcards.repositories.ProductRepository;
 
 
-public class ProductService implements EntityService<Product, ProductRepository> {
+public class ProductService implements EntityService<Products, ProductRepository> {
     
 	private ProductRepository productRepository;
 
@@ -17,18 +17,18 @@ public class ProductService implements EntityService<Product, ProductRepository>
 	}
 	
 	@Override
-	public Iterable <Product> listAll() {
+	public Iterable <Products> listAll() {
 	    return productRepository.findAll();
 	}
 	
 	@Override
-	public Product getById(Integer id) {
+	public Products getById(Integer id) {
 	    return productRepository.findById(id).get();
 	    
 	}
 	
 	@Override
-	public Product save(Product product) {
+	public Products save(Products product) {
 	    return productRepository.save(product);
 	}
 	
