@@ -28,7 +28,7 @@ public class Sale extends com.houseofcards.entities.Entity {
     @Override
     public void print() {
 	System.out.printf("Sale Id: %d%n"
-		+ "Total: %.2f",
+		+ "Total: %.2f%n",
 		getPK_SaleID(), getSaleTotal());
     }
 
