@@ -1,13 +1,12 @@
 package com.houseofcards.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.houseofcards.entities.generated.Products;
 import com.houseofcards.repositories.ProductRepository;
 
 
-public class ProductService implements EntityService<Products, ProductRepository> {
+public class ProductService implements CrudService<Products> {
     
 	private ProductRepository productRepository;
 

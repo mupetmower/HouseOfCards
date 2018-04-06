@@ -39,6 +39,7 @@ public class PremiumcustomerdetailsId implements java.io.Serializable {
 		this.fkUserId = fkUserId;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -51,6 +52,7 @@ public class PremiumcustomerdetailsId implements java.io.Serializable {
 		return (this.getPkPremiumId() == castOther.getPkPremiumId()) && (this.getFkUserId() == castOther.getFkUserId());
 	}
 
+	@Override
 	public int hashCode() {
 		int result = 17;
 

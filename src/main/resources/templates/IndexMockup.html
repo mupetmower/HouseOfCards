@@ -29,7 +29,7 @@
             <div class="col-lg-9 center">  
             <div class="bxslider">
             	<div th:each="product : ${products}" th:if="${productStat.index} < 5">            			
-            			<div><img th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}" width="300px"></div>
+            			<div><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></div>
             	</div>
             </div>
             <style>
