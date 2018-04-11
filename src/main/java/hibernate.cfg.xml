@@ -16,6 +16,7 @@
         <mapping class="com.houseofcards.entities.generated.Mtgrarity"/>
         <mapping class="com.houseofcards.entities.generated.Productimage"/>
         <mapping class="com.houseofcards.entities.generated.Events"/>
+        <mapping class="com.houseofcards.entities.generated.Topproducts"/>
         <mapping class="com.houseofcards.entities.generated.Mtgsetseries"/>
         <mapping class="com.houseofcards.entities.generated.Pokemonsetseries"/>
         <mapping class="com.houseofcards.entities.generated.User"/>

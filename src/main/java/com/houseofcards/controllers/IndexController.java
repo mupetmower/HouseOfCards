@@ -16,6 +16,7 @@ public class IndexController {
     @RequestMapping("/")
     public String showIndex(Model model) {
     	model.addAttribute("products", productService.listAll());
+    	model.addAttribute("topproducts", productService.listAll());
     	return "IndexMockup";
     }
     

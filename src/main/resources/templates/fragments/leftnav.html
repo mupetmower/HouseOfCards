@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 <meta charset="ISO-8859-1" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
 </head>
 <body>
 	<!-- ANYTHING THAT WILL GO WITH THE LEFT NAV BAR WILL GO HERE-->
  	
 
-<div th:fragment="leftnav">
+<div th:fragment="leftnav" class="leftnav">
 
     <!-- Left Vertical Nav -->
+<div class="leftnav-container">
     
 	<h1 class="my-4">House of Cards</h1>
 	<div class="list-group">
@@ -21,7 +24,8 @@
         	Category 3
     	</a>
 	</div>
-   	
+
+</div> 	
 </div>
 
  

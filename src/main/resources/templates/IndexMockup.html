@@ -26,17 +26,15 @@
          	<!-- Page Content -->
         
         	<!-- bxSlider instead of Carousel - giving 4 random product images each page load -->
-            <div class="col-lg-9 center">  
+        	
+            <div class="col-lg-9">
+            <div class="slider-container">  
             <div class="bxslider">
             	<div th:each="product : ${products}" th:if="${productStat.index} < 5">            			
             			<div><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></div>
             	</div>
             </div>
-            <style>
-            .bx-wrapper img {
-    			margin: 0 auto;
-			}
-			</style>
+            </div>            
             <script>
             	$(function(){
             	  $('.bxslider').bxSlider({
@@ -48,127 +46,17 @@
             	});
             </script>
                 
-                <!-- Rows of top products -->
                 
+                <!-- Rows of top products -->
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/bolt.jpg"
-                                     th:src="@{/images/bolt.jpg}" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item One</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur!
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/jace.jpg"
-                                      th:src="@{/images/jace.jpg}"alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item Two</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-                                    sit amet.
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/em.jpg"
-                                     th:src="@{/images/em.jpg}" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item Three</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur!
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/doom.jpg"
-                                     th:src="@{/images/doom.jpg}" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item Four</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur!
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/hoof.jpg"
-                                     th:src="@{/images/hoof.jpg}" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item Five</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-                                    sit amet.
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="../static/images/path.jpg"
-                                     th:src="@{/images/path.jpg}" alt="">
-                            </a>
-                            <div class="card-body">
-                                <h4 class="card-title"> <a href="#">Item Six</a> </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Amet numquam aspernatur!
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">★ ★ ★ ★ ☆</small>
-                            </div>
-                        </div>
-                    </div>
+                	<topproducts>                	
+                    <!--/*/ <th:block th:include="fragments/topproducts :: topproducts"></th:block> /*/-->
+                    </topproducts>
                 </div>
+                
                 <!-- /.row -->
+                
+                
             </div>
             <!-- /.col-lg-9 -->
         </div>

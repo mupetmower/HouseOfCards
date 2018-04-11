@@ -5,7 +5,15 @@
  */
 
 body {
-  padding-top: 100px;
+  padding-top: 50px;
+}
+
+.slider-container {
+	padding-top: 35px;	
+}
+
+.leftnav-container {
+	padding-bottom: 30px;
 }
 
 
@@ -16,6 +24,10 @@ body {
 
 .home-bxslider-img {
 	width: 250px;
+}
+
+.bx-wrapper img {
+    margin: 0 auto;
 }
 
 .card-img-top {
