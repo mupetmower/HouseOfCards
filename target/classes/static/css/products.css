@@ -1,5 +1,10 @@
 
 
+body {
+	padding-top: 75px;	
+}
+
+
 .product-thumbnail {
 	width: 100px;
 }

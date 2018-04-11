@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	
+</head>
+<body>
+	 <!-- This is the Top Products of the Day/Week/Whatever that will show on the home page. -->	
+
+	<div th:fragment="topproducts" class="topproducts">
+		<div class="row">
+		
+		<th:block th:each="product : ${topproducts}">
+		
+		
+			
+			<div class="column">
+				<div>
+		            <div class="card">
+		                <a th:href="@{/product/__${product.products.pkProductId}__}">
+		                    <img class="card-img-top" th:src="@{__${product.products.thumbnailUri}__}">
+		                </a>
+		                <div class="card-body">
+		                    <h4 class="card-title"> <a th:href="@{/product/__${product.products.pkProductId}__}" th:text="${product.products.productName}"></a> </h4>
+		                    <h5 th:text="${product.products.price}"></h5>
+		                    <p class="card-text" th:text="${product.products.productDescription}"></p>
+		                </div>
+		                
+	            	</div>
+	        	</div>
+	        	
+			</div>
+				
+				
+				
+		</th:block>	
+		        
+		</div>	
+		
+	</div>
+
+ 
+</body>
+
+</html>

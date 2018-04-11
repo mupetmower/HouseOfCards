@@ -47,5 +47,9 @@
 	<table-filter match-name="ygosetseries"
 		match-catalog="houseofcards">
 	</table-filter>
+	<table-filter match-name="topproducts"
+		match-catalog="houseofcards">
+	</table-filter>
 	<table-filter match-schema="houseofcards" match-name=".*"></table-filter>
+
 </hibernate-reverse-engineering>

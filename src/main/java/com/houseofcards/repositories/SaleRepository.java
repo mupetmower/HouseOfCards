@@ -1,7 +1,9 @@
 package com.houseofcards.repositories;
 
-import com.houseofcards.entities.Sale;
+import org.springframework.data.repository.CrudRepository;
 
-public interface SaleRepository extends EntityRepository<Sale> {
+import com.houseofcards.entities.generated.Sale;
+
+public interface SaleRepository extends CrudRepository<Sale, Integer> {
     
 }

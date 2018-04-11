@@ -1,27 +1,16 @@
 package com.houseofcards.webplatform;
 
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.houseofcards.entities.Entity;
-import com.houseofcards.entities.Event;
-import com.houseofcards.entities.Product;
-import com.houseofcards.entities.Sale;
-import com.houseofcards.repositories.EntityRepository;
-import com.houseofcards.repositories.EventRepository;
 import com.houseofcards.services.CrudService;
-import com.houseofcards.services.EntityService;
 import com.houseofcards.services.EventService;
 import com.houseofcards.services.ProductService;
 import com.houseofcards.services.SaleService;

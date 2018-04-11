@@ -2,10 +2,10 @@ package com.houseofcards.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.houseofcards.entities.Sale;
+import com.houseofcards.entities.generated.Sale;
 import com.houseofcards.repositories.SaleRepository;
 
-public class SaleService implements EntityService<Sale, SaleRepository> {
+public class SaleService implements CrudService<Sale> {
     
     public SaleRepository saleRepository;
 

@@ -2,12 +2,10 @@ package com.houseofcards.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.houseofcards.entities.Entity;
 import com.houseofcards.entities.generated.Events;
-import com.houseofcards.repositories.EntityRepository;
 import com.houseofcards.repositories.EventRepository;
 
-public class EventService implements EntityService<Events, EventRepository> {
+public class EventService implements CrudService<Events> {
     
     private EventRepository eventRepository;
 

@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 5, 2018 12:11:56 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -29,6 +29,7 @@ public class Products implements java.io.Serializable {
 	private Set<Discountedproducts> discountedproductses = new HashSet<Discountedproducts>(0);
 	private Set<Saleitems> saleitemses = new HashSet<Saleitems>(0);
 	private Set<Customercardinventory> customercardinventories = new HashSet<Customercardinventory>(0);
+	private Set<Topproducts> topproductses = new HashSet<Topproducts>(0);
 	private Set<Mtgcards> mtgcardses = new HashSet<Mtgcards>(0);
 	private Set<Productimage> productimages = new HashSet<Productimage>(0);
 	private Set<Pokemoncards> pokemoncardses = new HashSet<Pokemoncards>(0);
@@ -44,8 +45,9 @@ public class Products implements java.io.Serializable {
 
 	public Products(BigDecimal price, String productName, Integer inventoryQuantity, String thumbnailUri,
 			String productDescription, Set<Discountedproducts> discountedproductses, Set<Saleitems> saleitemses,
-			Set<Customercardinventory> customercardinventories, Set<Mtgcards> mtgcardses,
-			Set<Productimage> productimages, Set<Pokemoncards> pokemoncardses, Set<Ygocards> ygocardses) {
+			Set<Customercardinventory> customercardinventories, Set<Topproducts> topproductses,
+			Set<Mtgcards> mtgcardses, Set<Productimage> productimages, Set<Pokemoncards> pokemoncardses,
+			Set<Ygocards> ygocardses) {
 		this.price = price;
 		this.productName = productName;
 		this.inventoryQuantity = inventoryQuantity;
@@ -54,6 +56,7 @@ public class Products implements java.io.Serializable {
 		this.discountedproductses = discountedproductses;
 		this.saleitemses = saleitemses;
 		this.customercardinventories = customercardinventories;
+		this.topproductses = topproductses;
 		this.mtgcardses = mtgcardses;
 		this.productimages = productimages;
 		this.pokemoncardses = pokemoncardses;
@@ -142,6 +145,15 @@ public class Products implements java.io.Serializable {
 
 	public void setCustomercardinventories(Set<Customercardinventory> customercardinventories) {
 		this.customercardinventories = customercardinventories;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<Topproducts> getTopproductses() {
+		return this.topproductses;
+	}
+
+	public void setTopproductses(Set<Topproducts> topproductses) {
+		this.topproductses = topproductses;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")

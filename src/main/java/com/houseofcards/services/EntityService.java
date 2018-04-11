@@ -1,11 +1,6 @@
 package com.houseofcards.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.houseofcards.entities.Entity;
-import com.houseofcards.repositories.EntityRepository;
-
-public abstract interface EntityService<T, R> extends CrudService<T> {
+public interface EntityService<T, R> extends CrudService<T> {
     
     //public EntityRepository<T> entityRepository;
     

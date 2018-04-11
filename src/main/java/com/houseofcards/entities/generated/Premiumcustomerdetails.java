@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 5, 2018 12:11:56 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -63,7 +63,6 @@ public class Premiumcustomerdetails implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_UserID", unique = true, nullable = false, insertable = false, updatable = false)
 	public User getUser() {
 		return this.user;
 	}
