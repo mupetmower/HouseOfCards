@@ -1,6 +1,6 @@
 package com.houseofcards.services;
 
-public abstract interface EntityService<T, R> extends CrudService<T> {
+public interface EntityService<T, R> extends CrudService<T> {
     
     //public EntityRepository<T> entityRepository;
     
