@@ -50,11 +50,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+<<<<<<< HEAD
 		<buildCommand>
 			<name>org.fusesource.ide.project.RiderProjectBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
+=======
+>>>>>>> c1d160ee3de8477497c737ec536ce645d994dcd3
 	</buildSpec>
 	<natures>
 		<nature>org.fusesource.ide.project.RiderProjectNature</nature>
