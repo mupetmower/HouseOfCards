@@ -1,2 +1,4 @@
 # Ignore Maven's target directory
 target/*
+.project
+.settings/*
