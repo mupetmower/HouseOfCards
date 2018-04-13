@@ -25,12 +25,12 @@
         	
          	<!-- Page Content -->
         
-        	<!-- bxSlider instead of Carousel - giving 4 random product images each page load -->
+        	<!-- bxSlider instead of Carousel - giving random product images each page load -->
         	
             <div class="col-lg-9">
             <div class="slider-container">  
             <div class="bxslider">
-            	<div th:each="product : ${products}" th:if="${productStat.index} < 5">            			
+            	<div th:each="product : ${products}">            			
             		<div><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></div>
             	</div>
             </div>
