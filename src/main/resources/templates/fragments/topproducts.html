@@ -3,6 +3,7 @@
 <head lang="en">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+	<link href="../static/css/topproducts.css" th:href="@{/css/topproducts.css}" rel="stylesheet" media="screen"/>
 	
 </head>
 <body>
@@ -18,9 +19,11 @@
 			<div class="column">
 				<div>
 		            <div class="card">
-		                <a th:href="@{/product/__${product.products.pkProductId}__}">
-		                    <img class="card-img-top" th:src="@{__${product.products.thumbnailUri}__}">
-		                </a>
+		                
+			                <a th:href="@{/product/__${product.products.pkProductId}__}">
+			                    <img class="card-img-top" th:src="@{__${product.products.thumbnailUri}__}">
+			                </a>
+		                
 		                <div class="card-body">
 		                    <h4 class="card-title"> <a th:href="@{/product/__${product.products.pkProductId}__}" th:text="${product.products.productName}"></a> </h4>
 		                    <h5 th:text="${product.products.price}"></h5>
