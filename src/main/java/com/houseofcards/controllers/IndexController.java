@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.houseofcards.entities.generated.Products;
 import com.houseofcards.repositories.ProductRepository;
 import com.houseofcards.repositories.TopProductsRepository;
+import com.houseofcards.repositories.UserRepository;
 import com.houseofcards.services.ProductService;
 
 @Controller
@@ -28,6 +29,7 @@ public class IndexController {
 	
 	@Autowired
 	private TopProductsRepository topProductsRepo;
+	
 	
     
     @RequestMapping("/")
@@ -44,7 +46,9 @@ public class IndexController {
     	
     	
     	model.addAttribute("products", products);
-    	model.addAttribute("topproducts", topProductsRepo.findAll());    	   	
+    	model.addAttribute("topproducts", topProductsRepo.findAll());
+
+    	
     	
     	return "IndexMockup";
     }

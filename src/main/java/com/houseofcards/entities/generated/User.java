@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 16, 2018 2:29:30 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,7 +27,7 @@ public class User implements java.io.Serializable {
 	private byte[] isPremium;
 	private String email;
 	private Set<Premiumcustomerdetails> premiumcustomerdetailses = new HashSet<Premiumcustomerdetails>(0);
-	private Set<Logininfo> logininfos = new HashSet<Logininfo>(0);
+	private Logininfo logininfo;
 	private Set<Sale> sales = new HashSet<Sale>(0);
 	private Set<Paymentdetails> paymentdetailses = new HashSet<Paymentdetails>(0);
 
@@ -42,7 +43,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(String firstName, String lastName, String phoneNumber, byte[] isPremium, String email,
-			Set<Premiumcustomerdetails> premiumcustomerdetailses, Set<Logininfo> logininfos, Set<Sale> sales,
+			Set<Premiumcustomerdetails> premiumcustomerdetailses, Logininfo logininfo, Set<Sale> sales,
 			Set<Paymentdetails> paymentdetailses) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -50,7 +51,7 @@ public class User implements java.io.Serializable {
 		this.isPremium = isPremium;
 		this.email = email;
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
-		this.logininfos = logininfos;
+		this.logininfo = logininfo;
 		this.sales = sales;
 		this.paymentdetailses = paymentdetailses;
 	}
@@ -121,13 +122,13 @@ public class User implements java.io.Serializable {
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Logininfo> getLogininfos() {
-		return this.logininfos;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+	public Logininfo getLogininfo() {
+		return this.logininfo;
 	}
 
-	public void setLogininfos(Set<Logininfo> logininfos) {
-		this.logininfos = logininfos;
+	public void setLogininfo(Logininfo logininfo) {
+		this.logininfo = logininfo;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
