@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+ 
+    <title>Spring Framework Guru</title>
+ 
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+ 
+    <h2>Request Reports</h2>
+    <div>
+        <form class="form-horizontal container-fluid" th:object="${reportRequest}" th:action="@{/report/pdfreport}" method="get">
+            
+            
+            <h4>These do nothing now.. the button will generate a simple products report..</h4>
+            
+            
+            <div class="form-group">
+                <label class="control-label">Tables</label>
+                <div class="">
+                	<div th:each="name : ${tables.names}" class="col-sm-4">
+	                	<label class="checkbox-inline" >
+						<input type="checkbox" name="chkTables[]" th:text="${name}" th:value="${name}">
+						</label>
+					</div>
+                </div>
+            </div>
+            
+            
+            <div class="form-group">
+            	<input type="submit" value="Generate"/>
+            </div>
+            
+            
+            
+        </form>
+    </div>
+</div>
+
+<br>
+<br>
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+ 
+</body>
+</html>

@@ -13,33 +13,58 @@
     
     <h1>Test page for tests.....</h2>
     
-    <div th:if="${not #lists.isEmpty(products)}">
-        <h2>Product List</h2>
+    <div th:if="${not #lists.isEmpty(users)}">
+        <h2>User List</h2>
         <table class="table table-striped">
             <tr>
                 <th>Id</th>
-                <th>Product Id</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>View</th>
-                <th>Edit</th>
-            </tr>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.productId}"><a href="/product/${product.productId}">Id</a></td>
+                <th>First</th>
+                <th>Last</th>
+                <th>Phone</th>
+                <th>Premium</th>
+                <th>Email</th>
                 
-                <td th:text="${product.productName}">Product Name</td>
-                <td th:text="${product.description}">Description</td>
-                <td th:text="${product.price}">Price</td>
-                <td><a th:href="${ '/product/' + product.productId}">View</a></td>
-                <td><a th:href="${'/product/edit/' + product.productId}">Edit</a></td>
+                <th>Loginnfo</th>
+                
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.pkUserId}"></td>
+                
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+				<td th:text="${user.phoneNumber}"></td>
+				<td th:text="${user.isPremium}"></td>
+				<td th:text="${user.email}"></td>
+				
+				<td th:text="${user.logininfo.userrole.roleType}"></td>
+				
             </tr>
         </table>
 
     </div>
         
+        
+        
+    
+        
+
+    
     
 </div>
-
+<h2>Sale List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>User First Name</th>
+                <th>Total</th>
+                
+                
+            </tr>
+            <tr th:each="sale : ${sales}">
+                <td th:text="${sale.user.firstName}"></td>
+                
+                <td th:text="${sale.saleTotal}"></td>
+                
+            </tr>
+        </table>
 </body>
 </html>

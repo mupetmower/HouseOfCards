@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 16, 2018 2:29:30 PM by Hibernate Tools 5.2.8.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -111,7 +111,7 @@ public class Products implements java.io.Serializable {
 		this.thumbnailUri = thumbnailUri;
 	}
 
-	@Column(name = "ProductDescription", nullable = false, length = 200)
+	@Column(name = "ProductDescription", nullable = false, length = 300)
 	public String getProductDescription() {
 		return this.productDescription;
 	}

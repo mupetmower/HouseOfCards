@@ -47,6 +47,10 @@ public class ProductService implements CrudService<Products> {
 	    
 	}
 	
+	public int count() {
+		return (int) productRepository.count();
+	}
+	
 	@Override
 	public Products getById(Integer id) {
 	    return productRepository.findById(id).get();
