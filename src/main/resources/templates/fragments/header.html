@@ -31,10 +31,10 @@
             </div>
             
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/}">
-                            Home <span class="sr-only"></span>
+                            Home 
                         </a>
                     </li>
                     
@@ -43,6 +43,16 @@
                 </ul>
             </div>
         
+        	<script>
+        	$(document).ready(function() {
+        		// get current URL path and assign 'active' class
+        		var pathname = window.location.pathname;
+        		//$('.nav > li > a').find(".active").removeClass("active");
+        		$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+
+        		
+        	})
+        	</script>
     	</nav>
     </div>
 </div>

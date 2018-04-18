@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 16, 2018 2:29:30 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 17, 2018 1:12:49 PM by Hibernate Tools 5.2.8.Final
 
 import java.math.BigDecimal;
 import java.util.Date;

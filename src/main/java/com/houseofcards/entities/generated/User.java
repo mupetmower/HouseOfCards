@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 16, 2018 2:29:30 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 17, 2018 1:12:49 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,17 +23,17 @@ public class User implements java.io.Serializable {
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private byte[] isPremium;
+	private boolean isPremium;
 	private String email;
 	private Set<Premiumcustomerdetails> premiumcustomerdetailses = new HashSet<Premiumcustomerdetails>(0);
-	private Logininfo logininfo;
+	private Set<Logininfo> logininfos = new HashSet<Logininfo>(0);
 	private Set<Sale> sales = new HashSet<Sale>(0);
 	private Set<Paymentdetails> paymentdetailses = new HashSet<Paymentdetails>(0);
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String phoneNumber, byte[] isPremium, String email) {
+	public User(String firstName, String lastName, String phoneNumber, boolean isPremium, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -42,8 +41,8 @@ public class User implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public User(String firstName, String lastName, String phoneNumber, byte[] isPremium, String email,
-			Set<Premiumcustomerdetails> premiumcustomerdetailses, Logininfo logininfo, Set<Sale> sales,
+	public User(String firstName, String lastName, String phoneNumber, boolean isPremium, String email,
+			Set<Premiumcustomerdetails> premiumcustomerdetailses, Set<Logininfo> logininfos, Set<Sale> sales,
 			Set<Paymentdetails> paymentdetailses) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -51,7 +50,7 @@ public class User implements java.io.Serializable {
 		this.isPremium = isPremium;
 		this.email = email;
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
-		this.logininfo = logininfo;
+		this.logininfos = logininfos;
 		this.sales = sales;
 		this.paymentdetailses = paymentdetailses;
 	}
@@ -96,11 +95,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "IsPremium", nullable = false)
-	public byte[] getIsPremium() {
+	public boolean isIsPremium() {
 		return this.isPremium;
 	}
 
-	public void setIsPremium(byte[] isPremium) {
+	public void setIsPremium(boolean isPremium) {
 		this.isPremium = isPremium;
 	}
 
@@ -122,13 +121,13 @@ public class User implements java.io.Serializable {
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-	public Logininfo getLogininfo() {
-		return this.logininfo;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<Logininfo> getLogininfos() {
+		return this.logininfos;
 	}
 
-	public void setLogininfo(Logininfo logininfo) {
-		this.logininfo = logininfo;
+	public void setLogininfos(Set<Logininfo> logininfos) {
+		this.logininfos = logininfos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

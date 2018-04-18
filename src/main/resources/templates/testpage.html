@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Spring Framework Guru</title>
+    <title>Tests</title>
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
 
@@ -36,7 +36,7 @@
 				<td th:text="${user.isPremium}"></td>
 				<td th:text="${user.email}"></td>
 				
-				<td th:text="${user.logininfo.userrole.roleType}"></td>
+				<td th:text="${user.logininfos[0].userrole.roleType}"></td>
 				
             </tr>
         </table>
