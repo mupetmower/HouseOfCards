@@ -14,7 +14,7 @@
     source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    
+
 </head>
 <body>
 	
@@ -37,15 +37,34 @@
         	
         	        	
          	<!-- Actual Page Body Content goes here -->
-			<h1>Login</h1>
-			<br>
-			<p>Username:  <input type="text" name="username"></p>
-			<p>Password:  <input type="text" name="password"></p>
-			<button type="button" name="login" style="height:25px;width:200px">Login</button>
-			<br><br>
-			<button type="button" name="forgotlogin" style="height:25px;width:200px">Forgot username/password</button>
-        
-       
+		<div class="col-lg-9">
+			<h2>Login</h2>
+			<div>
+
+			
+			
+			<table class="table table-striped">
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="text" name="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="login" style="height:25px;width:175px">Login</button></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="forgotlogin" style="height:25px;width:175px">Forgot login</button></td>
+				</tr>
+			</table>
+			
+			
+			
+			
     		<!-- You can insert more row divs if you want more rows in the first "row" the first
     		"row is mostly just to get all content lined up -->
     
@@ -53,7 +72,8 @@
     
     		<!-- Then end the content with the closing divs for container and row.. You can 
     		Also add more rows after this if needed, but we shouldnt need to. -->
-    		
+    		</div>
+		</div>
     	</div>
     </div>
     
