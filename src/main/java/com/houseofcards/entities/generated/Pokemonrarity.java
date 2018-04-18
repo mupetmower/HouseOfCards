@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 17, 2018 1:12:49 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 18, 2018 1:58:05 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;

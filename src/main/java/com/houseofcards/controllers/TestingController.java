@@ -12,8 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.houseofcards.entities.SalesByUser;
+import com.houseofcards.entities.generated.Logininfo;
+import com.houseofcards.entities.generated.User;
+import com.houseofcards.repositories.LoginInfoRepository;
 import com.houseofcards.repositories.SaleRepository;
 import com.houseofcards.repositories.UserRepository;
+import com.houseofcards.services.UserService;
 
 @Controller
 public class TestingController {
@@ -22,7 +26,11 @@ public class TestingController {
 	private UserRepository userRepo;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private SaleRepository saleRepo;
+	
 	
 		
 	@RequestMapping("/testing")
@@ -49,7 +57,9 @@ public class TestingController {
 		SalesByUser sbu = saleRepo.findSalesByUserByFirst("Customer");
 		System.out.println(sbu.getUser().getFirstName() + " " + sbu.getSaleTotal());
 		
+		User u = userService.findByUsername("test");
 		
+		System.out.println(u.getFirstName());
 		
 		
 		return "testpage";		

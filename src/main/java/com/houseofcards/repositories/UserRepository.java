@@ -10,6 +10,6 @@ import com.houseofcards.entities.generated.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
   
-	
+	User findByLogininfo_Username(String username);
 	
 }

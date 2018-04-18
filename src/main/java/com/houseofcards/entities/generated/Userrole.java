@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 17, 2018 1:12:49 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 18, 2018 1:58:05 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class Userrole implements java.io.Serializable {
 
 	private Integer pkUserRoleId;
 	private String roleType;
-	private Set<Logininfo> logininfos = new HashSet<Logininfo>(0);
+	private Set<User> users = new HashSet<User>(0);
 
 	public Userrole() {
 	}
@@ -30,9 +30,9 @@ public class Userrole implements java.io.Serializable {
 		this.roleType = roleType;
 	}
 
-	public Userrole(String roleType, Set<Logininfo> logininfos) {
+	public Userrole(String roleType, Set<User> users) {
 		this.roleType = roleType;
-		this.logininfos = logininfos;
+		this.users = users;
 	}
 
 	@Id
@@ -57,12 +57,12 @@ public class Userrole implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userrole")
-	public Set<Logininfo> getLogininfos() {
-		return this.logininfos;
+	public Set<User> getUsers() {
+		return this.users;
 	}
 
-	public void setLogininfos(Set<Logininfo> logininfos) {
-		this.logininfos = logininfos;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 }
