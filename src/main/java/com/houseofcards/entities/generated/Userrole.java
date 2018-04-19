@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 18, 2018 1:58:05 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,18 +20,14 @@ import javax.persistence.Table;
 public class Userrole implements java.io.Serializable {
 
 	private Integer pkUserRoleId;
-	private String roleType;
+	private String posRole;
 	private Set<User> users = new HashSet<User>(0);
 
 	public Userrole() {
 	}
 
-	public Userrole(String roleType) {
-		this.roleType = roleType;
-	}
-
-	public Userrole(String roleType, Set<User> users) {
-		this.roleType = roleType;
+	public Userrole(String posRole, Set<User> users) {
+		this.posRole = posRole;
 		this.users = users;
 	}
 
@@ -47,13 +43,13 @@ public class Userrole implements java.io.Serializable {
 		this.pkUserRoleId = pkUserRoleId;
 	}
 
-	@Column(name = "RoleType", nullable = false, length = 20)
-	public String getRoleType() {
-		return this.roleType;
+	@Column(name = "PosRole", length = 20)
+	public String getPosRole() {
+		return this.posRole;
 	}
 
-	public void setRoleType(String roleType) {
-		this.roleType = roleType;
+	public void setPosRole(String posRole) {
+		this.posRole = posRole;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userrole")

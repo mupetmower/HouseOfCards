@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 18, 2018 1:58:05 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +23,7 @@ public class User implements java.io.Serializable {
 
 	private Integer pkUserId;
 	private Logininfo logininfo;
+	private Role role;
 	private Userrole userrole;
 	private String firstName;
 	private String lastName;
@@ -36,9 +37,10 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(Logininfo logininfo, Userrole userrole, String firstName, String lastName, String phoneNumber,
-			boolean isPremium, String email) {
+	public User(Logininfo logininfo, Role role, Userrole userrole, String firstName, String lastName,
+			String phoneNumber, boolean isPremium, String email) {
 		this.logininfo = logininfo;
+		this.role = role;
 		this.userrole = userrole;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -47,10 +49,11 @@ public class User implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public User(Logininfo logininfo, Userrole userrole, String firstName, String lastName, String phoneNumber,
-			boolean isPremium, String email, Set<Premiumcustomerdetails> premiumcustomerdetailses, Set<Sale> sales,
-			Set<Paymentdetails> paymentdetailses) {
+	public User(Logininfo logininfo, Role role, Userrole userrole, String firstName, String lastName,
+			String phoneNumber, boolean isPremium, String email, Set<Premiumcustomerdetails> premiumcustomerdetailses,
+			Set<Sale> sales, Set<Paymentdetails> paymentdetailses) {
 		this.logininfo = logininfo;
+		this.role = role;
 		this.userrole = userrole;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -85,7 +88,17 @@ public class User implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FK_RoleID", nullable = false)
+	@JoinColumn(name = "FK_SpringSecRoleID", nullable = false)
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_UserRoleID", nullable = false)
 	public Userrole getUserrole() {
 		return this.userrole;
 	}

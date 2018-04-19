@@ -14,10 +14,11 @@
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     
     <div class="row">
-    	<div class="col-lg-2">
+    	<div class="col-lg-3">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         </div>
-    <div class="col-lg-9">  
+        
+    <div class="col-lg-8">  
         
     <div th:if="${not #lists.isEmpty(products)}">
         <h2>Product List</h2>
@@ -29,8 +30,10 @@
                 <th>Price</th>
                 <th>Image</th>
                 <th>View</th>
-                <th>Edit</th>
                 
+                <!-- Only if user is admin -->
+                <th sec:authorize="hasRole('ROLE_ADMIN')" >Edit</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')" >Remove</th>
                 
             </tr>
             <tr th:each="product : ${products}">
@@ -41,7 +44,11 @@
                 <td th:text="${product.price}">Price</td>
                 <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}"></td>
                 <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
-                <td><a th:href="${'/product/edit/' + product.pkProductId}">Edit</a></td>
+                
+                <!-- Only if user is admin -->
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/edit/' + product.pkProductId}">Edit</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/delete/' + product.pkProductId}">Delete</a></td>
+                
             </tr>
         </table>
 

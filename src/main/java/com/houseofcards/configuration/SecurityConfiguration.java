@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
@@ -27,24 +28,60 @@ import com.houseofcards.services.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+	//Might need datasource later
 	@Autowired
 	DataSource dataSource;
 	
+	
+	//Configure security for different endpoints
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
         
         httpSecurity
         	.authorizeRequests()
-        		.antMatchers("/report/*").hasRole("ADMIN").and().formLogin();
+        		.antMatchers("/admin/**")
+        		.hasRole("ADMIN")
+        	.and()
+        	.formLogin()
+        		.loginPage("/login")
+        		.defaultSuccessUrl("/");
+        httpSecurity
+        	.logout()
+        	.logoutSuccessUrl("/");
+        
         		
         
     }
 	
+	
+	//No password encryption
 	@SuppressWarnings("deprecation")
 	@Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance ();
     }
+	
+	
+	
+	//AuthenticationManager supplied from super
+	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+	
+	
+	
+	//May use BCrypt later if time allows.
+//	@Bean
+//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
+	
+	
+	
+	
 //	
 //	@Override
 //	public void configure(AuthenticationManagerBuilder builder) throws Exception {
@@ -70,10 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        return manager;
 //    }
 	
-//	@Bean
-//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+
 //	
 //	@Autowired
 //	private UserDetailsServiceImpl userDetailsService;
@@ -90,11 +124,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	
 
-	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+	
 	
 //	@Bean
 //	@Override

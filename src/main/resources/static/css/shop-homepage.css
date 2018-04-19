@@ -37,7 +37,9 @@ body {
 }
 
 
-
+footer {
+	text-align: center;
+}
 
 .row {
   display: flex;

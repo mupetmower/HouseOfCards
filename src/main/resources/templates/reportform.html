@@ -13,7 +13,7 @@
  
     <h2>Request Reports</h2>
     <div>
-        <form class="form-horizontal container-fluid" th:object="${reportRequest}" th:action="@{/report/pdfreport}" method="get">
+        <form class="form-horizontal container-fluid" target="_blank" th:object="${reportRequest}" th:action="@{/admin/report/pdfreport}" method="get">
             
             
             <h4>These do nothing now.. the button will generate a simple products report..</h4>
@@ -32,7 +32,7 @@
             
             
             <div class="form-group">
-            	<input type="submit" value="Generate"/>
+            	<input type="submit" value="Generate" class="btn btn-default bg-dark text-white"/>
             </div>
             
             

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Error</title>
     
     <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
     I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
@@ -14,7 +14,15 @@
     source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    
+    <style type="text/css">
+       	.error-content {
+       		padding-top: 3em;
+       		padding-bottom: 3em;
+       		text-align: center;
+       		display: block;
+       		margin: 0 auto;
+       	}	
+    </style>
 </head>
 <body>
 	
@@ -37,44 +45,21 @@
         	
         	        	
          	<!-- Actual Page Body Content goes here -->
+         	
+         	
+         	<!-- Error Page -->
+         	
+        	<div class="error-content">
         	
-        	<div class="col-lg-6">
-        	
-	        	<h1>User Login</h1>
+	        	<div th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+	        		<h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h3>
+	        		<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+	        		<a href="index.html" th:href="@{/}">Back to Home Page</a>
+	        	</div>
 	        	
-	    		<p th:if="${param.error}" class="alert alert-error">    
-	                Invalid username or password.
-	            </p>
-	            <p th:if="${param.logout}" class="alert alert-success"> 
-	                You have been logged out.
-	            </p>
-    		
-		    
-		        <form class="form-horizontal" th:action="@{/login}" method="post">
-		            
-		            <div class="form-group">
-		                <label for="username" class="col-sm-2 control-label">Username:</label>
-		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="username" name="username" autofocus="autofocus"/>
-		                </div>
-		            </div>
-		            
-		            <div class="form-group">
-		                <label class="col-sm-2 control-label">Password:</label>
-		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" id="password" name="password"/>
-		                </div>
-		            </div>
-		            
-		            <div class="form-group">
-		                <div class="col-sm-3">
-		                    <input type="submit" class="form-control btn btn-default bg-dark text-white" value="Submit" />
-		                </div>
-		            </div>
-		            
-		        </form>
-		   	</div>
-        
+        	</div>
+       
+       		
        
     		<!-- You can insert more row divs if you want more rows in the first "row" the first
     		"row is mostly just to get all content lined up -->

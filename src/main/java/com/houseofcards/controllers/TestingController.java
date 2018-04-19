@@ -32,7 +32,7 @@ public class TestingController {
 	private SaleRepository saleRepo;
 	
 	
-		
+	
 	@RequestMapping("/testing")
 	public String mockup(Model model) throws ParseException {
 				

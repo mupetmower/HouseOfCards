@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Registration</title>
     
     <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
     I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
@@ -37,11 +37,12 @@
         	
         	        	
          	<!-- Actual Page Body Content goes here -->
-        	
+        
+        
         	<div class="col-lg-6">
         	
-	        	<h1>User Login</h1>
-	        	
+	        	<h1>User Registration</h1>
+	        	    		
 	    		<p th:if="${param.error}" class="alert alert-error">    
 	                Invalid username or password.
 	            </p>
@@ -50,7 +51,7 @@
 	            </p>
     		
 		    
-		        <form class="form-horizontal" th:action="@{/login}" method="post">
+		        <form class="form-horizontal" th:action="@{/register}" method="post">
 		            
 		            <div class="form-group">
 		                <label for="username" class="col-sm-2 control-label">Username:</label>
@@ -74,6 +75,7 @@
 		            
 		        </form>
 		   	</div>
+        
         
        
     		<!-- You can insert more row divs if you want more rows in the first "row" the first

@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 18, 2018 1:58:05 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Title</title>
     
     <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
     I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
@@ -14,7 +14,7 @@
     source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    
+
 </head>
 <body>
 	
@@ -37,45 +37,34 @@
         	
         	        	
          	<!-- Actual Page Body Content goes here -->
-        	
-        	<div class="col-lg-6">
-        	
-	        	<h1>User Login</h1>
-	        	
-	    		<p th:if="${param.error}" class="alert alert-error">    
-	                Invalid username or password.
-	            </p>
-	            <p th:if="${param.logout}" class="alert alert-success"> 
-	                You have been logged out.
-	            </p>
-    		
-		    
-		        <form class="form-horizontal" th:action="@{/login}" method="post">
-		            
-		            <div class="form-group">
-		                <label for="username" class="col-sm-2 control-label">Username:</label>
-		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="username" name="username" autofocus="autofocus"/>
-		                </div>
-		            </div>
-		            
-		            <div class="form-group">
-		                <label class="col-sm-2 control-label">Password:</label>
-		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" id="password" name="password"/>
-		                </div>
-		            </div>
-		            
-		            <div class="form-group">
-		                <div class="col-sm-3">
-		                    <input type="submit" class="form-control btn btn-default bg-dark text-white" value="Submit" />
-		                </div>
-		            </div>
-		            
-		        </form>
-		   	</div>
-        
-       
+		<div class="col-lg-9">
+			<h2>Login</h2>
+			<div>
+
+			
+			
+			<table class="table table-striped">
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="text" name="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="login" style="height:25px;width:175px">Login</button></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="forgotlogin" style="height:25px;width:175px">Forgot login</button></td>
+				</tr>
+			</table>
+			
+			
+			
+			
     		<!-- You can insert more row divs if you want more rows in the first "row" the first
     		"row is mostly just to get all content lined up -->
     
@@ -83,7 +72,8 @@
     
     		<!-- Then end the content with the closing divs for container and row.. You can 
     		Also add more rows after this if needed, but we shouldnt need to. -->
-    		
+    		</div>
+		</div>
     	</div>
     </div>
     

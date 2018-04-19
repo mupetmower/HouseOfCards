@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ import com.houseofcards.services.ProductService;
 @Controller
 public class IndexController {
 	
-	@Value("${randProductsCount:unknown}")
+	@Value("${randProductsCount:int}")
 	private int randProductsCount;
 	
 	
@@ -48,6 +50,18 @@ public class IndexController {
     	model.addAttribute("products", products);
     	model.addAttribute("topproducts", topProductsRepo.findAll());
 
+    	System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    	
+    	if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null
+    			&& !SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) 
+    	{
+    		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	
+        	user.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
+        	
+        	model.addAttribute("user", user);
+        	model.addAttribute("userauth", user.getAuthorities().toString());
+    	}
     	
     	
     	return "IndexMockup";

@@ -130,7 +130,7 @@ public class ProductController {
         return "products";
     }
     
-    @RequestMapping("product/edit/{id}")
+    @RequestMapping("admin/product/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
     	model.addAttribute("product", productService.getById(id));
     	model.addAttribute("productImages", productService.getById(id).getProductimages());
@@ -138,7 +138,7 @@ public class ProductController {
     }
     
     
-    @RequestMapping("product/delete/{id}")
+    @RequestMapping("admin/product/delete/{id}")
     public String delete(@PathVariable Integer id){
     	productService.delete(id);
     	return "redirect:/products";

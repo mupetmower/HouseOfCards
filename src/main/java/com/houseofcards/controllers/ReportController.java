@@ -25,7 +25,7 @@ import com.houseofcards.services.ProductService;
 import com.itextpdf.text.DocumentException;
 
 @Controller
-@RequestMapping("/report")
+@RequestMapping("/admin/report")
 public class ReportController {
 	
 	@Autowired

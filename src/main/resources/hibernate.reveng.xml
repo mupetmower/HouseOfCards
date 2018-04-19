@@ -38,6 +38,7 @@
 		match-catalog="houseofcards">
 	</table-filter>
 	<table-filter match-name="products" match-catalog="houseofcards"></table-filter>
+	<table-filter match-name="role" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="sale" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="saleitems" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="topproducts"
