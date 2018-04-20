@@ -43,7 +43,7 @@ public class ProductController {
     	this.productImageRepository = productImageRepository;
     }
     
-    @RequestMapping("product/new")
+    @RequestMapping("/admin/product/new")
     public String newProduct(Model model){
     	model.addAttribute("product", new Products());
     	return "productform";

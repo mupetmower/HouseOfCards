@@ -59,8 +59,8 @@ public class IndexController {
         	
         	user.getAuthorities().forEach(a -> System.out.println(a.getAuthority()));
         	
-        	model.addAttribute("user", user);
-        	model.addAttribute("userauth", user.getAuthorities().toString());
+        	//session.addAttribute("user", user);
+        	model.addAttribute("userauth", user.getAuthorities());
     	}
     	
     	

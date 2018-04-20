@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>My Cards</title>
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-3">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	
+        	<div sec:authorize="hasAuthority('Premium')">
+        		<div class="nav-item"><a class="nav" th:href="@{'/premium/cards/new/' + card.premiumcustomerdetails.pkPremiumId}"><button class="form-control btn btn-default bg-dark text-white">Add New Card</button></a></div>
+        	</div>
+        </div>
+        
+    <div class="col-lg-8">
+        
+    <div th:if="${not #lists.isEmpty(cards)}">
+        <h2>My Cards</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>                
+                <th>Quantity</th>
+                <th>My Notes</th>
+                
+                <th>Image</th>
+                
+                <th>View</th>
+                
+                <!-- Only if user is admin -->
+                <th sec:authorize="hasAuthority('Premium')" >Edit</th>
+                <th sec:authorize="hasAuthority('Premium')" >Remove</th>
+                
+            </tr>
+            <tr th:each="card : ${cards}">
+                <td th:text="${card.products.pkProductId}"><a href="/product/${product.pkProductId}">Id</a></td>
+                
+                <td th:text="${card.products.productName}">Product Name</td>
+                <td th:text="${card.notes}">Notes</td>
+                <td th:text="${card.quantity}">Price</td>
+                <td><img class="product-thumbnail" th:src="@{__${card.products.thumbnailUri}__}"></td>
+                <td><a th:href="${ '/product/' + card.products.pkProductId}">View</a></td>
+                
+                <!-- Only if user is admin -->
+                <td sec:authorize="hasAuthority('Premium')" ><a th:href="${'/premium/cards/edit/' + card.pkCustCardInvId}">Edit</a></td>
+                <td sec:authorize="hasAuthority('Premium')" ><a th:href="${'/premium/cards/delete/' + card.pkCustCardInvId}">Remove</a></td>
+                
+            </tr>
+        </table>
+
+    </div>
+    
+    <div th:unless="${not #lists.isEmpty(cards)}">
+    	<h2>Products List is Empty</h2>
+    </div>
+    
+    
+    </div>
+    
+</div>
+</div>
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+
+</body>
+</html>

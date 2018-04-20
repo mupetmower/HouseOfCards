@@ -2,8 +2,10 @@ package com.houseofcards.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.houseofcards.entities.generated.Logininfo;
 import com.houseofcards.entities.generated.User;
@@ -35,9 +38,9 @@ public class UserController {
     
     
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
+    public String registration(Model model, HttpServletRequest request) {
         model.addAttribute("userForm", new User());
-
+        
         return "registration";
     }
 
@@ -65,15 +68,19 @@ public class UserController {
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfullyff.");
-
+        
+        
+        
         return "/login";
     }
     
     
-//    @RequestMapping("/login")
-//    public String loginError(Model model) {      
-//      return "login";
-//    }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginPost(Model model, HttpSession session, String username) {
+    	User user = userService.findByUsername(username);
+	    session.setAttribute("user", user);
+	    return "redirect:/login?success";
+    }
     
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {

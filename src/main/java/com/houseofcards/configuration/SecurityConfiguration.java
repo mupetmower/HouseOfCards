@@ -42,10 +42,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         		.antMatchers("/admin/**")
         		.hasRole("ADMIN")
+        		
         	.and()
+        	
+        	.authorizeRequests()
+        		.antMatchers("/premium/**")
+        		.hasAuthority("Premium")
+        	
+        	.and()
+        	
         	.formLogin()
         		.loginPage("/login")
         		.defaultSuccessUrl("/");
+        
+        
         httpSecurity
         	.logout()
         	.logoutSuccessUrl("/");
