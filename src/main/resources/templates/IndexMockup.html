@@ -31,7 +31,7 @@
             <div class="slider-container">  
             <div class="bxslider">
             	<div th:each="product : ${products}">            			
-            		<div><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></div>
+            		<div><a th:href="@{'product/' + __${product.pkProductId}__}"><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></a></div>
             	</div>
             </div>
             </div>            
