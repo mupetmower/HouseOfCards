@@ -17,8 +17,8 @@
     	<div class="col-lg-3">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	
-        	<div sec:authorize="hasAuthority('Premium')">
-        		<div class="nav-item"><a class="nav" th:href="@{'/premium/cards/new/' + card.premiumcustomerdetails.pkPremiumId}"><button class="form-control btn btn-default bg-dark text-white">Add New Card</button></a></div>
+        	<div sec:authorize="hasAuthority('Premium')" >
+        		<div class="nav-item"><a class="nav" th:href="@{'/premium/cards/new/' + __${premiumcustomerdetails.pkPremiumId}__}"><button class="form-control btn btn-default bg-dark text-white">Add New Card</button></a></div>
         	</div>
         </div>
         
@@ -43,7 +43,7 @@
                 
             </tr>
             <tr th:each="card : ${cards}">
-                <td th:text="${card.products.pkProductId}"><a href="/product/${product.pkProductId}">Id</a></td>
+                <td th:text="${card.products.pkProductId}"><a href="${'/product/' + product.pkProductId}">Id</a></td>
                 
                 <td th:text="${card.products.productName}">Product Name</td>
                 <td th:text="${card.notes}">Notes</td>

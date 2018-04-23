@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>My Cards</title>
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-3">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        </div>
+        
+        
+        
+    <div class="col-lg-8">
+        
+    
+       	<h2>Search Cards</h2>
+       	<div class="col-lg-9">
+		
+		
+		<table class="table table-striped">
+			
+			<tr>			
+				<td>Card Name:</td>
+				<td><input type="text" id="searchName" name="searchName"></td>
+				<td><button id="btnSearch">Search</button>
+			</tr>
+			
+			
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>View</th>
+                
+                <th>Add</th>                
+            </tr>
+            
+            <tbody id="results-body">
+            
+            <!-- <tr th:each="product : ${searchResults}">
+                <td th:text="${product.pkProductId}"><a href="${'/product/' + product.pkProductId}">Id</a></td>
+                
+                <td th:text="${product.productName}">Product Name</td>
+                <td th:text="${product.productDescription}">Description</td>                
+                <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}"></td>
+                <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
+                
+                <td><a th:href="${ 'premium/product/' + product.pkProductId}">Add</a></td>
+                
+            </tr> -->
+                
+            </tbody>
+            
+			
+       	</table>
+       	
+       	</div>
+    </div>
+    
+</div>
+</div>
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+
+</body>
+
+
+<script>
+
+var stompClient = null;
+var premiumId = $('#currentUserId').val();
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+//OnLoad
+function WindowLoad(event) {
+    //alert("Another onload script");
+    console.log('Calling init..');
+    initSockJS();
+}
+
+
+//Init SockJS and topics
+function initSockJS() {
+	
+	 var socket = new SockJS("/sockjs-websocket");
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        //setConnected(true);
+	        console.log('Connected: ' + frame);
+	        stompClient.subscribe('/topic/premiumcards/search/results', function (response) {
+	            //showResponse(JSON.parse(response.body).content);
+	        	updateCardsList((JSON.parse(response.body)));
+	        });	        
+
+	        
+		//Other initializations that need messaging and subscriptions to finish first must go here
+	        
+	    });	    
+}
+
+
+
+$('#btnSearch').click(function(){
+	sendCardSearch();
+});
+
+function sendCardSearch() {
+	/*<![CDATA[*/
+	console.log("SENDING CardSearch..");
+	
+	var request = {}
+	request["productName"] = $('#searchName').val();
+		        
+	stompClient.send("/msg/premiumcards/search", {}, JSON.stringify(request));
+	/*]]>*/
+}
+
+function updateCardsList(response) {
+	/*<![CDATA[*/    	
+		
+	var output = "";	
+	
+	for (var i = 0; i < response.results.length; i++) {
+		output += '<tr>';
+		output += '<td><a href="${\'/product/\' + product.pkProductId}">' + response.results[i].pkProductId + '</a></td>';
+        
+		output += '<td>' + response.results[i].productName + '</td>';
+		output += '<td th:text="${product.productDescription}">Description</td>';                
+		output += '<td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}"></td>';
+		output += '<td><a th:href="${ \'/product/\' + product.pkProductId}">View</a></td>';
+        
+		output += '<td><a th:href="${ \'premium/product/\' + product.pkProductId}">Add</a></td>';
+        
+    	output += '</tr>';
+	}	
+	
+	
+	//So this hidden input val will update with the correct value.. (for some reason it would not update
+	//for all sessions)
+	$('#results-body').html(output);    
+    
+
+    /*]]>*/
+}
+
+
+</script>
+
+
+
+</html>
