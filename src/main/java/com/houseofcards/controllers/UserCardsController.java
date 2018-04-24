@@ -3,6 +3,7 @@ package com.houseofcards.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.houseofcards.entities.generated.Customercardinventory;
@@ -23,6 +25,7 @@ import com.houseofcards.entities.generated.User;
 import com.houseofcards.messages.SearchRequest;
 import com.houseofcards.messages.SearchResults;
 import com.houseofcards.repositories.CustomerCardInventoryRepository;
+import com.houseofcards.repositories.PremiumCustomerDetailsRepository;
 import com.houseofcards.repositories.ProductRepository;
 import com.houseofcards.services.ProductSearch;
 import com.houseofcards.services.UserService;
@@ -44,8 +47,11 @@ public class UserCardsController {
 	@Autowired
 	private ProductRepository productRepo;
 	
+	@Autowired
+	private PremiumCustomerDetailsRepository premiumUserRepo;
 	
-	@RequestMapping("")
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showUserCards(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -60,28 +66,65 @@ public class UserCardsController {
 		return "usercards";
 	}
 	
+	@RequestMapping(value = "card", method = RequestMethod.POST)
+	public String showUserCardsAfterAdd(Customercardinventory newusercard, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        
+        User user = userService.findByUsername(username);
+        userCardRepo.save(newusercard);
+        
+		return "redirect:/premium/cards";
+	}
 	
 	@RequestMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-    	//model.addAttribute("product", productService.getById(id));
-    	//model.addAttribute("productImages", productService.getById(id).getProductimages());
+    	model.addAttribute("newusercard", userCardRepo.findById(id));
+    	
     	return "usercardeditform";
     }
     
     
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
-    	//productService.delete(id);
-    	return "redirect:/usercards";
+    	userCardRepo.deleteById(id);
+    	return "redirect:/premium/cards";
     }
     
     @RequestMapping("/new/{premiumid}")
     public String newCard(@PathVariable Integer premiumid, Model model, String searchName){
-    	Customercardinventory userCard = new Customercardinventory();
     	
-    	model.addAttribute("newCards", userCard);
+    	model.addAttribute("premiumId", premiumid);
     	
     	return "premiumaddcardform";
+    }
+    
+    
+    
+    @RequestMapping("/new/{premiumid}/{productid}")
+    public String newCardEdit(@PathVariable Integer premiumid, @PathVariable Integer productid, Model model){
+    	
+    	Customercardinventory userCard = new Customercardinventory();
+    	
+    	userCard.setProducts(productRepo.findById(productid).get());
+    	
+    	Premiumcustomerdetails premUser = premiumUserRepo.findById(premiumid).get();
+    	userCard.setPremiumcustomerdetails(premUser);
+    	
+    	premUser.addCardToCustomercardinventories(userCard);
+    	
+    	premiumUserRepo.save(premUser);
+    	
+    	userCardRepo.save(userCard);
+    	
+    	//model.addAttribute("newusercard", userCard);
+    	//userCardRepo.save(userCard);
+    	
+    	
+    	//model.addAttribute("premiumId", premiumid);
+    	    	
+    	//"redirect:/premium/cards/edit" + userCard.pkCustCardInvId()
+    	return "redirect:/premium/cards/edit/" + userCard.getPkCustCardInvId();
     }
     
     
@@ -102,8 +145,9 @@ public class UserCardsController {
     	//p.forEach(pp -> s.addResult(pp));
     	
     	//s.setResults(p);
-    	
-    	return productSearch.searchResult(request.getProductName());
+		SearchResults s = productSearch.searchResult(request.getProductName());
+		
+    	return s;
 	}
     
 	

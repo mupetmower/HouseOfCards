@@ -58,7 +58,7 @@ public class TestingController {
 		System.out.println(sbu.getUser().getFirstName() + " " + sbu.getSaleTotal());
 		
 		User u = userService.findByUsername("test");
-		
+		saleRepo.findAll().forEach(s -> System.out.println(s.getDateTime()));
 		System.out.println(u.getFirstName());
 		
 		

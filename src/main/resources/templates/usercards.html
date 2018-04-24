@@ -10,11 +10,11 @@
 	
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     
     <div class="row">
-    	<div class="col-lg-3">
+    	<div class="col-lg-2">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	
         	<div sec:authorize="hasAuthority('Premium')" >
@@ -22,16 +22,16 @@
         	</div>
         </div>
         
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         
     <div th:if="${not #lists.isEmpty(cards)}">
         <h2>My Cards</h2>
         <table class="table table-striped">
             <tr>
                 <th>Product Id</th>
-                <th>Product Name</th>                
+                <th>Product Name</th>
+                <th>My Notes</th>                
                 <th>Quantity</th>
-                <th>My Notes</th>
                 
                 <th>Image</th>
                 

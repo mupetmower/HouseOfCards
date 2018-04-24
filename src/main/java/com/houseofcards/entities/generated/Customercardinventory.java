@@ -42,7 +42,6 @@ public class Customercardinventory implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "PK_CustCardInvID", unique = true, nullable = false)
 	public Integer getPkCustCardInvId() {
 		return this.pkCustCardInvId;

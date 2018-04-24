@@ -41,9 +41,21 @@ footer {
 	text-align: center;
 }
 
+table {
+	display: flex;
+  	flex-wrap: wrap;
+ 	padding: 5px;
+}
+
 .row {
   display: flex;
   flex-wrap: wrap;
+  padding: 5px;
+}
+
+td {
+	flex: 30%;
+  max-width: 30%;
   padding: 5px;
 }
 
