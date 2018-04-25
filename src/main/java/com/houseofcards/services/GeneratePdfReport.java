@@ -108,7 +108,7 @@ public class GeneratePdfReport {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
                 
-                cell = new PdfPCell(new Phrase(sale.getSaleitemses().size()));
+                cell = new PdfPCell(new Phrase(String.valueOf(sale.getSaleitemses().stream().mapToInt(s -> s.getQuantity()).sum())));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -177,9 +177,9 @@ public class GeneratePdfReport {
 
         try {
 
-            PdfPTable table = new PdfPTable(4);
-            table.setWidthPercentage(60);
-            table.setWidths(new int[]{1, 4, 2, 3});
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(80);
+            table.setWidths(new int[]{1, 4, 2, 2, 2});
             
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 
@@ -193,6 +193,10 @@ public class GeneratePdfReport {
             table.addCell(hcell);
 
             hcell = new PdfPCell(new Phrase("Inventory", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Total Sold", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(hcell);
             
@@ -216,6 +220,12 @@ public class GeneratePdfReport {
                 table.addCell(cell);
                 
                 cell = new PdfPCell(new Phrase(String.valueOf(product.getInventoryQuantity())));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(product.getSaleitemses().size())));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
