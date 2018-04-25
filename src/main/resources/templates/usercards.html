@@ -4,6 +4,8 @@
 
     <title>My Cards</title>
     
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
     
 	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
@@ -48,7 +50,7 @@
                 <td th:text="${card.products.productName}">Product Name</td>
                 <td th:text="${card.notes}">Notes</td>
                 <td th:text="${card.quantity}">Price</td>
-                <td><img class="product-thumbnail" th:src="@{__${card.products.thumbnailUri}__}"></td>
+                <td><img class="product-thumbnail" th:src="@{__${card.products.thumbnailUri}__}" style="cursor:zoom-in" onclick="onClick(this)"></td>
                 <td><a th:href="${ '/product/' + card.products.pkProductId}">View</a></td>
                 
                 <!-- Only if user is admin -->
@@ -58,6 +60,19 @@
             </tr>
         </table>
 
+
+	<div id="modalView" class="w3-modal " onclick="this.style.display='none'">
+		<span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+		<div class="w3-modal-content w3-animate-zoom" style="max-width:35em">
+ 			<img id="modalImage" width="100%">
+		</div>
+	</div>        
+    <script>
+    function onClick(element) {
+       	document.getElementById("modalImage").src = element.src;
+        document.getElementById("modalView").style.display = "block";
+    }
+    </script>
     </div>
     
     <div th:unless="${not #lists.isEmpty(cards)}">

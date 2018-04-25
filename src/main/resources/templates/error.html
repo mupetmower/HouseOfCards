@@ -49,12 +49,17 @@
          	
          	<!-- Error Page -->
          	
-        	<div class="error-content">
+        	<div class="error-content col-sm-3">
         	
 	        	<div th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
 	        		<h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h3>
 	        		<p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-	        		<a href="index.html" th:href="@{/}">Back to Home Page</a>
+	        		
+	        		
+	        		<p><img th:src="@{images/ui/error.png}" width="100%"></p>
+	        		
+	        		
+	        		<p><a href="index.html" th:href="@{/}">Back to Home Page</a></p>
 	        	</div>
 	        	
         	</div>

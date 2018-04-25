@@ -6,39 +6,91 @@
  
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
     
+    
+    <style>
+    body {
+    	padding-top: 75px;
+    }
+    
+    </style>
 </head>
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
  
     <h2>Request Reports</h2>
-    <div>
-        <form class="form-horizontal container-fluid" target="_blank" th:object="${reportRequest}" th:action="@{/admin/report/pdfreport}" method="get">
-            
-            
-            <h4>These do nothing now.. the button will generate a simple products report..</h4>
-            
-            
-            <div class="form-group">
-                <label class="control-label">Tables</label>
-                <div class="">
-                	<div th:each="name : ${tables.names}" class="col-sm-4">
-	                	<label class="checkbox-inline" >
-						<input type="checkbox" name="chkTables[]" th:text="${name}" th:value="${name}">
-						</label>
-					</div>
-                </div>
-            </div>
-            
-            
-            <div class="form-group">
-            	<input type="submit" value="Generate" class="btn btn-default bg-dark text-white"/>
-            </div>
-            
-            
-            
-        </form>
-    </div>
+    <br>
+    
+    <!-- Div to hold tabs and give default styling -->
+	<div data-tabs-role="tabs" class="tabs tabs_style_default tabs_color_gray">
+	
+		<!-- These are the heads for the tabs. These point to the tab bodies below -->
+   		<div class="tabs__head">
+			<button class="tabs__tab" type="button" data-tabs-target="default-reports-tab" data-tabs-role="tab">Default Reports</button>
+			<button class="tabs__tab" type="button" data-tabs-target="custom-reports-tab" data-tabs-role="tab">Custom Reports</button>
+		</div>
+		
+
+
+
+<!-- Default Reports Tab -->
+			
+		<!-- A tab body -->
+		<div class="tabs__body">
+			<div class="tabs__pane" data-tabs-id="default-reports-tab">
+						
+				<h4>Pick a Default Report</h4>
+												
+				<form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/products/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Products Report</label><input type="submit" id="btnProducts" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>
+		        
+		        <form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/sales/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Sales Report</label><input type="submit" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>
+		        
+		        <form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/events/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Events Report</label><input type="submit" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>
+		        
+		        <form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/users/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Users Report</label><input type="submit" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>		
+				
+				
+			</div>					
+		</div>
+		
+		
+<!-- Custom Reports Tab -->		
+		
+		<div class="tabs__body">
+			<div class="tabs__pane" data-tabs-id="custom-reports-tab">
+			
+				<h4>Create Custom Reports</h4>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</div>					
+		</div>
+		
+   	</div>
+   
 </div>
 
 <br>
@@ -50,4 +102,18 @@
     </footer>
  
 </body>
+
+
+<script>
+
+$(document).ready(function() {
+	$('[data-tabs-role="tabs"]').tabs();
+
+	$(window).on('change.tabs', function(event) {
+		event.preventDefault();
+		console.log('change');
+	});
+});
+
+</script>
 </html>

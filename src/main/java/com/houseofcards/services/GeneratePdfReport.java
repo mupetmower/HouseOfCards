@@ -1,6 +1,7 @@
 package com.houseofcards.services;
 
 import com.houseofcards.entities.generated.Products;
+import com.houseofcards.entities.generated.Sale;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -21,77 +22,151 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public class GeneratePdfReport {
 
 	
 	
-	public static <T> ByteArrayInputStream report(Iterable<T> entities) throws DocumentException {
-		Document document = new Document();
+	public static ByteArrayInputStream salesReport(Iterable<Sale> sales) {
+
+        Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         
-        
-        PdfPTable table = new PdfPTable(entities.getClass().getDeclaredFields().length);
-        table.setWidthPercentage(60);
-        //table.setWidths(new int[entities.iterator().next().getClass().getDeclaredFields().length]);
-        
-        Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+                
+        try {
 
-        PdfPCell hcell;     
-        
-		for (int i = 0; i < entities.getClass().getDeclaredFields().length; i++) {
-			hcell = new PdfPCell(new Phrase(entities.iterator().next().getClass().getDeclaredFields()[i].getName(), headFont));
+            PdfPTable table = new PdfPTable(7);
+            
+            table.setWidthPercentage(95);
+            table.setWidths(new int[]{3, 6, 5, 4, 5, 3, 4});
+            
+            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+
+            PdfPCell hcell;
+            hcell = new PdfPCell(new Phrase("Id", headFont));
             hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(hcell);
-		}
-		
-		entities.forEach(entity -> {
-			PdfPCell cell  = new PdfPCell();
-			
-			for (int i = 0; i < entity.getClass().getDeclaredFields().length; i++) {
-				try {
-					PropertyDescriptor pd = new PropertyDescriptor(entity.getClass().getDeclaredFields()[i].getName(), entity.getClass());
-					
-					
-					//entity.getClass().getDeclaredFields()[i].setAccessible(true);
-					
-					//Object o = pd.getReadMethod().invoke(entity);
-					
-					System.out.println(pd.getReadMethod().invoke(entity));
-					
-					
-					
-					//cell.setPhrase(new Phrase((Phrase.getInstance(pd.getReadMethod().invoke(entity).toString()))));
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IntrospectionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+            hcell = new PdfPCell(new Phrase("User", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("Username", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Is Premium", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Date", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Items", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Total", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            
+            float total = 0f;
+            
+            for (Sale sale : sales) {
+
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase(sale.getPkSaleId().toString()));
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
-				
-			}
-		});
-		
-		PdfWriter.getInstance(document, out);
-        document.open();
-        document.add(table);
+
+                cell = new PdfPCell(new Phrase(sale.getUser().getFirstName() + " " + sale.getUser().getLastName()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(sale.getUser().getLogininfo().getUsername()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(sale.getUser().isIsPremium())));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(sale.getDateTime().toString()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(sale.getSaleitemses().size()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                float t = sale.getSaleTotal().floatValue();
+                total += t;
+                
+                
+                cell = new PdfPCell(new Phrase(String.format("$%.2f", t)));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setPaddingRight(5);
+                table.addCell(cell);
+                
+                
+                
+            }
+            
+            
+            PdfPCell cell;
+
+            cell = new PdfPCell(new Phrase("Total of Sales: ", headFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+            
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(String.format("$%.2f", total), headFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setPaddingRight(5);
+            table.addCell(cell);
+            
+
+            PdfWriter.getInstance(document, out);
+            document.open();
+            document.add(table);
+            
+            document.close();
+            
+        } catch (DocumentException ex) {
         
-        document.close();
-        
+            Logger.getLogger(GeneratePdfReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return new ByteArrayInputStream(out.toByteArray());
-	}
+    }
 	
 	
 	

@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>My Cards</title>
+    <title>Add A Card</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
     
@@ -57,6 +59,20 @@
             
 			
        	</table>
+       	
+       	
+    <div id="modalView" class="w3-modal " onclick="this.style.display='none'">
+		<span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+		<div class="w3-modal-content w3-animate-zoom" style="max-width:35em">
+ 			<img id="modalImage" width="100%">
+		</div>
+	</div>        
+    <script>
+    function onClick(element) {
+       	document.getElementById("modalImage").src = element.src;
+        document.getElementById("modalView").style.display = "block";
+    }
+    </script>
        	
        	</div>
     </div>
@@ -149,7 +165,7 @@ function updateCardsList(response) {
 		output += '<td><a href="/product/' + response.results[i].pkProductId + '">' + response.results[i].pkProductId + '</a></td>';
 		output += '<td>' + response.results[i].productName + '</td>';
 		output += '<td>' + response.results[i].productDescription + '</td>';                
-		output += '<td><img class="product-thumbnail" src="' + response.results[i].thumbnailUri + '"></td>';
+		output += '<td><img class="product-thumbnail" src="' + response.results[i].thumbnailUri + '" style="cursor:zoom-in" onclick="onClick(this)"></td>';
 		output += '<td><a href="/product/' + response.results[i].pkProductId + '">View</a></td>';
 		output += '<td><a href="/premium/cards/new/' + premiumId + '/' + response.results[i].pkProductId + '">Add</a></td>';
         

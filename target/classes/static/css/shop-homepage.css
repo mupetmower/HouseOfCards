@@ -9,7 +9,9 @@ body {
 }
 
 .slider-container {
-	padding-top: 35px;	
+	padding-top: 35px;
+	position:relative;
+	z-index:99;
 }
 
 .leftnav-container {

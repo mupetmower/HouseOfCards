@@ -46,13 +46,28 @@ public class ReportController {
 		return "reportform";
 	}
 	
-	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+	@RequestMapping(value = "/default/products/pdfreport", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-	public ResponseEntity<InputStreamResource> generateReport(Model model, String[] chkTables) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, IntrospectionException {
-		
-		
+	public ResponseEntity<InputStreamResource> generateProductReport(Model model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, IntrospectionException {
 		
 		ByteArrayInputStream bis = GeneratePdfReport.productReport(productService.listAll());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+	}
+	
+	
+	@RequestMapping(value = "/default/sales/pdfreport", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> generateSalesReport(Model model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, IntrospectionException {
+		
+		ByteArrayInputStream bis = GeneratePdfReport.salesReport(saleRepository.findAll());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
