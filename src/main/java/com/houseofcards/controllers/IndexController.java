@@ -32,7 +32,10 @@ public class IndexController {
 	@Autowired
 	private TopProductsRepository topProductsRepo;
 	
-	
+	@RequestMapping("/about")
+	public String showAbout(Model model) {
+		return "about";
+	}
     
     @RequestMapping("/")
     public String showIndex(Model model) {
