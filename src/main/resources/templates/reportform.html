@@ -16,7 +16,11 @@
 </head>
 <body>
 <div class="container">
+
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    
+    
  
     <h2>Request Reports</h2>
     <br>
@@ -27,7 +31,7 @@
 		<!-- These are the heads for the tabs. These point to the tab bodies below -->
    		<div class="tabs__head">
 			<button class="tabs__tab" type="button" data-tabs-target="default-reports-tab" data-tabs-role="tab">Default Reports</button>
-			<button class="tabs__tab" type="button" data-tabs-target="custom-reports-tab" data-tabs-role="tab">Custom Reports</button>
+			<button class="tabs__tab" type="button" data-tabs-target="sales-details-tab" data-tabs-role="tab">Sales Details</button>
 		</div>
 		
 
@@ -73,11 +77,11 @@
 <!-- Custom Reports Tab -->		
 		
 		<div class="tabs__body">
-			<div class="tabs__pane" data-tabs-id="custom-reports-tab">
+			<div class="tabs__pane" data-tabs-id="sales-details-tab">
 			
-				<h4>Create Custom Reports</h4>
+				<h4>Sales Details</h4>
 				
-				<iframe width="800" height="600" th:src="@{https://app.powerbi.com/view?r=eyJrIjoiM2JjNzFkNWItOGM5OS00MDNjLThhNTYtNTExNzhmOTRiMzgxIiwidCI6IjVmMGJmOGE4LTdjZGUtNGJhMC04ZDdhLTEzYzM4MGEwMDFiNSIsImMiOjF9}" frameborder="0" allowFullScreen="true"></iframe>
+				<iframe width="1200" height="800" th:src="@{https://app.powerbi.com/view?r=eyJrIjoiM2JjNzFkNWItOGM5OS00MDNjLThhNTYtNTExNzhmOTRiMzgxIiwidCI6IjVmMGJmOGE4LTdjZGUtNGJhMC04ZDdhLTEzYzM4MGEwMDFiNSIsImMiOjF9}" frameborder="0" allowFullScreen="true"></iframe>
 				
 			</div>					
 		</div>

@@ -32,6 +32,7 @@
         <mapping class="com.houseofcards.entities.generated.Topproducts"/>
         <mapping class="com.houseofcards.entities.generated.Pokemonsetseries"/>
         <mapping class="com.houseofcards.entities.generated.User"/>
+        <mapping class="com.houseofcards.entities.generated.Cartitem"/>
         <mapping class="com.houseofcards.entities.generated.Ygosetseries"/>
         <mapping class="com.houseofcards.entities.generated.Pokemoncards"/>
         <mapping class="com.houseofcards.entities.generated.Mtgcards"/>

@@ -52,4 +52,5 @@
 		match-catalog="houseofcards">
 	</table-filter>
 	<table-filter match-schema="houseofcards" match-name=".*"></table-filter>
+	<table-filter match-name="cartitem" match-catalog="houseofcards"></table-filter>
 </hibernate-reverse-engineering>

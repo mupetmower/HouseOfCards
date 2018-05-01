@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -68,8 +68,8 @@ public class Sale implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DateTime", nullable = false, length = 10)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DateTime", nullable = false, length = 19)
 	public Date getDateTime() {
 		return this.dateTime;
 	}

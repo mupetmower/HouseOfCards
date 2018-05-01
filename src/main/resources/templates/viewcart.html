@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cart</title>
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+    
+	<link href="../static/css/cart.css" th:href="@{/css/cart.css}" rel="stylesheet" media="screen"/>
+	
+    
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	<div th:if="${not #lists.isEmpty(cartitems)}" class="col-lg-10">
+        		
+        		<h3>Shopping Cart</h3>
+        		<form th:action="@{/cart/submit}" th:object="${cartMessage}">
+	        		<table class="cart-items-table">	        		
+	        			<tr th:each="item : ${cartitems}">
+	        			
+	        			<td><img th:src="@{__${item.products.thumbnailUri}__}" style="max-width:125px"></td>
+	        			
+	        			<td class="item-info"><table>
+	        				<tr><td class="item-name" ><h4 th:text="${item.products.productName}"></h4></td></tr>
+							<tr><td class="item-description" th:text="${item.products.productDescription}"></td></tr>
+	        				<tr><td class="item-remove"><a class="remove-item-link" th:href="@{'/cart/' + __${user.pkUserId}__ + '/remove/' + __${item.pkCartId}__}">Remove</a></td></tr>
+	        			</table></td>
+	        			
+						<td class="item-price" th:text="${'$' + item.products.price}" align="center"></td>
+						
+						<td class="item-quantity">
+							<input type="number" name="quantity" th:value="${item.quantity}" th:max="${item.products.inventoryQuantity}" min="1" />
+							
+							<input type="hidden" name="itemId" th:value="${item.pkCartId}">
+        					<input type="hidden" name="productId" th:value="${item.products.pkProductId}">
+        					<input type="hidden" name="userId" th:value="${item.user.pkUserId}">
+						</td>
+						
+						</tr>
+	        		</table>
+	        		
+        		</form>
+        		
+        	</div>
+       		<div th:if="${#lists.isEmpty(cartitems)}" class="col-lg-10">
+       			<h3>Cart is Empty</h3>
+       			<p>Browse our <a th:href="@{/products}">Products</a></p>
+       		</div>
+    		<!-- You can insert more row divs if you want more rows in the first "row" the first
+    		"row is mostly just to get all content lined up -->
+    
+    
+    
+    		<!-- Then end the content with the closing divs for container and row.. You can 
+    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+</html>

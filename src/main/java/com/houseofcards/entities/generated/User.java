@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +32,7 @@ public class User implements java.io.Serializable {
 	private String email;
 	private Set<Premiumcustomerdetails> premiumcustomerdetailses = new HashSet<Premiumcustomerdetails>(0);
 	private Set<Sale> sales = new HashSet<Sale>(0);
+	private Set<Cartitem> cartitems = new HashSet<Cartitem>(0);
 	private Set<Paymentdetails> paymentdetailses = new HashSet<Paymentdetails>(0);
 
 	public User() {
@@ -51,7 +52,7 @@ public class User implements java.io.Serializable {
 
 	public User(Logininfo logininfo, Role role, Userrole userrole, String firstName, String lastName,
 			String phoneNumber, boolean isPremium, String email, Set<Premiumcustomerdetails> premiumcustomerdetailses,
-			Set<Sale> sales, Set<Paymentdetails> paymentdetailses) {
+			Set<Sale> sales, Set<Cartitem> cartitems, Set<Paymentdetails> paymentdetailses) {
 		this.logininfo = logininfo;
 		this.role = role;
 		this.userrole = userrole;
@@ -62,6 +63,7 @@ public class User implements java.io.Serializable {
 		this.email = email;
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
 		this.sales = sales;
+		this.cartitems = cartitems;
 		this.paymentdetailses = paymentdetailses;
 	}
 
@@ -168,6 +170,15 @@ public class User implements java.io.Serializable {
 
 	public void setSales(Set<Sale> sales) {
 		this.sales = sales;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<Cartitem> getCartitems() {
+		return this.cartitems;
+	}
+
+	public void setCartitems(Set<Cartitem> cartitems) {
+		this.cartitems = cartitems;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

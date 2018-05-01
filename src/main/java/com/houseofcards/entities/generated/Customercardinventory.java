@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 19, 2018 1:09:43 PM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +42,7 @@ public class Customercardinventory implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "PK_CustCardInvID", unique = true, nullable = false)
 	public Integer getPkCustCardInvId() {
 		return this.pkCustCardInvId;

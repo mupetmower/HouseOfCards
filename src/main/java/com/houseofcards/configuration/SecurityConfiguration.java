@@ -48,6 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         		.antMatchers("/premium/**")
         		.hasAuthority("Premium")
+        		
+    		.and()
+        	
+        	.authorizeRequests()
+        		.antMatchers("/cart/**")
+        		.authenticated()	
         	
         	.and()
         	
