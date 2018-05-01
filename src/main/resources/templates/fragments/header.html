@@ -49,7 +49,15 @@
                     <li class="nav-item"><a href="#" sec:authorize="hasAuthority('Premium')" class="nav-link" th:href="@{/premium/cards}">My Cards</a></li>
                     
                     <!-- If user is admin -->
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link" href="#" th:href="@{/admin/report/new}">Reports</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          					Admin
+        				</a>
+                    	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    		<a class="dropdown-item" href="#" th:href="@{/admin/report/new}">Reports</a>
+                    		<a class="dropdown-item" href="#" th:href="@{/admin/users/all}">Manage Users</a>
+                    	</div>
+                    </li>
                 	
                 	<!-- If Items in Cart -->
                 	<li sec:authorize="!isAnonymous()" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart<span class="w3-badge w3-tiny w3-red"><text th:if="${cartsize &gt; 0}" th:text="${cartsize}"/></span></a></li>

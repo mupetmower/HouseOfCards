@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +33,10 @@
         	
         	
         	<div th:if="${not #lists.isEmpty(cartitems)}" class="col-lg-10">
-        	<form th:action="@{'/cart/submit/' + __${user.pkUserId}__}" th:object="${cartMessage}" method="post">
+        	<form th:action="@{/cart/checkoutrequest}" method="post">
+        		<input type="hidden" id="checkoutData" name="request">
+	        	<input type="hidden" id="cartItems2" th:value="${cartitems}">
+	        	<input type="hidden" id="mainUserId" th:value="${user.pkUserId}">
 	        
         		<div class="row">
         		<div class="col-lg-8">
@@ -49,14 +53,16 @@
 	        				<tr><td class="item-remove"><a class="remove-item-link" th:href="@{'/cart/' + __${user.pkUserId}__ + '/remove/' + __${item.pkCartId}__}">Remove</a></td></tr>
 	        			</table></td>
 	        			
-						<td class="item-price" th:text="${'$' + item.products.price}" align="center"></td>
+						<td class="item-price" id="price" th:text="${'$' + item.products.price}" align="center"></td>
 						
 						<td class="item-quantity">
-							<input type="number" name="quantity" th:value="${item.quantity}" th:max="${item.products.inventoryQuantity}" min="1" />
+							<input type="number" name="quantity" th:id="quantity + ${item.pkCartId}"
+							th:value="${item.quantity}" th:max="${item.products.inventoryQuantity}" min="1"
+							onchange="updateSubtotal();" onkeyup="updateSubtotal();" />
 							
-							<input type="hidden" name="itemId" th:value="${item.pkCartId}">
-        					<input type="hidden" name="productId" th:value="${item.products.pkProductId}">
-        					<input type="hidden" name="userId" th:value="${item.user.pkUserId}">
+							<input type="hidden" name="itemId" th:id="itemId + ${item.pkCartId}" th:value="${item.pkCartId}">
+        					<input type="hidden" name="productId" th:id="productId + ${item.pkCartId}" th:value="${item.products.pkProductId}">
+        					<input type="hidden" name="userId" th:id="userId + ${item.pkCartId}" th:value="${item.user.pkUserId}">
 						</td>
 						
 						</tr>
@@ -65,18 +71,23 @@
         		</div>
         		
         		<div class="col-lg-4">
-        		<br><br>
+        		<br><br><br>
         		<div class="card">
         			<div class="card-title text-center">
         				<h4>Subtotal</h4>
         			</div>
         			
         			<div class="card-body">
-        				<p>Money Money<br> Money</p>
+        				<table>
+        					<tr>
+        						<td>Subtotal:</td>
+        						<td id="cart-subtotal"></td>
+        					</tr>
+        				</table>
         			</div>
         			
-        			<div class="card-footer">
-        				<input type="submit">
+        			<div class="card-footer text-center">
+        				<button id="btncheckout" class="btn btn-default bg-dark text-white">Proceed to Checkout</button>
         			</div>
         		</div>
     				
@@ -103,7 +114,14 @@
     	</div>
     </div>
     
+    <form id="checkoutForm" th:action="@{/cart/checkoutrequest}" method="post">
     
+    
+    
+    
+    <input id="btnCheckout" type="submit">
+    
+    </form>
     
     
     <!-- Footer is held in this fragment -->
@@ -114,4 +132,183 @@
     </footer>
     
 </body>
+
+
+<script th:inline="javascript">
+
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+$(document).ready(function() {
+	WindowLoad();
+});
+
+//OnLoad
+function WindowLoad(event) {	
+	initSockJS();
+	updateSubtotal();	
+	
+}
+
+var stompClient = null;
+
+function initSockJS() {
+	
+	 var socket = new SockJS("/sockjs-websocket");
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        //setConnected(true);
+	        console.log('Connected: ' + frame);
+	        //stompClient.subscribe('/topic/updatepoints', function (response) {
+	            //showResponse(JSON.parse(response.body).content);
+	        	//updatePoints((JSON.parse(response.body)));
+	        //});
+	        
+	        
+	    });
+	
+	    
+}
+
+
+$('#btncheckout').click(function(){
+    sendCheckoutRequest();
+});
+
+
+	
+function updateSubtotal() {
+
+	var subtotalDisplay = document.getElementById('cart-subtotal');
+	var subtotal = 0;
+
+	
+	cm = /*[[${cartmessage}]]*/;
+	cmis = cm.cartMessageItems;
+	
+	
+	
+
+	var qtyMap = new Map();
+	
+	for (var i = 0; i < cmis.length; i++) {
+		var qty = cmis[i].quantity;
+		//console.log("qty " + i + ": " + qty);
+		
+		var q = document.getElementById('quantity' + cmis[i].itemId).value;
+		
+		console.log("quantity + itemId control value: " + q);
+		
+		qtyMap.set(cmis[i].itemId, cmis[i].quantity);
+		for (var [key, value] of qtyMap) {
+			  //console.log('ItemId: ' + key + ' had Old Qty: ' + value);
+		}
+
+
+		qtyMap.set(cmis[i].itemId, q)
+		
+		
+	}
+		
+	
+	for (var [key, value] of qtyMap) {
+		  console.log('ItemId: ' + key + ' has New Qty: ' + value);
+	}
+	
+
+	var request = {
+			cartMessageItems: []
+	};
+	
+	//var cartMsgItems = {}
+	
+	cm = /*[[${cartmessage}]]*/;
+	cmis = cm.cartMessageItems;
+	
+	
+	for (var i = 0; i < cmis.length; i++) {
+		var cartMsgItem = {};
+		
+		//cartMsgItem["itemId"] = document.getElementById('itemId' + cmis[i].itemId).value;
+		//cartMsgItem["productId"] = document.getElementById('productId' + cmis[i].itemId).value;
+		//cartMsgItem["userId"] = document.getElementById('userId' + cmis[i].itemId).value;
+		//cartMsgItem["quantity"] = document.getElementById('quantity' + cmis[i].itemId).value;
+
+		
+
+	    request.cartMessageItems.push({ 
+	        "itemId"	: document.getElementById('itemId' + cmis[i].itemId).value,
+	        "productId"	: document.getElementById('productId' + cmis[i].itemId).value,
+	        "userId"	: document.getElementById('userId' + cmis[i].itemId).value,
+	        "quantity"	: document.getElementById('quantity' + cmis[i].itemId).value
+	    });
+	}
+	
+
+	//request["cartMessageItems"] = cartMsgItems;
+		        
+	//stompClient.send("/msg/checkoutrequest", {}, JSON.stringify(request));
+
+	document.getElementById("checkoutData").value = JSON.stringify(request);
+		
+}
+
+
+
+function sendCheckoutRequest() {
+	console.log("SENDING Checkout Request..");
+	
+	var request = {
+			cartMessageItems: []
+	};
+	
+	//var cartMsgItems = {}
+	
+	cm = /*[[${cartmessage}]]*/;
+	cmis = cm.cartMessageItems;
+	
+	
+	for (var i = 0; i < cmis.length; i++) {
+		var cartMsgItem = {};
+		
+		//cartMsgItem["itemId"] = document.getElementById('itemId' + cmis[i].itemId).value;
+		//cartMsgItem["productId"] = document.getElementById('productId' + cmis[i].itemId).value;
+		//cartMsgItem["userId"] = document.getElementById('userId' + cmis[i].itemId).value;
+		//cartMsgItem["quantity"] = document.getElementById('quantity' + cmis[i].itemId).value;
+
+		
+
+	    request.cartMessageItems.push({ 
+	        "itemId"	: document.getElementById('itemId' + cmis[i].itemId).value,
+	        "productId"	: document.getElementById('productId' + cmis[i].itemId).value,
+	        "userId"	: document.getElementById('userId' + cmis[i].itemId).value,
+	        "quantity"	: document.getElementById('quantity' + cmis[i].itemId).value
+	    });
+	}
+	
+
+	//request["cartMessageItems"] = cartMsgItems;
+		        
+	//stompClient.send("/msg/checkoutrequest", {}, JSON.stringify(request));
+
+	document.getElementById("checkoutData").value = JSON.stringify(request);
+	document.getElementById("checkoutForm").submit;
+
+}
+
+
+
+
+
+/*]]>*/
+</script>
+
+
+
 </html>

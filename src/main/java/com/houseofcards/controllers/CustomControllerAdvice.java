@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.houseofcards.entities.generated.Cartitem;
 import com.houseofcards.entities.generated.User;
+import com.houseofcards.messages.CartMessage;
+import com.houseofcards.messages.CartMessageItem;
 import com.houseofcards.services.UserService;
 
 @ControllerAdvice
@@ -58,6 +60,21 @@ public class CustomControllerAdvice {
         	if (cartItems != null && !cartItems.isEmpty() && cartItems.size() > 0) {
         		
         		model.addAttribute("cartitems", cartItems);
+        		model.addAttribute("cartitemslength", cartItems.size());
+        		
+        		CartMessage cm = new CartMessage();
+        		
+        		for (Cartitem item : cartItems) {
+        			CartMessageItem cmi = new CartMessageItem();
+        			cmi.setItemId(item.getPkCartId());
+        			cmi.setProductId(item.getProducts().getPkProductId());
+        			cmi.setUserId(item.getUser().getPkUserId());
+        			cmi.setQuantity(item.getQuantity());
+        			cm.addCartMessageItem(cmi);
+        		}
+        		
+        		model.addAttribute("cartmessage", cm);
+        		
         		
         		int cartSize = cartItems.stream()
         				.mapToInt(c -> c.getQuantity())
@@ -67,7 +84,7 @@ public class CustomControllerAdvice {
         		
         		model.addAttribute("cartsize", cartSize);
         		
-        		System.out.println(cartSize);
+        		//System.out.println(cartSize);
         	} else {
         		
         		model.addAttribute("cartitems", new Cartitem());

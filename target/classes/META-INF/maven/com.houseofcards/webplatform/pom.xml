@@ -151,6 +151,44 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         
+        
+        
+        <!-- JSON -->
+        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		
+		
+		<dependency>
+   			<groupId>org.json</groupId>
+   			<artifactId>json</artifactId>
+   			<version>20080701</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>javax.json</groupId>
+    		<artifactId>javax.json-api</artifactId>
+    		<version>1.0</version>
+  		</dependency>
+  		<dependency>
+      		<groupId>org.glassfish</groupId>
+      		<artifactId>javax.json</artifactId>
+      		<version>1.0.4</version>
+  		</dependency>
+  		<dependency>
+        	<groupId>javax.json.bind</groupId>
+        	<artifactId>javax.json.bind-api</artifactId>
+        	<version>1.0</version>
+    	</dependency>
+        <dependency>
+   		 	<groupId>org.eclipse</groupId>
+    		<artifactId>yasson</artifactId>
+    		<version>1.0</version>
+		</dependency>
+        
+        
     </dependencies>
 
 
