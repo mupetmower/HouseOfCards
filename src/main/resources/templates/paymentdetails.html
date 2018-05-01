@@ -34,11 +34,12 @@
         		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	</div>
         	
-        	<div class="col-lg-10"> 
-        	        	
-         	<!-- Actual Page Body Content goes here -->
-        
-        
+        	<div class="col-lg-10">
+        		
+        		<div th:each="item : ${cartMessage}">
+        			<p th:text="${item.productId}"></p>
+        		</div>
+        		
         	</div>
        
     		<!-- You can insert more row divs if you want more rows in the first "row" the first

@@ -53,10 +53,10 @@ public class CustomControllerAdvice {
         								.filter(c -> c.isPurchased() == false)
         								.collect(Collectors.toSet());
         	
-        	cartItems.stream().filter(c -> c.isPurchased() == true);
-        	
+        	        	
         	
         	if (cartItems != null && !cartItems.isEmpty() && cartItems.size() > 0) {
+        		
         		model.addAttribute("cartitems", cartItems);
         		
         		int cartSize = cartItems.stream()

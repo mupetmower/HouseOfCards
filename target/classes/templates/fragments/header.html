@@ -52,11 +52,11 @@
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link" href="#" th:href="@{/admin/report/new}">Reports</a></li>
                 	
                 	<!-- If Items in Cart -->
-                	<li sec:authorize="!isAnonymous()" th:if="${cartsize} > 0" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart<span class="w3-badge w3-tiny w3-red"><text th:text="${cartsize}"/></span></a></li>
+                	<li sec:authorize="!isAnonymous()" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart<span class="w3-badge w3-tiny w3-red"><text th:if="${cartsize &gt; 0}" th:text="${cartsize}"/></span></a></li>
                 	
-                	<!-- If is User But no Items in Cart -->
-                	<li sec:authorize="!isAnonymous()" th:unless="${cartsize} > 0" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart</a></li>
-                	
+                	<!-- If is User But no Items in Cart 
+                	<li sec:authorize="!isAnonymous()" th:unless="${cartsize &gt; 0}" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart</a></li>
+                	-->
                 	                	
                 	<!-- If no user logged in -->
                 	<li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="#" th:href="@{/login}">Login</a></li>
