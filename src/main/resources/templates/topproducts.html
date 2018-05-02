@@ -28,7 +28,7 @@
         
     <div class="col-lg-10">
         
-    <div th:if="${not #lists.isEmpty(products)}">
+    <div th:if="${not #lists.isEmpty(topproducts)}">
         <h2>Product List</h2>
         <table class="table table-fluid table-striped">
             <tr>
@@ -39,31 +39,26 @@
                 <th>Stock</th>
                 <th>Image</th>
                 <th>View</th>
-                
-                <th sec:authorize="hasRole('ROLE_USER')">Add To Cart</th>
+                             
                 
                 <!-- Only if user is admin -->
                 <th sec:authorize="hasRole('ROLE_ADMIN')" >Edit</th>
                 <th sec:authorize="hasRole('ROLE_ADMIN')" >Remove</th>
                 
             </tr>
-            <tr th:each="product, iter : ${products}">        	
+            <tr th:each="topproduct, iter : ${products}">        	
                 <td><a th:href="${'/product/' + product.pkProductId}" th:text="${product.pkProductId}">Id</a></td>
                 
-                <td th:text="${product.productName}">Product Name</td>
-                <td th:text="${product.productDescription}">Description</td>
-                <td th:text="${product.price}">Price</td>
+                <td th:text="${topproduct.products.productName}">Product Name</td>
+                <td th:text="${topproduct.products.productDescription}">Description</td>
+                <td th:text="$topproduct.products.price}">Price</td>
                 
-                <td th:if="${product.inventoryQuantity} > 0"><font color="2AC71D">In Stock</font></td>
-                <td th:unless="${product.inventoryQuantity} > 0"><font color="FF0000">Out of Stock</font></td>
+                <td th:if="${topproduct.products.inventoryQuantity} > 0"><font color="2AC71D">In Stock</font></td>
+                <td th:unless="${topproduct.products.inventoryQuantity} > 0"><font color="FF0000">Out of Stock</font></td>
                 
-                <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}" style="cursor:zoom-in" onclick="onClick(this)"></td>                
+                <td><img class="product-thumbnail" th:src="@{__${topproduct.products.thumbnailUri}__}" style="cursor:zoom-in" onclick="onClick(this)"></td>                
                 
                 <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
-                
-                <td sec:authorize="hasRole('ROLE_USER')" th:if="${product.inventoryQuantity} > 0">
-					<a th:href="@{'/cart/addtocart/' + __${user.pkUserId}__ + '/' + __${product.pkProductId}__}">Add</a>
-				</td>
                 
                 
                 <!-- Only if user is admin -->
