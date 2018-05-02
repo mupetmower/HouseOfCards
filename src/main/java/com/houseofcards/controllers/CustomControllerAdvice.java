@@ -1,6 +1,6 @@
 package com.houseofcards.controllers;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -87,12 +87,12 @@ public class CustomControllerAdvice {
         		//System.out.println(cartSize);
         	} else {
         		
-        		model.addAttribute("cartitems", new Cartitem());
+        		model.addAttribute("cartitems", new HashSet<Cartitem>());
     			model.addAttribute("cartsize", 0);
         	}
         	
         } else {
-        	model.addAttribute("cartitems", new Cartitem());
+        	model.addAttribute("cartitems", new HashSet<Cartitem>());
     		model.addAttribute("cartsize", 0);
         }
     }

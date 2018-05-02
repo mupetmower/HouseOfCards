@@ -52,7 +52,7 @@
 	        			<td class="item-info"><table>
 	        				<tr><td class="item-name" ><h4 th:text="${item.products.productName}"></h4></td></tr>
 							<tr><td class="item-description" th:text="${item.products.productDescription}"></td></tr>
-	        				<tr><td class="item-remove"><a class="remove-item-link" th:href="@{'/cart/' + __${user.pkUserId}__ + '/remove/' + __${item.pkCartId}__}">Remove</a></td></tr>
+	        				<tr><td class="item-remove"><a class="remove-item-link" th:href="@{'/cart/remove/' + __${user.pkUserId}__ + '/' + __${item.pkCartId}__}">Remove</a></td></tr>
 	        			</table></td>
 	        			
 						<td class="item-price"  th:value="${item.products.price}" th:text="${'$' + item.products.price}" align="center"></td>
@@ -118,7 +118,7 @@
         		
     		</div>
         	
-       		<div th:if="${#lists.isEmpty(cartitems)}" class="col-lg-10">
+       		<div th:if="${#lists.isEmpty(cartitems)}" class="col-lg-10 text-center">
        			<h3>Cart is Empty</h3>
        			<p>Browse our <a th:href="@{/products}">Products</a></p>
        		</div>
@@ -221,7 +221,7 @@ function updateSubtotal() {
 
 
 		qtyMap.set(cmis[i].itemId, q)
-		
+		console.log(cmis[i].itemId);
 		subtotal = subtotal + Number((qtyMap.get(cmis[i].quantity)) * Number(document.getElementById('price' + cmis[i].itemId).value));
 		
 	}

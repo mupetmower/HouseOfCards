@@ -62,7 +62,7 @@
                 <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
                 
                 <td sec:authorize="hasRole('ROLE_USER')" th:if="${product.inventoryQuantity} > 0">
-					<a th:href="@{'/premium/addtocart/user/' + __${user.pkUserId}__ + '/product/' + __${product.pkProductId}__}">Add</a>
+					<a th:href="@{'/cart/addtocart/' + __${user.pkUserId}__ + '/' + __${product.pkProductId}__}">Add</a>
 				</td>
                 
                 

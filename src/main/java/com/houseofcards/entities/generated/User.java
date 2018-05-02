@@ -180,6 +180,10 @@ public class User implements java.io.Serializable {
 	public void setCartitems(Set<Cartitem> cartitems) {
 		this.cartitems = cartitems;
 	}
+	
+	public void addCartitem(Cartitem cartitem) {
+		this.cartitems.add(cartitem);
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<Paymentdetails> getPaymentdetailses() {
