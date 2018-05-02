@@ -3,28 +3,22 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title</title>
+    <title>Purchase Results</title>
     
-    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
-    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
-    links/src stuff for js, jquery pugins, navigation stuff, etc -->
-    
-    <!-- This specific fragment holds all of the links and sources we need to include on each page.
-    These are things like css files, javascript files, etc.. This is where our bootstrap
-    source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    
+    <style>
+    body {
+    	padding-top:75px;
+    }
+    </style>
 </head>
 <body>
-	
-	
-	<!-- This is where the top navigation bar is held.. -->
 	
 	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
     
     
-    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    
     <div class="container-fluid">
     	<div class="row">
     	
@@ -36,18 +30,15 @@
         	
         	<div class="col-lg-10"> 
         	        	
-         	<!-- Actual Page Body Content goes here -->
+         	<div class="col-lg-10 text-center">
+       			<h3 th:text="${purchasemessage}"></h3>
+       			<p>Browse our <a th:href="@{/products}">Products</a></p>
+       			<p>Or Back to <a th:href="@{/}">Home</a></p>
+       		</div>
         
         
         	</div>
        
-    		<!-- You can insert more row divs if you want more rows in the first "row" the first
-    		"row is mostly just to get all content lined up -->
-    
-    
-    
-    		<!-- Then end the content with the closing divs for container and row.. You can 
-    		Also add more rows after this if needed, but we shouldnt need to. -->
     		
     	</div>
     </div>

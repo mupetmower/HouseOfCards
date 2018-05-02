@@ -3,18 +3,29 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Payment Details</title>
-    
-    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
-    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
-    links/src stuff for js, jquery pugins, navigation stuff, etc -->
-    
-    <!-- This specific fragment holds all of the links and sources we need to include on each page.
-    These are things like css files, javascript files, etc.. This is where our bootstrap
-    source links are.  -->
+    <title>Payment Details</title>   
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    
+    <style>
+    body {
+    	padding-top: 75px;
+    }
+    
+    
+    input[type="radio"]:checked + label {
+    border: 1px solid red;
+	}
+    
+	.radio-cardtype {
+		width: 60px;
+	}
+	
+    </style>
 </head>
 <body>
 	
@@ -34,19 +45,123 @@
         		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	</div>
         	
-        	<div class="col-lg-10">
+        	<div class="col-lg-6">
         		
-        		
+        		<h2>Payment Information</h2>
+        		<p>Provide your payment details or make sure they are correct.</p>
+    
+		        <form class="form-horizontal" th:object="${paymentdetails}" th:action="@{'/cart/review/' + __${user.pkUserId}__}" method="post">
+		            <input type="hidden" th:field="*{pkPaymentId}">
+		            <input type="hidden" th:field="*{user}" th:value="*{user}">
+		            <input type="hidden" th:field="*{cardPresent}" th:value="true">
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Type:</label>
+		                <div class="col-sm-9">
+		                
+			                <div id="radio-group" th:field="*{cardType}" name="typeRadGroup">
+							    <input type="radio" name="radCardType" value="visa" id="visa" checked="checked" />
+							    <label for="visa">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-visa.png}">
+							    </label>
+							    
+							    
+							    <input type="radio" name="radCardType" value="mastercard" id="mastercard" />
+							    <label for="mastercard">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-mastercard.png}">
+							    </label>
+							    
+							    
+							    <input type="radio" name="radCardType" value="discover" id="discover" />
+							    <label for="discover">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-discover.png}">
+							    </label>
+							    
+							</div>
+								                
+							<!-- <input list="card-types" class="form-control" required />
+		                    	<datalist id="card-types">
+		                    		<option value="Visa">
+		                    		<option value="Mastercard">
+		                    		<option value="Discover">
+		                    	</datalist> -->
+		                </div>
+		            </div>
+		           		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Name on Card:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" autofocus required class="form-control" th:field="*{cardHolderName}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Number:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" required pattern="[0-9]{16}" class="form-control" th:field="*{cardNumber}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Security Code:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" required pattern="[0-9]{3}" class="form-control" th:field="*{cardSecurityCode}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Expiration:</label>
+		                <div class="col-sm-9">
+		                    <input type="date" required class="form-control"  name="cardExp"/>
+		                	<span class="validity"></span>
+		                </div>
+		            </div>
+		            <br>
+		            <div class="form-group">
+		                <div class="col-sm-9">
+                			<button type="submit" class="btn btn-default bg-dark text-white">Confirm Card Details</button>
+		                </div>
+		            </div>
+              
+		        </form>
+        
         		
         	</div>
        
-    		<!-- You can insert more row divs if you want more rows in the first "row" the first
-    		"row is mostly just to get all content lined up -->
-    
-    
-    
-    		<!-- Then end the content with the closing divs for container and row.. You can 
-    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		<div class="col-lg-4">
+    			<div class="card">
+        			<div class="card-title text-center">
+        				<h4>Order Summary</h4>
+        			</div>
+        			
+        			<div class="card-body">
+        				<table>
+        					<tr>
+        						<td width="95%">Items Subtotal:</td>
+        						<td width="5%" class="align-right cart-subtotal-td"><font color="#800000"><div id="cart-subtotal" th:text="${'$' + #numbers.formatDecimal(subtotal, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        					<tr>
+        						<td width="95%">Tax:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-tax" th:text="${'$' + #numbers.formatDecimal(tax, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        					
+        					<hr>
+        					
+        					<tr><td></td><td><hr></td><td></td></tr>
+        					
+        					
+        					<tr>
+        						<td width="95%">Order Total:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-total" th:text="${'$' + #numbers.formatDecimal(total, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        				</table>
+        			</div>
+        			
+        			
+        		</div>
+    		
+    		</div>
+    		
     		
     	</div>
     </div>
@@ -56,10 +171,27 @@
     
     <!-- Footer is held in this fragment -->
     
-    <!-- Footer -->
+    
+    
+</body>
+
+<!-- Footer -->
     <footer class="py-5 bg-dark">
 		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
     </footer>
     
-</body>
+    
+    
+    
+<script>
+$(function() {
+    $( "#radio-group" ).buttonset();
+  });
+
+
+</script>
+
+
+    
+
 </html>

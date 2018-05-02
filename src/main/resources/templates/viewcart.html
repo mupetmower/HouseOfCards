@@ -34,7 +34,7 @@
         	
         	<div th:if="${not #lists.isEmpty(cartitems)}" class="col-lg-10">
         	
-        	<form th:action="@{'/cart/checkoutrequest/' + __${user.pkUserId}__}" method="post">
+        	<form id="checkoutForm" th:action="@{'/cart/checkoutrequest/' + ${user.pkUserId}}" method="post">
         	
         		<input type="hidden" id="checkoutData" name="request">
 	        	<input type="hidden" id="cartItems2" th:value="${cartitems}">

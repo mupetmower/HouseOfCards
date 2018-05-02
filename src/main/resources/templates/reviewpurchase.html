@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Review Purchase</title>
+      
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+    
+    <style>
+    .td-col-1 {
+    	width: 70%;
+    }
+    .td-col-2 {
+    	width: 15%;
+    }
+    .td-col-3 {
+    	width: 25%;
+    }
+    
+    </style>
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	<div class="col-lg-10"> 
+        		<h3>Review Purchase</h3>
+         		<p>Review your purchase before submitting.</p>
+         		
+         		<form id="confirmPurchase" th:action="@{'/cart/confirmpurchase/' + ${user.pkUserId}}" method="post">
+        	
+         		<div class="card">
+        			<div class="card-title text-center">
+        				<h4>Order Summary</h4>
+        			</div>
+        			
+        			<div class="card-body">
+        				<table>
+        				
+        					<tr th:each="item : ${cartItems}">
+        						<td class="td-col-1" th:text="${item.products.productName}"></td>
+        						<td class="td-col-2" th:text="${'Qty: ' + item.quantity}"></td>
+        						<td class="align-right cart-subtotal-td td-col-3"><font color="#800000"><div th:text="${'$' + #numbers.formatDecimal(item.products.price, 0, 'DEFAULT', 2, 'DEFAULT') + ' each'}"></div></font></td>
+        					</tr>
+        					
+        				
+        				
+        					<tr>
+        						<td class="td-col-1"><b>Items Subtotal:<b></td>
+        						<td class="td-col-2"></td>
+        						<td class="align-right cart-subtotal-td td-col-3"><font color="#800000"><div th:text="${'$' + #numbers.formatDecimal(subtotal, 0, 'DEFAULT', 2, 'DEFAULT')}" id="cart-subtotal"></div></font></td>
+        					</tr>
+        					<tr>
+        						<td class="td-col-1">Tax:</td>
+        						<td class="td-col-2"></td>
+        						<td class="align-right cart-tax-td td-col-3"><font color="#800000"><div th:text="${'$' + #numbers.formatDecimal(tax, 0, 'DEFAULT', 2, 'DEFAULT')}" id="cart-tax"></div></font></td>
+        					</tr>
+        					
+        					<hr>
+        					
+        					<tr><td></td><td></td><td><hr></td></tr>
+        					
+        					
+        					<tr>
+        						<td class="td-col-1"><b>Order Total:</b></td>
+        						<td class="td-col-2"></td>
+        						<td class="align-right cart-tax-td td-col3"><font color="#800000"><div th:text="${'$' + #numbers.formatDecimal(total, 0, 'DEFAULT', 2, 'DEFAULT')}" id="cart-total"></div></font></td>
+        					</tr>
+        				</table>
+        				
+        				
+        				<div class="card-footer text-center">
+        					<button id="btncheckout" class="btn btn-default bg-dark text-white">Confirm Purchase</button>
+        				</div>
+        			</div>
+        			
+        			
+        		</div>
+         		
+        		</form>
+        		
+        		
+        	</div>
+       
+
+    		
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+</html>
