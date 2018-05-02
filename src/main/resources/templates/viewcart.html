@@ -195,7 +195,7 @@ $('#btncheckout').click(function(){
 function updateSubtotal() {
 
 	var subtotalDisplay = document.getElementById('cart-subtotal');
-	var subtotal = 0.0;
+	var subtotal = 0;
 
 	
 	cm = /*[[${cartmessage}]]*/;
@@ -204,32 +204,33 @@ function updateSubtotal() {
 	
 	
 
-	var qtyMap = new Map();
+	//var qtyMap = new Map();
 	
 	for (var i = 0; i < cmis.length; i++) {
-		var qty = cmis[i].quantity;
+		//var qty = cmis[i].quantity;
 		//console.log("qty " + i + ": " + qty);
 		
-		var q = document.getElementById('quantity' + cmis[i].itemId).value;
+		//var q = document.getElementById('quantity' + cmis[i].itemId).value;
 		
-		console.log("quantity + itemId control value: " + q);
+		//console.log("quantity + itemId control value: " + q);
 		
-		qtyMap.set(cmis[i].itemId, cmis[i].quantity);
-		for (var [key, value] of qtyMap) {
+		//qtyMap.set(cmis[i].itemId, cmis[i].quantity);
+		//for (var [key, value] of qtyMap) {
 			  //console.log('ItemId: ' + key + ' had Old Qty: ' + value);
-		}
+		//}
+		
+		//console.log("Price: " + Number(document.getElementById('price' + cmis[i].itemId).value));
 
-
-		qtyMap.set(cmis[i].itemId, q)
-		console.log(cmis[i].itemId);
-		subtotal = subtotal + Number((qtyMap.get(cmis[i].quantity)) * Number(document.getElementById('price' + cmis[i].itemId).value));
+		//qtyMap.set(cmis[i].itemId, q)
+		//console.log(cmis[i].itemId);
+		subtotal = subtotal + (Number((document.getElementById('quantity' + cmis[i].itemId).value) * Number(document.getElementById('price' + cmis[i].itemId).value)));
 		
 	}
 		
 	
-	for (var [key, value] of qtyMap) {
-		  console.log('ItemId: ' + key + ' has New Qty: ' + value);
-	}
+	//for (var [key, value] of qtyMap) {
+		  //console.log('ItemId: ' + key + ' has New Qty: ' + value);
+	//}
 	
 
 	var request = {
@@ -268,7 +269,7 @@ function updateSubtotal() {
 	document.getElementById("checkoutData").value = JSON.stringify(request);
 	
 	
-	console.log("SUBTOTAL: " + subtotal);
+	
 	
 	
 	document.getElementById('cart-subtotal').innerHTML = "$" + subtotal.toFixed(2);
@@ -280,7 +281,11 @@ function updateSubtotal() {
 	var total = tax + subtotal;
 
 	document.getElementById('cart-total').innerHTML = "$" + total.toFixed(2);	
-		
+
+
+
+
+	console.log("SUBTOTAL: " + subtotal);
 }
 
 

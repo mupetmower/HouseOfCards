@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.houseofcards.entities.generated.Products;
 import com.houseofcards.entities.generated.Topproducts;
+import com.houseofcards.repositories.ProductRepository;
 import com.houseofcards.repositories.TopProductsRepository;
 
 
@@ -18,8 +20,11 @@ public class TopProductsController {
 	@Autowired
 	private TopProductsRepository topProductRepo;
 	
+	@Autowired
+	private ProductRepository productRepo;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String listAllTopProducts(Model model) {
 		model.addAttribute("topproducts", topProductRepo.findAll());
 		
@@ -37,20 +42,32 @@ public class TopProductsController {
 	}
 	
 	
-	@RequestMapping("/new")
-	public String addTopProduct(Model model, @PathVariable Integer topProductId) {
+	@RequestMapping(value = "/new")
+	public String sendToAddForm(Model model) {
 		model.addAttribute("topproduct", new Topproducts());
 		
 		return "topproductform";
 	}
 	
-	
-	
-	@RequestMapping("/remove/{topProductId}")
-	public String removeTopProduct(Model model, @PathVariable Integer topProductId) {
-		topProductRepo.delete(topProductRepo.findById(topProductId).get());
+	@RequestMapping(value = "/new/{productId}")
+	public String addTopProduct(Model model, @PathVariable Integer productId) {		
+		Products p = productRepo.findById(productId).get();
 		
-		return "topproducts";
+		Topproducts t = new Topproducts();
+		t.setProducts(p);
+		
+		topProductRepo.save(t);
+		
+		return "redirect:/admin/topproducts";
+	}
+	
+	
+	
+	@RequestMapping("/delete/{topProductId}")
+	public String removeTopProduct(Model model, @PathVariable Integer topProductId) {
+		topProductRepo.deleteById(topProductId);
+		
+		return "redirect:/admin/topproducts";
 	}
 	
 }

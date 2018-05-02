@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
@@ -128,9 +129,9 @@ public class UserCardsController {
     }
     
     
-    @MessageMapping("/premiumcards/search")
-    @SendTo("/topic/premiumcards/search/results")
-	public @ResponseBody SearchResults searchProducts(@RequestBody SearchRequest request) {
+    @MessageMapping("/premiumcards/search/{userId}")
+    @SendTo("/topic/premiumcards/search/results/{userId}")
+	public @ResponseBody SearchResults searchProducts(@RequestBody SearchRequest request, @DestinationVariable int userId) {
 		System.out.println("Searching");
     	
     	//List<Integer> ids = productSearch.searchForIdsByName(request.getProductName());

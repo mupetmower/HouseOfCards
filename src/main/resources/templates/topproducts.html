@@ -22,7 +22,7 @@
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	
         	<div sec:authorize="hasRole('ROLE_ADMIN')">
-        		<div class="nav-item"><a class="nav" th:href="@{/admin/product/new}"><button class="form-control btn btn-default bg-dark text-white">Add New Product</button></a></div>
+        		<div class="nav-item"><a class="nav" th:href="@{/admin/topproducts/new}"><button style="font-size: 14px" class="form-control btn btn-default bg-dark text-white">Add Top Product</button></a></div>
         	</div>
         </div>
         
@@ -46,24 +46,24 @@
                 <th sec:authorize="hasRole('ROLE_ADMIN')" >Remove</th>
                 
             </tr>
-            <tr th:each="topproduct, iter : ${products}">        	
-                <td><a th:href="${'/product/' + product.pkProductId}" th:text="${product.pkProductId}">Id</a></td>
+            <tr th:each="topproduct, iter : ${topproducts}">        	
+                <td><a th:href="${'/product/' + topproduct.products.pkProductId}" th:text="${topproduct.products.pkProductId}">Id</a></td>
                 
                 <td th:text="${topproduct.products.productName}">Product Name</td>
                 <td th:text="${topproduct.products.productDescription}">Description</td>
-                <td th:text="$topproduct.products.price}">Price</td>
+                <td th:text="${topproduct.products.price}">Price</td>
                 
                 <td th:if="${topproduct.products.inventoryQuantity} > 0"><font color="2AC71D">In Stock</font></td>
                 <td th:unless="${topproduct.products.inventoryQuantity} > 0"><font color="FF0000">Out of Stock</font></td>
                 
                 <td><img class="product-thumbnail" th:src="@{__${topproduct.products.thumbnailUri}__}" style="cursor:zoom-in" onclick="onClick(this)"></td>                
                 
-                <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
+                <td><a th:href="${ '/product/' + topproduct.products.pkProductId}">View</a></td>
                 
                 
                 <!-- Only if user is admin -->
-                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/edit/' + product.pkProductId}">Edit</a></td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/delete/' + product.pkProductId}">Delete</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/topproducts/edit/' + topproduct.products.pkProductId}">Edit</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/topproducts/delete/' + topproduct.pkTpId}">Delete</a></td>
                 
             </tr>
             	
@@ -91,7 +91,7 @@
     
     
     
-    <div th:unless="${not #lists.isEmpty(products)}">
+    <div th:unless="${not #lists.isEmpty(topproducts)}">
     	<h2>Products List is Empty</h2>
     </div>
     

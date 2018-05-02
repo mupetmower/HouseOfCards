@@ -99,13 +99,14 @@ public class CartController {
 		Cartitem cartItem = new Cartitem();
 		cartItem.setPurchased(false);
 		cartItem.setProducts(p);
+		cartItem.getProducts().setPrice(p.getPrice());
 		cartItem.setUser(u);
 		cartItem.setQuantity(1);
 		cartRepo.save(cartItem);
 		
 		p.getCartitems().add(cartItem);
 		
-		u.addCartitem(cartItem);
+		u.getCartitems().add(cartItem);
 		
 		productRepo.save(p);
 		userRepo.save(u);

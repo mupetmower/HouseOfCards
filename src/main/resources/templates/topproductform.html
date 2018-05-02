@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
- 
-    <title>Edit Product</title>
- 
+
+    <title>Add A Card</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
     
-    <link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
 	
 </head>
 <body>
@@ -17,175 +19,169 @@
     	<div class="col-lg-2">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         </div>
- 	
- 	<div class="col-lg-10">
-    <h2>Product Details</h2>
+        
+        
+        
+    <div class="col-lg-10">
+        
     
-        <form class="form-horizontal" th:object="${product}" th:action="@{/product}" method="post" enctype="multipart/form-data">
-            
-            <!-- <div class="form-group">
-                <label class="col-sm-2 control-label">Product Id:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{pkProductId}"/>
-                </div>
-            </div> -->
-            
-            
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Product Name:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{productName}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Description:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{productDescription}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Price:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{price}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Inventory Quantity:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{inventoryQuantity}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Product Thumbnail:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="thumbnailUri" name ="thumbnailUri" th:value="*{thumbnailUri}" readonly="true" />
-                    
-                    <img class="editform-img" id="thumbnailImg" th:src="@{__*{thumbnailUri}__}">
-                    
-                    <br>
-                    <input type="file" id="thumbnailFileChooser" name="thumbnailFileChooser" accept="image/*" >
-                    <script>
-                    	$('#thumbnailFileChooser').change(function(e){
-                    		if (this.files && this.files[0]) {
-                    			var reader = new FileReader();
-                    			$('#thumbnailUri').attr('value', "/images/products/productimages/" + e.target.files[0].name);                    			                        			    
-                			    reader.onload = function(ev) {
-                			        $('#thumbnailImg').attr('src', ev.target.result);
-                    			}
-                			    reader.readAsDataURL(this.files[0]);
-                    		}
-                    	});
-                    </script>
-                </div>
-            </div>
-            
-            <br>
-            <br>
-            
-            
-            
-            
-            <!-- Show all other images -----not implementing this!!!! -->
-            
-            <!-- <h3>All Images</h3>
-            
-            <div th:each="productImage : *{productimages}">
-            <br>            
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">Other Image Uri:</label>
-	                <div class="col-sm-6">
-	                    <input type="text" class="form-control" id="${'imageUri' + productImage.index}" name="fileUris[]" th:value="${productImage.imageUri}"/>
-	                    
-	                    
-	                    <img class="editform-img" th:src="@{__${productImage.imageUri}__}" id="${'otherImage' + productImage.index}">
-	                    
-	                    <br>                    
-	                    <input type="file" id="${'imageFileChooser' + productImage.index}" name="files[]" accept="image/*" >
-	                    <script>
-	                    $('${\'#imageFileChooser\' + productImage.index}').change(function(e){
-                    		if (this.files && this.files[0]) {
-                    			var reader = new FileReader();
-                    			$('${\'#imageUri\' + productImage.index}').attr('value', "/images/products/productimages/" + e.target.files[0].name);                    			                        			    
-                			    reader.onload = function(ev) {
-                			        $('${\'#otherImage\' + productImage.index}').attr('src', ev.target.result);
-                    			}
-                			    
-                    		}
-                    	});
-	                    </script>
-	                </div>
-	            </div>
-	            
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">Other Image View Name:</label>
-	                <div class="col-sm-10">
-	                    <input type="text" class="form-control" id="otherImageViewName" name="names[]" th:value="${productImage.viewName}" />
-	                </div>
-	            </div>
-            
-            <hr>
-            
-            </div> -->
-            <!-- End of th:each image in productimages -->
-            
-            
-            
-            
-            
-            <!-- Add more images ----- not implementing this!!!! -->
-                        
-            
-            <!-- Extra user-added images -->
-            <!-- <div id="userAddedImages">
-            	
-            </div>
-            <script id="userAddedImagesScript">
-	        	var imgFormNum = 0;
-            </script>
-            
-            <br>
-            <br> -->
-            
-            <!-- 
-            <div class="form-group">                
-                <div class="col-sm-10">
-					<button type="button" id="addAnotherImage" onclick="addImageForm()" class="btn btn-sm bg-dark text-white">Add Another Image</button>
-                </div>
-                <script>
-               		
-                	function addImageForm() {
-                		imgFormNum = imgFormNum + 1;
-                    	
-                    	$('#userAddedImages').append("<br><div class=\"form-group\"><label class=\"col-sm-2 control-label\">Other Image Uri:</label><div class=\"col-sm-6\"><input type=\"text\" class=\"form-control\" id=\"${'otherUserImageUri' + imgFormNum}\" name=\"fileUris[]\"/><img class=\"editform-img\" id=\"${'otherUserImage' + imgFormNum}\"><br><input type=\"file\" id=\"${'otherUserImageFileChooser' + imgFormNum}\" accept=\"image/*\" name=\"files[]\" ></div></div><div class=\"form-group\"><label class=\"col-sm-2 control-label\">Other Image View Name:</label><div class=\"col-sm-10\"><input type=\"text\" class=\"form-control\" id=\"otherUserImageViewName\" name=\"names[]\" th:value=\"${productImage.viewName}\" /></div></div><hr>");
-                    	s = "$('#otherUserImageFileChooser' + '${imgFormNum}').change(function(e){if (this.files && this.files[0]) {var reader = new FileReader(); $('#otherUserImageUri' + imgFormNum).attr('value', \"/images/products/productimages/\" + e.target.files[0].name); reader.onload = function(ev) { $('#otherUserImage' + imgFormNum).attr('src', ev.target.result);} } });";
-
-                    	var newScript   = document.createElement("script");
-                    	newScript.type  = "text/javascript";
-                    	newScript.text  = s
-                    	document.body.appendChild(newScript);
-
-                    }               
-               </script>
+       	<h2>Search Cards</h2>
+       	
+       	<br>
+       	
+		
+		<label class="col-sm-3" for="searchName">Card Name:</label>
+		<input type="text" id="searchName" name="searchName" />
+		<input type="hidden" id="uid" th:value="${user.pkUserId}"/>
+		<input type="hidden" id="currentUserId" th:value="${premiumid}"/>
+		<button id="btnSearch">Search</button>
+		
+		
+		<br>
+		<br>	
+				
+		<table class="table table-striped">
+						
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>View</th>
                 
-            </div> -->
+                <th>Add</th>
+            </tr>
+            
+            <tbody id="results-body">
             
             
+                
+            </tbody>
             
-            
-            <div class="row">
-                <button type="submit" class="btn btn-default bg-dark text-white">Update Product Record</button>
-            </div>
-        </form>
+			
+       	</table>
+       	
+       	
+    <div id="modalView" class="w3-modal " onclick="this.style.display='none'">
+		<span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+		<div class="w3-modal-content w3-animate-zoom" style="max-width:35em">
+ 			<img id="modalImage" width="100%">
+		</div>
+	</div>        
+    <script>
+    function onClick(element) {
+       	document.getElementById("modalImage").src = element.src;
+        document.getElementById("modalView").style.display = "block";
+    }
+    </script>
+       	
+       	</div>
     </div>
+    
 </div>
-</div>
-<br>
-<br>
 
 <!-- Footer -->
     <footer class="py-5 bg-dark">
 		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
     </footer>
- 
+
 </body>
+
+
+<script>
+
+var stompClient = null;
+var uid = $('#uid').val();
+var premiumId = $('#currentUserId').val();
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+//OnLoad
+function WindowLoad(event) {
+    //alert("Another onload script");
+    console.log('Calling init..');
+    initSockJS();
+}
+
+
+//Init SockJS and topics
+function initSockJS() {
+	
+	 var socket = new SockJS("/sockjs-websocket");
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        //setConnected(true);
+	        console.log('Connected: ' + frame);
+	        stompClient.subscribe('/topic/premiumcards/search/results/' + uid, function (response) {
+	            //showResponse(JSON.parse(response.body).content);
+	        	updateCardsList((JSON.parse(response.body)));
+	        });	        
+
+	        
+		//Other initializations that need messaging and subscriptions to finish first must go here
+	    document.getElementById("btnSearch").click();
+		
+	    });	    
+}
+
+
+
+document.getElementById("searchName").addEventListener("keyup", function(event) {
+	event.preventDefault();
+	// Number 13 is "Enter" key
+	if (event.keyCode === 13) {
+		document.getElementById("btnSearch").click();
+	}
+});
+
+
+$('#btnSearch').click(function(){
+	sendCardSearch();
+});
+
+function sendCardSearch() {
+	/*<![CDATA[*/
+	console.log("SENDING CardSearch..");
+	
+	var request = {}
+	request["productName"] = $('#searchName').val();
+		        
+	stompClient.send("/msg/premiumcards/search/" + uid, {}, JSON.stringify(request));
+	/*]]>*/
+}
+
+function updateCardsList(response) {
+	/*<![CDATA[*/    	
+		
+	var output = "";	
+	
+	for (var i = 0; i < response.results.length; i++) {
+		output += '<tr>';
+		
+		output += '<td><a href="/product/' + response.results[i].pkProductId + '">' + response.results[i].pkProductId + '</a></td>';
+		output += '<td>' + response.results[i].productName + '</td>';
+		output += '<td>' + response.results[i].productDescription + '</td>';                
+		output += '<td><img class="product-thumbnail" src="' + response.results[i].thumbnailUri + '" style="cursor:zoom-in" onclick="onClick(this)"></td>';
+		output += '<td><a href="/product/' + response.results[i].pkProductId + '">View</a></td>';
+		output += '<td><a href="/admin/topproducts/new/' + response.results[i].pkProductId + '">Add</a></td>';
+        
+    	output += '</tr>';
+	}	
+    
+
+	$('#results-body').html(output);    
+    /*]]>*/
+}
+
+
+</script>
+
+
+
 </html>

@@ -32,6 +32,7 @@
 		
 		<label class="col-sm-3" for="searchName">Card Name:</label>
 		<input type="text" id="searchName" name="searchName" />
+		<input type="hidden" id="uid" th:value="${user.pkUserId}"/>
 		<input type="hidden" id="currentUserId" th:value="${premiumid}"/>
 		<button id="btnSearch">Search</button>
 		
@@ -90,6 +91,7 @@
 <script>
 
 var stompClient = null;
+var uid = $('#uid').val();
 var premiumId = $('#currentUserId').val();
 
 //Add window loading functions
@@ -116,7 +118,7 @@ function initSockJS() {
 	    stompClient.connect({}, function (frame) {
 	        //setConnected(true);
 	        console.log('Connected: ' + frame);
-	        stompClient.subscribe('/topic/premiumcards/search/results', function (response) {
+	        stompClient.subscribe('/topic/premiumcards/search/results/' + uid, function (response) {
 	            //showResponse(JSON.parse(response.body).content);
 	        	updateCardsList((JSON.parse(response.body)));
 	        });	        
@@ -150,7 +152,7 @@ function sendCardSearch() {
 	var request = {}
 	request["productName"] = $('#searchName').val();
 		        
-	stompClient.send("/msg/premiumcards/search", {}, JSON.stringify(request));
+	stompClient.send("/msg/premiumcards/search/" + uid, {}, JSON.stringify(request));
 	/*]]>*/
 }
 
