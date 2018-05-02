@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+ 
+    <title>Edit Product</title>
+ 
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+    <link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-2">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        </div>
+ 	
+ 	<div class="col-lg-10">
+    <h2>Product Details</h2>
+    
+        <form class="form-horizontal" th:object="${product}" th:action="@{/product}" method="post" enctype="multipart/form-data">
+            
+            <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Product Id:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{pkProductId}"/>
+                </div>
+            </div> -->
+            
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Product Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{productName}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Description:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{productDescription}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Price:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{price}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Inventory Quantity:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{inventoryQuantity}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Product Thumbnail:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="thumbnailUri" name ="thumbnailUri" th:value="*{thumbnailUri}" readonly="true" />
+                    
+                    <img class="editform-img" id="thumbnailImg" th:src="@{__*{thumbnailUri}__}">
+                    
+                    <br>
+                    <input type="file" id="thumbnailFileChooser" name="thumbnailFileChooser" accept="image/*" >
+                    <script>
+                    	$('#thumbnailFileChooser').change(function(e){
+                    		if (this.files && this.files[0]) {
+                    			var reader = new FileReader();
+                    			$('#thumbnailUri').attr('value', "/images/products/productimages/" + e.target.files[0].name);                    			                        			    
+                			    reader.onload = function(ev) {
+                			        $('#thumbnailImg').attr('src', ev.target.result);
+                    			}
+                			    reader.readAsDataURL(this.files[0]);
+                    		}
+                    	});
+                    </script>
+                </div>
+            </div>
+            
+            <br>
+            <br>
+            
+            
+            
+            
+            <!-- Show all other images -----not implementing this!!!! -->
+            
+            <!-- <h3>All Images</h3>
+            
+            <div th:each="productImage : *{productimages}">
+            <br>            
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">Other Image Uri:</label>
+	                <div class="col-sm-6">
+	                    <input type="text" class="form-control" id="${'imageUri' + productImage.index}" name="fileUris[]" th:value="${productImage.imageUri}"/>
+	                    
+	                    
+	                    <img class="editform-img" th:src="@{__${productImage.imageUri}__}" id="${'otherImage' + productImage.index}">
+	                    
+	                    <br>                    
+	                    <input type="file" id="${'imageFileChooser' + productImage.index}" name="files[]" accept="image/*" >
+	                    <script>
+	                    $('${\'#imageFileChooser\' + productImage.index}').change(function(e){
+                    		if (this.files && this.files[0]) {
+                    			var reader = new FileReader();
+                    			$('${\'#imageUri\' + productImage.index}').attr('value', "/images/products/productimages/" + e.target.files[0].name);                    			                        			    
+                			    reader.onload = function(ev) {
+                			        $('${\'#otherImage\' + productImage.index}').attr('src', ev.target.result);
+                    			}
+                			    
+                    		}
+                    	});
+	                    </script>
+	                </div>
+	            </div>
+	            
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label">Other Image View Name:</label>
+	                <div class="col-sm-10">
+	                    <input type="text" class="form-control" id="otherImageViewName" name="names[]" th:value="${productImage.viewName}" />
+	                </div>
+	            </div>
+            
+            <hr>
+            
+            </div> -->
+            <!-- End of th:each image in productimages -->
+            
+            
+            
+            
+            
+            <!-- Add more images ----- not implementing this!!!! -->
+                        
+            
+            <!-- Extra user-added images -->
+            <!-- <div id="userAddedImages">
+            	
+            </div>
+            <script id="userAddedImagesScript">
+	        	var imgFormNum = 0;
+            </script>
+            
+            <br>
+            <br> -->
+            
+            <!-- 
+            <div class="form-group">                
+                <div class="col-sm-10">
+					<button type="button" id="addAnotherImage" onclick="addImageForm()" class="btn btn-sm bg-dark text-white">Add Another Image</button>
+                </div>
+                <script>
+               		
+                	function addImageForm() {
+                		imgFormNum = imgFormNum + 1;
+                    	
+                    	$('#userAddedImages').append("<br><div class=\"form-group\"><label class=\"col-sm-2 control-label\">Other Image Uri:</label><div class=\"col-sm-6\"><input type=\"text\" class=\"form-control\" id=\"${'otherUserImageUri' + imgFormNum}\" name=\"fileUris[]\"/><img class=\"editform-img\" id=\"${'otherUserImage' + imgFormNum}\"><br><input type=\"file\" id=\"${'otherUserImageFileChooser' + imgFormNum}\" accept=\"image/*\" name=\"files[]\" ></div></div><div class=\"form-group\"><label class=\"col-sm-2 control-label\">Other Image View Name:</label><div class=\"col-sm-10\"><input type=\"text\" class=\"form-control\" id=\"otherUserImageViewName\" name=\"names[]\" th:value=\"${productImage.viewName}\" /></div></div><hr>");
+                    	s = "$('#otherUserImageFileChooser' + '${imgFormNum}').change(function(e){if (this.files && this.files[0]) {var reader = new FileReader(); $('#otherUserImageUri' + imgFormNum).attr('value', \"/images/products/productimages/\" + e.target.files[0].name); reader.onload = function(ev) { $('#otherUserImage' + imgFormNum).attr('src', ev.target.result);} } });";
+
+                    	var newScript   = document.createElement("script");
+                    	newScript.type  = "text/javascript";
+                    	newScript.text  = s
+                    	document.body.appendChild(newScript);
+
+                    }               
+               </script>
+                
+            </div> -->
+            
+            
+            
+            
+            <div class="row">
+                <button type="submit" class="btn btn-default bg-dark text-white">Update Product Record</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<br>
+<br>
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+ 
+</body>
+</html>
