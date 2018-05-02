@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.houseofcards.entities.generated.Cartitem;
 import com.houseofcards.messages.CartMessage;
 import com.houseofcards.messages.CartMessageItem;
+import com.houseofcards.repositories.CartRepository;
 import com.houseofcards.services.UserService;
 
 @Controller
@@ -32,6 +34,9 @@ public class CartController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CartRepository cartRepo;
 	
 	
 	@RequestMapping("/{userId}")
@@ -57,28 +62,26 @@ public class CartController {
     }
 	
 	
-	
-	
-	
-	
-	
-	@RequestMapping("/checkoutrequest")
-	public String checkoutRequest(String request) {
 		
-		
+	
+	
+	@RequestMapping("/checkoutrequest/{userId}")
+	public String checkoutRequest(String request, @PathVariable Integer userId) {
+				
 		System.out.println(request);
 		CartMessage items = null;
 		try {
-			
 			items = new ObjectMapper().readValue(request, CartMessage.class);
-			
-			
+						
 			items.getCartMessageItems().forEach(cmi -> System.out.println("ID: " + cmi.getProductId() + 
 					"QTY: " + cmi.getQuantity()));
 			
 			
-			
-			
+			items.getCartMessageItems().forEach(cmi -> {
+				Cartitem c = cartRepo.findById(cmi.getItemId()).get();
+				c.setQuantity(cmi.getQuantity());
+				cartRepo.save(c);
+			});
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +89,15 @@ public class CartController {
 		}
 		
 		return "paymentdetails";
+	}
+	
+	
+	@RequestMapping("/add/{userId}/{productId}")
+	public String addToCart(Model model, @PathVariable Integer userId, @PathVariable Integer productId) {
+		
+		
+		
+		return "confirmpurchase";
 	}
 
 }

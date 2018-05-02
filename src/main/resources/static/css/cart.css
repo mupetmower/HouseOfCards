@@ -14,3 +14,8 @@ body {
 .remove-item-link {
 	color: #043ce2;
 }
+
+.cart-subtotal {
+	display: block;
+	text-align: right;
+}
