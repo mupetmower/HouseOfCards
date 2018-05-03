@@ -46,7 +46,7 @@ Class-Path: spring-boot-starter-data-jpa-2.0.0.RELEASE.jar spring-boot
  .json-1.0.4.jar javax.json.bind-api-1.0.jar yasson-1.0.jar cdi-api-2.
  0.jar javax.el-api-3.0.0.jar javax.interceptor-api-1.2.jar javax.inje
  ct-1.jar
-Build-Jdk: 1.8.0_161
+Build-Jdk: 1.8.0_171
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/webplatform
 Created-By: Maven Integration for Eclipse

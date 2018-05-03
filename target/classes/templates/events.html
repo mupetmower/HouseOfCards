@@ -33,7 +33,9 @@
         	<div class="card-body text-center" style="padding-left:20%;padding-right:20%;">
         		<img th:src="@{__${event.eventImageUri}__}" style="max-width:400px">
         		<p th:text="${event.eventDescription}"></p>
-        		
+        		<div th:if="${not #lists.isEmpty(event.discounts)}">
+                <p th:text="${'Discount: %' + event.discounts[0].discountPercentage}"></p>
+                </div>
         	</div>
         	<div class="card-footer text-center">
         		<p th:text="'From ' + ${event.dateBegin} + ' to ' + ${event.dateEnd}"></p>
