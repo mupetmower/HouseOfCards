@@ -81,4 +81,21 @@ public class ReportController {
 	
 	
 	
+	@RequestMapping(value = "/default/users/pdfreport", method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> generateUsersReport(Model model) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, IntrospectionException {
+
+		ByteArrayInputStream bis = GeneratePdfReport.usersReport(userRepository.findAll());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+		
+		return ResponseEntity
+				.ok()
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+		
 }

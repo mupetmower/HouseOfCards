@@ -41,69 +41,82 @@
 	    		<p th:if="${param.error}" class="alert alert-error">    
 	                Invalid username or password.
 	            </p>
-	            <p th:if="${param.logout}" class="alert alert-success"> 
-	                You have been logged out.
-	            </p>
+	            
     		
 		    
-		        <form class="form-horizontal" th:object="${newUser}" th:action="@{/register}" method="post">
+		        <form id class="form-horizontal" th:object="${newUser}" th:action="@{/register}" method="post">
 		            
 		            <div class="form-group">
 		                <label for="username" class="col-sm-5 control-label">First Name:</label>
 		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="fName" name="fName" autofocus="autofocus" th:field="*{firstName}"/>
+		                    <input type="text" class="form-control" required id="fName" name="fName" autofocus="autofocus" />
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label for="username" class="col-sm-5 control-label">Last Name:</label>
 		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="lName" name="lName" th:field="*{lastName}"/>
+		                    <input type="text" class="form-control" required id="lName" name="lName" />
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">Email:</label>
+		                <div class="col-sm-7">
+		                    <input type="email" class="form-control" required id="emailIn" name="emailIn"/>
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label for="username" class="col-sm-2 control-label">Username:</label>
 		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="username" name="username" th:field="*{logininfo.username}"/>
+		                    <input type="text" class="form-control" required id="usernameIn" name="usernameIn"/>
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label class="col-sm-2 control-label">Password:</label>
 		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" id="password" name="password" th:field="*{logininfo.password}"/>
+		                    <input type="password" class="form-control" required id="passwordIn" name="passwordIn"/>
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label class="col-sm-5 control-label">Confirm Password:</label>
 		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm"/>
+		                    <input type="password" class="form-control" required id="passwordConfirm" name="passwordConfirm"/>
 		                </div>
 		            </div>
 		            
 		            
-		            <div class="form-group row">
+		            <div class="a-group form-group row">
 		                <label class="col-sm-5">Do you want to be a Premium User?</label>
 		                
 	                	<label for="premiumUser" class="form-control col-sm-3">Premium
-	                    <input type="checkbox" class="" id="premiumUser" name="premiumUser"/>
+	                    <input type="checkbox" class="chkPremium" id="premiumUser" name="premiumUser"/>
 	                	</label>
 	                	
-	                	<button><span class="question-icon">&nbsp;&nbsp;&nbsp;<img width="25px" th:src="@{/images/ui/questionmarkicon.png}" /></span></button>
-	                	<div class=" form-group premium-explaination col-sm-9 form-control" >
+	             <!--    	<div class="data-tip" data-tip="A premium user has extra features that normal users do not. 
+                		You can create and maintain a list of your cards and products in your own database.
+                		
+                		Premium membership costs just $5.00 a month!">
+	                	<a class="question-icon-a"><span class="question-icon">&nbsp;&nbsp;&nbsp;<img width="25px" th:src="@{/images/ui/questionmarkicon.png}" /></span></a>
+	                	
+	                	</div>
+	                	-->
+		            </div>
+		            
+                	<div id="premium-explaination" class="form-group premium-explaination col-sm-9 form-control" style="display:none">
                 	
-                		<p class="premium-explaination-text" style="display:none">
+                		<p class="tooltiptext premium-explaination-text" style="font-size:.75em"><i>
                 		A premium user has extra features that normal users do not. 
                 		You can create and maintain a list of your cards and products in your own database.
                 		<br>
                 		Premium membership costs just $5.00 a month!
-                		</p>
+                		<br>
+                		Hitting submit with this checked will take you to Payment Details before registration.
+                		</p></i>
                 	</div>
-		            </div>
-		            
-                	
 		            
 		            
 		            <br><br>
@@ -140,4 +153,19 @@
     </footer>
     
 </body>
+
+
+<script>
+
+$('#premiumUser').click(function(){
+    if($(this).is(':checked')){
+        document.getElementById('premium-explaination').style.display = "inline-block";
+    } else {
+    	document.getElementById('premium-explaination').style.display = "none";
+    }
+});
+	
+</script>
+
+
 </html>

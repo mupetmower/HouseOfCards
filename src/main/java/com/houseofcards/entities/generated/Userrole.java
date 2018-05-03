@@ -26,6 +26,10 @@ public class Userrole implements java.io.Serializable {
 	public Userrole() {
 	}
 
+	public Userrole(String posRole) {
+		this.posRole = posRole;
+	}
+	
 	public Userrole(String posRole, Set<User> users) {
 		this.posRole = posRole;
 		this.users = users;

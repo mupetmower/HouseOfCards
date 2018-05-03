@@ -23,7 +23,9 @@ public class UserService {
 	private RoleRepository roleRepository;
 	
 	
-	
+	public User findById(Integer id) {
+		return userRepository.findById(id).get();
+	}
 	
 	public User findByUsername(String username) {
 		return userRepository.findByLogininfo_Username(username);

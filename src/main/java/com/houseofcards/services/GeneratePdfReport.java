@@ -2,6 +2,7 @@ package com.houseofcards.services;
 
 import com.houseofcards.entities.generated.Products;
 import com.houseofcards.entities.generated.Sale;
+import com.houseofcards.entities.generated.User;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -168,7 +169,145 @@ public class GeneratePdfReport {
         return new ByteArrayInputStream(out.toByteArray());
     }
 	
-	
+	public static ByteArrayInputStream usersReport(Iterable<User> users) {
+
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        
+                
+        try {
+
+            PdfPTable table = new PdfPTable(7);
+            
+            table.setWidthPercentage(99);
+            table.setWidths(new int[]{3, 6, 5, 4, 5, 3, 4});
+            
+            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+
+            PdfPCell hcell;
+            hcell = new PdfPCell(new Phrase("Id", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("User", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            hcell = new PdfPCell(new Phrase("Username", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Email", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("IsPremium", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Orders (#)", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+            
+            hcell = new PdfPCell(new Phrase("Orders ($)", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            
+            float total = 0f;
+            
+            for (User user : users) {
+
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase(user.getPkUserId().toString()));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(user.getFirstName() + " " + user.getLastName()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(user.getLogininfo().getUsername()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(user.getEmail()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(user.isIsPremium())));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Phrase(String.valueOf(user.getSales().size())));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(cell);
+                
+                double t = user.getSales().stream().mapToDouble(s -> s.getSaleitemses().stream().mapToDouble(si -> si.getQuantity() * si.getProducts().getPrice().doubleValue()).sum()).sum();
+                total += t;
+                
+                
+                cell = new PdfPCell(new Phrase(String.format("$%.2f", t)));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setPaddingRight(5);
+                table.addCell(cell);
+                
+                
+                
+            }
+            
+            
+            PdfPCell cell;
+
+            cell = new PdfPCell(new Phrase("Total of Orders: ", headFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+            
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            cell = new PdfPCell();            
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(String.format("$%.2f", total), headFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setPaddingRight(5);
+            table.addCell(cell);
+            
+
+            PdfWriter.getInstance(document, out);
+            document.open();
+            document.add(table);
+            
+            document.close();
+            
+        } catch (DocumentException ex) {
+        
+            Logger.getLogger(GeneratePdfReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
 	
     public static ByteArrayInputStream productReport(Iterable<Products> products) {
 
