@@ -10,20 +10,48 @@
 	
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     
     <div class="row">
     	<div class="col-lg-2">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	
+        	<div sec:authorize="hasRole('ROLE_ADMIN')">
+        		<div class="nav-item"><a class="nav" th:href="@{/admin/events/new}"><button style="font-size: 14px" class="form-control btn btn-default bg-dark text-white">Add New Event</button></a></div>
+        	</div>
         </div>
     <div class="col-lg-10">  
         
     <div th:if="${not #lists.isEmpty(events)}">
         <h2>Event List</h2>
+        
+        
+        <div th:each="event : ${events}" class="card" style="margin-top:50px">
+         	
+        	<div class="card-title text-center"><h4 th:text="${event.eventName}"></h4></div>
+        	<div class="card-body text-center" style="padding-left:20%;padding-right:20%;">
+        		<img th:src="@{__${event.eventImageUri}__}" style="max-width:400px">
+        		<p th:text="${event.eventDescription}"></p>
+        		
+        	</div>
+        	<div class="card-footer text-center">
+        		<p th:text="'From ' + ${event.dateBegin} + ' to ' + ${event.dateEnd}"></p>
+        		<p sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/events/edit/' + event.pkEventId}">Edit</a> 
+            	<a th:href="${'/admin/events/remove/' + event.pkEventId}">Delete</a></p>
+              
+        	</div>
+        	</div>
+        	
+        </div>
+        
+        
+        
+        
+        <!-- 
         <table class="table table-striped">
             <tr>
-                <th>Event Id</th>
+                
                 <th>Event Name</th>
                 <th>Description</th>
                 <th>Begin Date</th>
@@ -33,23 +61,44 @@
                 
                 <th>Image</th>                                
                 
+               <th></th>
+               <th></th>
+                
             </tr>
             <tr th:each="event : ${events}">
-                <td th:text="${event.pkEventId}">Id</td>
                 
                 <td th:text="${event.eventName}">Product Name</td>
                 <td th:text="${event.eventDescription}">Description</td>
                 <td th:text="${event.dateBegin}">Begin Date</td>
                 <td th:text="${event.dateEnd}">End Date</td>
-                <td th:each="discount : ${event.discounts}"><p th:text="${discount.discountPercentage}"></p></td>
+                
+                
+                <!--  <td th:each="discount : ${event.discounts}"><p th:text="${discount.discountPercentage}"></p></td>-->
+         <!-- 
+                <div th:if="${not #lists.isEmpty(event.discounts)}">
+                <td th:text="${event.discounts[0].discountPercentage}"></td>
+                </div>
+                
+                <div th:unless="${not #lists.isEmpty(event.discounts)}">
+                <td> </td>
+                </div>
+                
                 <td><img class="event-thumbnail" th:src="@{__${event.eventImageUri}__}"></td>
+                
+                 
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/edit/' + event.pkEventId}">Edit</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/delete/' + event.pkEventId}">Delete</a></td>
+                
+                
             </tr>
         </table>
+		-->
+
 
     </div>
     
     <div th:unless="${not #lists.isEmpty(events)}">
-    	<h2>There are no current events.</h2>
+    	<h2>There are currently no current events.</h2>
     </div>
     
     
