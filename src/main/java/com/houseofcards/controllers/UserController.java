@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.houseofcards.entities.generated.Logininfo;
@@ -37,24 +38,24 @@ public class UserController {
     private UserValidator userValidator;
     
     
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration(Model model, HttpServletRequest request) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("newUser", new User());
         
         return "registration";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registration(@RequestParam User newUser, BindingResult bindingResult, Model model) {
+        userValidator.validate(newUser, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
-        userService.save(userForm);
+        userService.save(newUser);
 
-        Logininfo login = userForm.getLogininfo();
+        Logininfo login = newUser.getLogininfo();
         
         securityService.autologin(login.getUsername(), login.getPassword());
 

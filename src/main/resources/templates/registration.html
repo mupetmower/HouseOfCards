@@ -5,16 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Registration</title>
     
-    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
-    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
-    links/src stuff for js, jquery pugins, navigation stuff, etc -->
-    
-    <!-- This specific fragment holds all of the links and sources we need to include on each page.
-    These are things like css files, javascript files, etc.. This is where our bootstrap
-    source links are.  -->
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
-    
+        
+    <link href="../static/css/registration.css" th:href="@{/css/registration.css}" rel="stylesheet" media="screen"/>
+	
 </head>
 <body>
 	
@@ -51,22 +46,67 @@
 	            </p>
     		
 		    
-		        <form class="form-horizontal" th:action="@{/register}" method="post">
+		        <form class="form-horizontal" th:object="${newUser}" th:action="@{/register}" method="post">
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">First Name:</label>
+		                <div class="col-sm-7">
+		                    <input type="text" class="form-control" id="fName" name="fName" autofocus="autofocus" th:field="*{firstName}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">Last Name:</label>
+		                <div class="col-sm-7">
+		                    <input type="text" class="form-control" id="lName" name="lName" th:field="*{lastName}"/>
+		                </div>
+		            </div>
 		            
 		            <div class="form-group">
 		                <label for="username" class="col-sm-2 control-label">Username:</label>
 		                <div class="col-sm-7">
-		                    <input type="text" class="form-control" id="username" name="username" autofocus="autofocus"/>
+		                    <input type="text" class="form-control" id="username" name="username" th:field="*{logininfo.username}"/>
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label class="col-sm-2 control-label">Password:</label>
 		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" id="password" name="password"/>
+		                    <input type="password" class="form-control" id="password" name="password" th:field="*{logininfo.password}"/>
 		                </div>
 		            </div>
 		            
+		            <div class="form-group">
+		                <label class="col-sm-5 control-label">Confirm Password:</label>
+		                <div class="col-sm-7">
+		                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm"/>
+		                </div>
+		            </div>
+		            
+		            
+		            <div class="form-group row">
+		                <label class="col-sm-5">Do you want to be a Premium User?</label>
+		                
+	                	<label for="premiumUser" class="form-control col-sm-3">Premium
+	                    <input type="checkbox" class="" id="premiumUser" name="premiumUser"/>
+	                	</label>
+	                	
+	                	<button><span class="question-icon">&nbsp;&nbsp;&nbsp;<img width="25px" th:src="@{/images/ui/questionmarkicon.png}" /></span></button>
+	                	<div class=" form-group premium-explaination col-sm-9 form-control" >
+                	
+                		<p class="premium-explaination-text" style="display:none">
+                		A premium user has extra features that normal users do not. 
+                		You can create and maintain a list of your cards and products in your own database.
+                		<br>
+                		Premium membership costs just $5.00 a month!
+                		</p>
+                	</div>
+		            </div>
+		            
+                	
+		            
+		            
+		            <br><br>
 		            <div class="form-group">
 		                <div class="col-sm-3">
 		                    <input type="submit" class="form-control btn btn-default bg-dark text-white" value="Submit" />
