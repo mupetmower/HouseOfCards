@@ -77,14 +77,14 @@
 		            <div class="form-group">
 		                <label class="col-sm-2 control-label">Password:</label>
 		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" required id="passwordIn" name="passwordIn"/>
+		                    <input type="password" class="form-control" pattern="[*]{8,32}" required id="passwordIn" name="passwordIn"/>
 		                </div>
 		            </div>
 		            
 		            <div class="form-group">
 		                <label class="col-sm-5 control-label">Confirm Password:</label>
 		                <div class="col-sm-7">
-		                    <input type="password" class="form-control" required id="passwordConfirm" name="passwordConfirm"/>
+		                    <input type="password" class="form-control" pattern="[*]{8,32}" required id="passwordConfirm" name="passwordConfirm"/>
 		                </div>
 		            </div>
 		            
@@ -155,6 +155,8 @@
 </body>
 
 
+
+
 <script>
 
 $('#premiumUser').click(function(){
@@ -164,6 +166,8 @@ $('#premiumUser').click(function(){
     	document.getElementById('premium-explaination').style.display = "none";
     }
 });
+
+
 	
 </script>
 
