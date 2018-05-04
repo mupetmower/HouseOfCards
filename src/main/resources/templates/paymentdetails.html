@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Payment Details</title>   
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+    
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    
+    <style>
+    body {
+    	padding-top: 75px;
+    }
+    
+    
+    input[type="radio"]:checked + label {
+    border: 1px solid red;
+	}
+    
+	.radio-cardtype {
+		width: 60px;
+	}
+	
+    </style>
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	<div class="col-lg-6">
+        		
+        		<h2>Payment Information</h2>
+        		<p>Provide your payment details or make sure they are correct.</p>
+    
+		        <form class="form-horizontal" th:object="${paymentdetails}" th:action="@{'/cart/review/' + __${user.pkUserId}__}" method="post">
+		            <input type="hidden" th:field="*{pkPaymentId}">
+		            <input type="hidden" th:field="*{user}" th:value="*{user}">
+		            <input type="hidden" th:field="*{cardPresent}" th:value="true">
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Type:</label>
+		                <div class="col-sm-9">
+		                
+			                <div id="radio-group" th:field="*{cardType}" name="typeRadGroup">
+							    <input type="radio" name="radCardType" value="visa" id="visa" checked="checked" />
+							    <label for="visa">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-visa.png}">
+							    </label>
+							    
+							    
+							    <input type="radio" name="radCardType" value="mastercard" id="mastercard" />
+							    <label for="mastercard">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-mastercard.png}">
+							    </label>
+							    
+							    
+							    <input type="radio" name="radCardType" value="discover" id="discover" />
+							    <label for="discover">
+							    <img class="radio-cardtype" th:src="@{/images/ui/free-payment-buttons-discover.png}">
+							    </label>
+							    
+							</div>
+								                
+							<!-- <input list="card-types" class="form-control" required />
+		                    	<datalist id="card-types">
+		                    		<option value="Visa">
+		                    		<option value="Mastercard">
+		                    		<option value="Discover">
+		                    	</datalist> -->
+		                </div>
+		            </div>
+		           		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Name on Card:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" autofocus required class="form-control" th:field="*{cardHolderName}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Number:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" required pattern="[0-9]{16}" class="form-control" th:field="*{cardNumber}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Security Code:</label>
+		                <div class="col-sm-9">
+		                    <input type="text" required pattern="[0-9]{3}" class="form-control" th:field="*{cardSecurityCode}"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-3 control-label">Card Expiration:</label>
+		                <div class="col-sm-9">
+		                    <input type="date" required class="form-control"  name="cardExp"/>
+		                	<span class="validity"></span>
+		                </div>
+		            </div>
+		            <br>
+		            <div class="form-group">
+		                <div class="col-sm-9">
+                			<button type="submit" class="btn btn-default bg-dark text-white">Confirm Card Details</button>
+		                </div>
+		            </div>
+              
+		        </form>
+        
+        		
+        	</div>
+       
+    		<div class="col-lg-4">
+    			<div class="card">
+        			<div class="card-title text-center">
+        				<h4>Order Summary</h4>
+        			</div>
+        			
+        			<div class="card-body">
+        				<table>
+        					<tr>
+        						<td width="95%">Items Subtotal:</td>
+        						<td width="5%" class="align-right cart-subtotal-td"><font color="#800000"><div id="cart-subtotal" th:text="${'$' + #numbers.formatDecimal(subtotal, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        					<tr>
+        						<td width="95%">Tax:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-tax" th:text="${'$' + #numbers.formatDecimal(tax, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        					
+        					<hr>
+        					
+        					<tr><td></td><td><hr></td><td></td></tr>
+        					
+        					
+        					<tr>
+        						<td width="95%">Order Total:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-total" th:text="${'$' + #numbers.formatDecimal(total, 0, 'DEFAULT', 2, 'DEFAULT')}"></div></font></td>
+        					</tr>
+        				</table>
+        			</div>
+        			
+        			
+        		</div>
+    		
+    		</div>
+    		
+    		
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    
+    
+</body>
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+    
+    
+    
+<script>
+$(function() {
+    $( "#radio-group" ).buttonset();
+  });
+
+
+</script>
+
+
+    
+
+</html>

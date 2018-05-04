@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -26,6 +26,7 @@ public class Products implements java.io.Serializable {
 	private Integer inventoryQuantity;
 	private String thumbnailUri;
 	private String productDescription;
+	private Set<Cartitem> cartitems = new HashSet<Cartitem>(0);
 	private Set<Discountedproducts> discountedproductses = new HashSet<Discountedproducts>(0);
 	private Set<Saleitems> saleitemses = new HashSet<Saleitems>(0);
 	private Set<Customercardinventory> customercardinventories = new HashSet<Customercardinventory>(0);
@@ -44,15 +45,16 @@ public class Products implements java.io.Serializable {
 	}
 
 	public Products(BigDecimal price, String productName, Integer inventoryQuantity, String thumbnailUri,
-			String productDescription, Set<Discountedproducts> discountedproductses, Set<Saleitems> saleitemses,
-			Set<Customercardinventory> customercardinventories, Set<Topproducts> topproductses,
-			Set<Mtgcards> mtgcardses, Set<Productimage> productimages, Set<Pokemoncards> pokemoncardses,
-			Set<Ygocards> ygocardses) {
+			String productDescription, Set<Cartitem> cartitems, Set<Discountedproducts> discountedproductses,
+			Set<Saleitems> saleitemses, Set<Customercardinventory> customercardinventories,
+			Set<Topproducts> topproductses, Set<Mtgcards> mtgcardses, Set<Productimage> productimages,
+			Set<Pokemoncards> pokemoncardses, Set<Ygocards> ygocardses) {
 		this.price = price;
 		this.productName = productName;
 		this.inventoryQuantity = inventoryQuantity;
 		this.thumbnailUri = thumbnailUri;
 		this.productDescription = productDescription;
+		this.cartitems = cartitems;
 		this.discountedproductses = discountedproductses;
 		this.saleitemses = saleitemses;
 		this.customercardinventories = customercardinventories;
@@ -111,13 +113,22 @@ public class Products implements java.io.Serializable {
 		this.thumbnailUri = thumbnailUri;
 	}
 
-	@Column(name = "ProductDescription", nullable = false, length = 200)
+	@Column(name = "ProductDescription", nullable = false, length = 300)
 	public String getProductDescription() {
 		return this.productDescription;
 	}
 
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
+	public Set<Cartitem> getCartitems() {
+		return this.cartitems;
+	}
+
+	public void setCartitems(Set<Cartitem> cartitems) {
+		this.cartitems = cartitems;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "products")

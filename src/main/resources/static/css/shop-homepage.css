@@ -9,7 +9,9 @@ body {
 }
 
 .slider-container {
-	padding-top: 35px;	
+	padding-top: 35px;
+	position:relative;
+	z-index:99;
 }
 
 .leftnav-container {
@@ -33,14 +35,29 @@ body {
 .card-img-top {
 	width: 150px;
 	margin: 0 auto;
+	display: block;
 }
 
 
+footer {
+	text-align: center;
+}
 
+table {
+	display: flex;
+  	flex-wrap: wrap;
+ 	padding: 5px;
+}
 
 .row {
   display: flex;
   flex-wrap: wrap;
+  padding: 5px;
+}
+
+td {
+	flex: 30%;
+  max-width: 30%;
   padding: 5px;
 }
 
@@ -57,10 +74,14 @@ body {
 }
 
 /* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 991px) {
   .column {
     flex: 50%;
     max-width: 50%;
+  }
+  
+  leftnav {
+  	display: none;
   }
 }
 

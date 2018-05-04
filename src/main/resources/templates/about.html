@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>House of Cards</title>
+    
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
+    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
+    links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!-- This specific fragment holds all of the links and sources we need to include on each page.
+    These are things like css files, javascript files, etc.. This is where our bootstrap
+    source links are.  -->
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+</head>
+
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+	
+	<div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div> 	
+    
+    <div class="col-lg-10"> 
+        	        	
+        	        	
+    <!-- Page Content -->
+    
+      
+    <h1 class="mt-4 mb-3">About Us</h1>
+      <!-- Intro Content -->
+      <div class="row">
+      
+      
+      
+        <div class="col-lg-6">        
+        	<img class="img-fluid rounded mb-6" th:src="@{images/ui/hoc-gathering.jpg}" title="Our store room during an event"> 
+        </div>
+        
+        
+        <div class="col-lg-6">
+          <h2>What we do</h2>
+          <p>We are a card shop that sells high quality trading cards from games
+            such as Magic: The Gathering, Yu-Gi-Oh!, and Pokemon. We also sell
+            other table-top gaming products such as board games, along with card
+            gaming peripherals such as card sleeves, deck boxes, and playmats.</p>
+          <p>We also run many events including card gaming tournaments such as
+            Friday Night Magic, and tournaments for other trading card games. We
+            also run events for other table-top games such as Dungeons and
+            Dragons.</p>
+        </div>
+      </div>     
+      
+      
+      <br>
+      
+      
+      <!-- Team Members -->
+      <div class="row centered">
+      	<div class="col-lg-6 mb-6 card">
+      
+      		
+      
+        
+          <div class="card-body">
+          <h4 class="card-title">Address and Hours</h4>
+            <p class="card-text">4007 Country Club Rd</p>
+            <p class="card-text">Open 11:00 AM - 9:00 PM</p>
+          </div>
+      
+      </div>
+      </div>
+      <br>
+      
+      <div class="row">
+      	<div class="col-lg-6 mb-6 card">
+      
+        <div class="card-body">
+          <h4 class="card-title">Contact Us!</h4>
+          <h6 class="card-subtitle mb-2 text-muted"></h6>
+          <p class="card-text">Call: <a href="tel:3369305151">(336) 930-5151</a></p>
+          <p class="card-text">House of Cards on <a href="http://www.facebook.com/pg/houseofcardswinston">Facebook</a></p>
+          <p class="card-text">Email: <a href="mailto:wshouseofcards@gmail.com">wshouseofcards@gmail.com</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.container -->
+   
+        
+   </div>
+       
+    		<!-- You can insert more row divs if you want more rows in the first "row" the first
+    		"row is mostly just to get all content lined up -->
+    
+    
+    
+    		<!-- Then end the content with the closing divs for container and row.. You can 
+    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		
+    	</div>
+    </div>
+	
+</body>	
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>  
+</html>

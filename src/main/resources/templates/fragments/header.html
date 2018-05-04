@@ -4,6 +4,8 @@
 <meta charset="ISO-8859-1" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
 </head>
 <body>
@@ -31,18 +33,59 @@
             </div>
             
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                <ul class="nav navbar-nav ml-auto">
+                
+                	<!-- All Visitors -->
+                    <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/}">
-                            Home <span class="sr-only"></span>
+                            Home 
                         </a>
-                    </li>
+                    </li>  
+                                      
+                    <li class="nav-item"><a href="#" class="nav-link" th:href="@{/events}">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" th:href="@{/products}">Products</a> </li>
                     
-                    <li class="nav-item"> <a class="nav-link" href="#" th:href="@{/products}">Products</a> </li>
-                    <li class="nav-item"> <a class="nav-link" href="#">Login</a> </li>
+                    <!-- If user is premium -->
+                    <li class="nav-item"><a href="#" sec:authorize="hasAuthority('Premium')" class="nav-link" th:href="@{/premium/cards}">My Cards</a></li>
+                    
+                    <!-- If user is admin -->
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
+                    	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          					Admin
+        				</a>
+                    	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    	<a class="dropdown-item" href="#" th:href="@{/admin/topproducts}">Manage Top Products</a>
+                    		<a class="dropdown-item" href="#" th:href="@{/admin/report/new}">Reports</a>
+                    		<a class="dropdown-item" href="#" th:href="@{/admin/users/all}">Manage Users</a>
+                    	</div>
+                    </li>
+                	
+                	<!-- If Items in Cart -->
+                	<li sec:authorize="!isAnonymous()" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart<span class="w3-badge w3-tiny w3-red"><text th:if="${cartsize &gt; 0}" th:text="${cartsize}"/></span></a></li>
+                	
+                	<!-- If is User But no Items in Cart 
+                	<li sec:authorize="!isAnonymous()" th:unless="${cartsize &gt; 0}" class="nav-item"><a class="nav-link" href="#" th:href="@{'/cart/' + __${user.pkUserId}__}">Cart</a></li>
+                	-->
+                	                	
+                	<!-- If no user logged in -->
+                	<li sec:authorize="isAnonymous()" class="nav-item"><a class="nav-link" href="#" th:href="@{/login}">Login</a></li>
+                	                	
+                	<!-- If user is logged in -->
+                	<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="#" th:href="@{/logout}">Logout</a></li>
+                	
                 </ul>
             </div>
         
+        	<script>
+        	$(document).ready(function() {
+        		// get current URL path and assign 'active' class
+        		var pathname = window.location.pathname;
+        		//$('.nav > li > a').find(".active").removeClass("active");
+        		$('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+
+        		
+        	})
+        	</script>
     	</nav>
     </div>
 </div>

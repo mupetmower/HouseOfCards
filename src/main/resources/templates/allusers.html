@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta name="viewport" content="width=device-width">
+    <title>Manage Users</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+	
+	
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-2">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	
+        </div>
+        
+    <div class="col-lg-10">
+        
+    <div th:if="${not #lists.isEmpty(allusers)}">
+        <h2>All Users</h2>
+        <table class="table table-fluid table-striped">
+            <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+				<th>IsPremium</th>                
+                
+                <th sec:authorize="hasRole('ROLE_ADMIN')" >Remove</th>
+                
+            </tr>
+            <tr th:each="u, iter : ${allusers}">        	
+                <td th:text="${u.pkUserId}">Id</a></td>
+                
+                <td th:text="${u.logininfo.username}">Username</td>
+                <td th:text="${u.firstName} + ' ' + ${u.lastName}">Full Name</td>
+                <td th:text="${u.email}">Email</td>
+                
+                <td th:text="${u.phoneNumber}">>Phone</td>
+                <td th:text="${u.isPremium}">>IsPremium</td>
+                               
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/users/delete/' + u.pkUserId}">Delete</a></td>
+                
+            </tr>
+            	
+        </table>
+
+                
+                
+   		
+                
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    
+</div>
+</div>
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+
+</body>
+</html>

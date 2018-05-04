@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
+    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
+    links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!-- This specific fragment holds all of the links and sources we need to include on each page.
+    These are things like css files, javascript files, etc.. This is where our bootstrap
+    source links are.  -->
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-3">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	
+        	        	
+         	<!-- Actual Page Body Content goes here -->
+		<div class="col-lg-9">
+			<h2>Add Card</h2>
+			<div>
+				
+			
+			<table class="table table-striped">
+			<tr>
+					<td>Card Name:</td>
+					<td><input type="text" name="cardname"></td>
+			</tr>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>View</th>
+                
+                
+                
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.pkProductId}"><a href="/product/${product.pkProductId}">Id</a></td>
+                
+                <td th:text="${product.productName}">Product Name</td>
+                <td th:text="${product.productDescription}">Description</td>
+                <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}"></td>
+                <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
+                
+            </tr>
+			<tr>
+				<td><button type="button" name="addcard" style="height:25px;width:175px">Add Card</button></td>
+			</tr>
+        </table>
+			
+			
+			
+			
+			
+			
+			
+    		<!-- You can insert more row divs if you want more rows in the first "row" the first
+    		"row is mostly just to get all content lined up -->
+    
+    
+    
+    		<!-- Then end the content with the closing divs for container and row.. You can 
+    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		</div>
+		</div>
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+</html>

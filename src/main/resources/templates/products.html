@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-
+<meta name="viewport" content="width=device-width">
     <title>Products List</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
     
 	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
 	
+	
+	
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     
     <div class="row">
     	<div class="col-lg-2">
         	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	
+        	<div sec:authorize="hasRole('ROLE_ADMIN')">
+        		<div class="nav-item"><a class="nav" th:href="@{/admin/product/new}"><button style="font-size: 14px" class="form-control btn btn-default bg-dark text-white">Add New Product</button></a></div>
+        	</div>
         </div>
-    <div class="col-lg-9">  
+        
+    <div class="col-lg-10">
         
     <div th:if="${not #lists.isEmpty(products)}">
         <h2>Product List</h2>
-        <table class="table table-striped">
+        <table class="table table-fluid table-striped">
             <tr>
                 <th>Product Id</th>
                 <th>Product Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Stock</th>
                 <th>Image</th>
                 <th>View</th>
-                <th>Edit</th>
                 
+                <th sec:authorize="hasRole('ROLE_USER')">Add To Cart</th>
+                
+                <!-- Only if user is admin -->
+                <th sec:authorize="hasRole('ROLE_ADMIN')" >Edit</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')" >Remove</th>
                 
             </tr>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.pkProductId}"><a href="/product/${product.pkProductId}">Id</a></td>
+            <tr th:each="product, iter : ${products}">        	
+                <td><a th:href="${'/product/' + product.pkProductId}" th:text="${product.pkProductId}">Id</a></td>
                 
                 <td th:text="${product.productName}">Product Name</td>
                 <td th:text="${product.productDescription}">Description</td>
                 <td th:text="${product.price}">Price</td>
-                <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}"></td>
+                
+                <td th:if="${product.inventoryQuantity} > 0"><font color="2AC71D">In Stock</font></td>
+                <td th:unless="${product.inventoryQuantity} > 0"><font color="FF0000">Out of Stock</font></td>
+                
+                <td><img class="product-thumbnail" th:src="@{__${product.thumbnailUri}__}" style="cursor:zoom-in" onclick="onClick(this)"></td>                
+                
                 <td><a th:href="${ '/product/' + product.pkProductId}">View</a></td>
-                <td><a th:href="${'/product/edit/' + product.pkProductId}">Edit</a></td>
+                
+                <td sec:authorize="hasRole('ROLE_USER')" th:if="${product.inventoryQuantity} > 0">
+					<a th:href="@{'/cart/addtocart/' + __${user.pkUserId}__ + '/' + __${product.pkProductId}__}">Add</a>
+				</td>
+                
+                
+                <!-- Only if user is admin -->
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/edit/' + product.pkProductId}">Edit</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')" ><a th:href="${'/admin/product/delete/' + product.pkProductId}">Delete</a></td>
+                
             </tr>
+            	
         </table>
 
+                
+                
+   		
+                
     </div>
+    
+    
+    <div id="modalView" class="w3-modal " onclick="this.style.display='none'">
+		<span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+		<div class="w3-modal-content w3-animate-zoom" style="max-width:35em">
+ 			<img id="modalImage" width="100%">
+		</div>
+	</div>        
+    <script>
+    function onClick(element) {
+       	document.getElementById("modalImage").src = element.src;
+        document.getElementById("modalView").style.display = "block";
+    }
+    </script>
+    
+    
     
     <div th:unless="${not #lists.isEmpty(products)}">
     	<h2>Products List is Empty</h2>

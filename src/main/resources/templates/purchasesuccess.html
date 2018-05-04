@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purchase Results</title>
+    
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    <style>
+    body {
+    	padding-top:75px;
+    }
+    </style>
+</head>
+<body>
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    
+    <div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	<div class="col-lg-10"> 
+        	        	
+         	<div class="col-lg-10 text-center">
+       			<h3 th:text="${purchasemessage}"></h3>
+       			<p>Browse our <a th:href="@{/products}">Products</a></p>
+       			<p>Or Back to <a th:href="@{/}">Home</a></p>
+       		</div>
+        
+        
+        	</div>
+       
+    		
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+</html>

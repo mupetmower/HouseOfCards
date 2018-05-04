@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+ 
+    <title>Spring Framework Guru</title>
+ 
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+    
+    <style>
+    body {
+    	padding-top: 75px;
+    }
+    
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    
+    
+ 
+    <h2>Request Reports</h2>
+    <br>
+    
+    <!-- Div to hold tabs and give default styling -->
+	<div data-tabs-role="tabs" class="tabs tabs_style_default tabs_color_gray">
+	
+		<!-- These are the heads for the tabs. These point to the tab bodies below -->
+   		<div class="tabs__head">
+			<button class="tabs__tab" type="button" data-tabs-target="default-reports-tab" data-tabs-role="tab">Default Reports</button>
+			<button class="tabs__tab" type="button" data-tabs-target="sales-details-tab" data-tabs-role="tab">Sales Details</button>
+		</div>
+		
+
+
+
+<!-- Default Reports Tab -->
+			
+		<!-- A tab body -->
+		<div class="tabs__body">
+			<div class="tabs__pane" data-tabs-id="default-reports-tab">
+						
+				<h4>Pick a Default Report</h4>
+												
+				<form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/products/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Products Report</label><input type="submit" id="btnProducts" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>
+		        
+		        <form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/sales/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Sales Report</label><input type="submit" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>
+		        		        		        
+		        <form class="form-horizontal" target="_blank" th:action="@{/admin/report/default/users/pdfreport}" method="get">
+		            <div class="form-group">
+		            	<label class="col-sm-3">Users Report</label><input type="submit" value="Generate" class="btn btn-default btn-sm bg-dark text-white" />
+		            </div>
+		        </form>		
+				
+				
+			</div>					
+		</div>
+		
+		
+<!-- Custom Reports Tab -->		
+		
+		<div class="tabs__body">
+			<div class="tabs__pane" data-tabs-id="sales-details-tab">
+			
+				<h4>Sales Details</h4>
+				
+				<iframe width="1200" height="800" th:src="@{https://app.powerbi.com/view?r=eyJrIjoiM2JjNzFkNWItOGM5OS00MDNjLThhNTYtNTExNzhmOTRiMzgxIiwidCI6IjVmMGJmOGE4LTdjZGUtNGJhMC04ZDdhLTEzYzM4MGEwMDFiNSIsImMiOjF9}" frameborder="0" allowFullScreen="true"></iframe>
+				
+			</div>					
+		</div>
+		
+   	</div>
+   
+</div>
+
+<script>
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+$(document).ready(function() {
+	WindowLoad();
+});
+
+//OnLoad
+function WindowLoad(event) {
+	$('[data-tabs-role="tabs"]').tabs();
+	$(window).on('change.tabs', function(event) {
+		event.preventDefault();
+		console.log('change');
+	});
+	
+}
+
+
+
+
+</script>
+
+<br>
+<br>
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+ 
+</body>
+
+</html>

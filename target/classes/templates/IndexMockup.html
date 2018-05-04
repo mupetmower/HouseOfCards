@@ -17,7 +17,7 @@
     
     <div class="container-fluid">
     	<div class="row">
-    		<div class="col-lg-3">
+    		<div class="col-lg-2">
         		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
         	</div>
         	<!-- /.col-lg-3 -->
@@ -25,13 +25,13 @@
         	
          	<!-- Page Content -->
         
-        	<!-- bxSlider instead of Carousel - giving 4 random product images each page load -->
+        	<!-- bxSlider instead of Carousel - giving random product images each page load -->
         	
-            <div class="col-lg-9">
+            <div class="col-lg-10">
             <div class="slider-container">  
             <div class="bxslider">
-            	<div th:each="product : ${products}" th:if="${productStat.index} < 5">            			
-            		<div><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></div>
+            	<div th:each="product : ${products}">            			
+            		<div><a th:href="@{'product/' + __${product.pkProductId}__}"><img class="home-bxslider-img" th:src="@{__${product.thumbnailUri}__}" th:title="${product.productDescription}"></a></div>
             	</div>
             </div>
             </div>            
@@ -46,9 +46,12 @@
             	});
             </script>
                
+               
+           	
           
                 <!-- Rows of top products -->
-        
+        	
+        	<h3>Featured Products</h3>
         	<topproducts>
         	        	
             <!--/*/ <th:block th:include="fragments/topproducts :: topproducts"></th:block> /*/-->

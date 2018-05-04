@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,6 +53,7 @@ public class Customercardinventory implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_PremiumID", nullable = false)
 	public Premiumcustomerdetails getPremiumcustomerdetails() {
 		return this.premiumcustomerdetails;
 	}

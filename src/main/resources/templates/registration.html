@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registration</title>
+    
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+        
+    <link href="../static/css/registration.css" th:href="@{/css/registration.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	
+        	        	
+         	<!-- Actual Page Body Content goes here -->
+        
+        
+        	<div class="col-lg-6">
+        	
+	        	<h1>User Registration</h1>
+	        	    		
+	    		<p th:if="${param.error}" class="alert alert-error">    
+	                Invalid username or password.
+	            </p>
+	            
+    		
+		    
+		        <form id class="form-horizontal" th:object="${newUser}" th:action="@{/register}" method="post">
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">First Name:</label>
+		                <div class="col-sm-7">
+		                    <input type="text" class="form-control" required id="fName" name="fName" autofocus="autofocus" />
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">Last Name:</label>
+		                <div class="col-sm-7">
+		                    <input type="text" class="form-control" required id="lName" name="lName" />
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-5 control-label">Email:</label>
+		                <div class="col-sm-7">
+		                    <input type="email" class="form-control" required id="emailIn" name="emailIn"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label for="username" class="col-sm-2 control-label">Username:</label>
+		                <div class="col-sm-7">
+		                    <input type="text" class="form-control" required id="usernameIn" name="usernameIn"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label">Password:</label>
+		                <div class="col-sm-7">
+		                    <input type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required id="passwordIn" name="passwordIn"/>
+		                </div>
+		            </div>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-5 control-label">Confirm Password:</label>
+		                <div class="col-sm-7">
+		                    <input type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required id="passwordConfirm" name="passwordConfirm"/>
+		                </div>
+		            </div>
+		            
+		            
+		            <div class="a-group form-group row">
+		                <label class="col-sm-5">Do you want to be a Premium User?</label>
+		                
+	                	<label for="premiumUser" class="form-control col-sm-3">Premium
+	                    <input type="checkbox" class="chkPremium" id="premiumUser" name="premiumUser"/>
+	                	</label>
+	                	
+	             <!--    	<div class="data-tip" data-tip="A premium user has extra features that normal users do not. 
+                		You can create and maintain a list of your cards and products in your own database.
+                		
+                		Premium membership costs just $5.00 a month!">
+	                	<a class="question-icon-a"><span class="question-icon">&nbsp;&nbsp;&nbsp;<img width="25px" th:src="@{/images/ui/questionmarkicon.png}" /></span></a>
+	                	
+	                	</div>
+	                	-->
+		            </div>
+		            
+                	<div id="premium-explaination" class="form-group premium-explaination col-sm-9 form-control" style="display:none">
+                	
+                		<p class="tooltiptext premium-explaination-text" style="font-size:.75em"><i>
+                		A premium user has extra features that normal users do not. 
+                		You can create and maintain a list of your cards and products in your own database.
+                		<br>
+                		Premium membership costs just $5.00 a month!
+                		<br>
+                		Hitting submit with this checked will take you to Payment Details before registration.
+                		</p></i>
+                	</div>
+		            
+		            
+		            <br><br>
+		            <div class="form-group">
+		                <div class="col-sm-3">
+		                    <input type="submit" class="form-control btn btn-default bg-dark text-white" value="Submit" />
+		                </div>
+		            </div>
+		            
+		        </form>
+		   	</div>
+        
+        
+       
+    		<!-- You can insert more row divs if you want more rows in the first "row" the first
+    		"row is mostly just to get all content lined up -->
+    
+    
+    
+    		<!-- Then end the content with the closing divs for container and row.. You can 
+    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+
+
+<script type="javascript">
+
+</script>
+
+<script>
+
+$('#premiumUser').click(function(){
+    if($(this).is(':checked')){
+        document.getElementById('premium-explaination').style.display = "inline-block";
+    } else {
+    	document.getElementById('premium-explaination').style.display = "none";
+    }
+});
+
+var password = document.getElementById("passwordIn")
+, confirm_password = document.getElementById("passwordConfirm");
+
+function validatePassword(){
+if(password.value != confirm_password.value) {
+  confirm_password.setCustomValidity("Passwords Don't Match");
+} else {
+  confirm_password.setCustomValidity('');
+}
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+	
+</script>
+
+
+</html>

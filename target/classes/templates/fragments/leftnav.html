@@ -16,13 +16,13 @@
     <!-- Left Vertical Nav -->
 <div class="leftnav-container">
     
-	<h1 class="my-4">House of Cards</h1>
+	<h2 class="my-4">House of Cards</h2>
 	<div class="list-group">
+		
+    	<a href="#" class="list-group-item" th:href="@{/}">Home</a>
     	<a href="#" class="list-group-item" th:href="@{/events}">Events</a>
     	<a href="#" class="list-group-item" th:href="@{/products}">Products</a>
-    	<a href="#" class="list-group-item">
-        	Category 3
-    	</a>
+    	<a href="#" sec:authorize="hasAuthority('Premium')" class="list-group-item" th:href="@{/premium/cards}">My Cards</a>
 	</div>
 
 </div> 	

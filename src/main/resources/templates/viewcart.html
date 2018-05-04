@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cart</title>
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+    
+	<link href="../static/css/cart.css" th:href="@{/css/cart.css}" rel="stylesheet" media="screen"/>
+	
+    
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container-fluid">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-2">
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	
+        	<div th:if="${not #lists.isEmpty(cartitems)}" class="col-lg-10">
+        	
+        	<form id="checkoutForm" th:action="@{'/cart/checkoutrequest/' + ${user.pkUserId}}" method="post">
+        	
+        		<input type="hidden" id="checkoutData" name="request">
+	        	<input type="hidden" id="cartItems2" th:value="${cartitems}">
+	        	<input type="hidden" id="mainUserId" th:value="${user.pkUserId}">
+	        
+        		<div class="row">
+        		<div class="col-lg-8">
+        		<h3>Shopping Cart</h3>
+        		
+        			<table class="cart-items-table">	        		
+	        			<tr th:each="item : ${cartitems}">
+	        			
+	        			<td><img th:src="@{__${item.products.thumbnailUri}__}" style="max-width:125px"></td>
+	        			
+	        			<td class="item-info"><table>
+	        				<tr><td class="item-name" ><h4 th:text="${item.products.productName}"></h4></td></tr>
+							<tr><td class="item-description" th:text="${item.products.productDescription}"></td></tr>
+	        				<tr><td class="item-remove"><a class="remove-item-link" th:href="@{'/cart/remove/' + __${user.pkUserId}__ + '/' + __${item.pkCartId}__}">Remove</a></td></tr>
+	        			</table></td>
+	        			
+						<td class="item-price"  th:value="${item.products.price}" th:text="${'$' + item.products.price}" align="center"></td>
+						
+						<td class="item-quantity">
+							<input type="number" name="quantity" th:id="quantity + ${item.pkCartId}"
+							th:value="${item.quantity}" th:max="${item.products.inventoryQuantity}" min="1"
+							onchange="updateSubtotal();" onkeyup="updateSubtotal();" />
+							
+							<input type="hidden" name="price" th:id="price + ${item.pkCartId}" th:value="${item.products.price}">
+							<input type="hidden" name="itemId" th:id="itemId + ${item.pkCartId}" th:value="${item.pkCartId}">
+        					<input type="hidden" name="productId" th:id="productId + ${item.pkCartId}" th:value="${item.products.pkProductId}">
+        					<input type="hidden" name="userId" th:id="userId + ${item.pkCartId}" th:value="${item.user.pkUserId}">
+						</td>
+						
+						</tr>
+	        		</table>
+	        		
+        		</div>
+        		
+        		<div class="col-lg-4">
+        		<br><br><br>
+        		<div class="card">
+        			<div class="card-title text-center">
+        				<h4>Order Summary</h4>
+        			</div>
+        			
+        			<div class="card-body">
+        				<table>
+        					<tr>
+        						<td width="95%">Items Subtotal:</td>
+        						<td width="5%" class="align-right cart-subtotal-td"><font color="#800000"><div id="cart-subtotal"></div></font></td>
+        					</tr>
+        					<tr>
+        						<td width="95%">Tax:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-tax"></div></font></td>
+        					</tr>
+        					
+        					<hr>
+        					
+        					<tr><td></td><td><hr></td><td></td></tr>
+        					
+        					
+        					<tr>
+        						<td width="95%">Order Total:</td>
+        						<td width="5%" class="align-right cart-tax-td"><font color="#800000"><div id="cart-total"></div></font></td>
+        					</tr>
+        				</table>
+        			</div>
+        			
+        			<div class="card-footer text-center">
+        				<button id="btncheckout" class="btn btn-default bg-dark text-white">Proceed to Checkout</button>
+        			</div>
+        		</div>
+    				
+    				
+    				
+    				
+    			</div>
+        		</div>	
+        		</form>
+        		
+        		
+    		</div>
+        	
+       		<div th:if="${#lists.isEmpty(cartitems)}" class="col-lg-10 text-center">
+       			<h3>Cart is Empty</h3>
+       			<p>Browse our <a th:href="@{/products}">Products</a></p>
+       		</div>
+    		
+    		
+    		
+    		
+    		
+    		
+    	</div>
+    </div>
+   
+
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+
+
+<script th:inline="javascript">
+
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+$(document).ready(function() {
+	WindowLoad();
+});
+
+//OnLoad
+function WindowLoad(event) {	
+	initSockJS();
+	updateSubtotal();	
+	
+}
+
+var stompClient = null;
+
+function initSockJS() {
+	
+	 var socket = new SockJS("/sockjs-websocket");
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        //setConnected(true);
+	        console.log('Connected: ' + frame);
+	        //stompClient.subscribe('/topic/updatepoints', function (response) {
+	            //showResponse(JSON.parse(response.body).content);
+	        	//updatePoints((JSON.parse(response.body)));
+	        //});
+	        
+	        
+	    });
+	
+	    
+}
+
+
+$('#btncheckout').click(function(){
+    sendCheckoutRequest();
+});
+
+
+	
+function updateSubtotal() {
+
+	var subtotalDisplay = document.getElementById('cart-subtotal');
+	var subtotal = 0;
+
+	
+	cm = /*[[${cartmessage}]]*/;
+	cmis = cm.cartMessageItems;
+	
+	
+	
+
+	//var qtyMap = new Map();
+	
+	for (var i = 0; i < cmis.length; i++) {
+		//var qty = cmis[i].quantity;
+		//console.log("qty " + i + ": " + qty);
+		
+		//var q = document.getElementById('quantity' + cmis[i].itemId).value;
+		
+		//console.log("quantity + itemId control value: " + q);
+		
+		//qtyMap.set(cmis[i].itemId, cmis[i].quantity);
+		//for (var [key, value] of qtyMap) {
+			  //console.log('ItemId: ' + key + ' had Old Qty: ' + value);
+		//}
+		
+		//console.log("Price: " + Number(document.getElementById('price' + cmis[i].itemId).value));
+
+		//qtyMap.set(cmis[i].itemId, q)
+		//console.log(cmis[i].itemId);
+		subtotal = subtotal + (Number((document.getElementById('quantity' + cmis[i].itemId).value) * Number(document.getElementById('price' + cmis[i].itemId).value)));
+		
+	}
+		
+	
+	//for (var [key, value] of qtyMap) {
+		  //console.log('ItemId: ' + key + ' has New Qty: ' + value);
+	//}
+	
+
+	var request = {
+			cartMessageItems: []
+	};
+	
+	//var cartMsgItems = {}
+	
+	cm = /*[[${cartmessage}]]*/;
+	cmis = cm.cartMessageItems;
+	
+	
+	for (var i = 0; i < cmis.length; i++) {
+		var cartMsgItem = {};
+		
+		//cartMsgItem["itemId"] = document.getElementById('itemId' + cmis[i].itemId).value;
+		//cartMsgItem["productId"] = document.getElementById('productId' + cmis[i].itemId).value;
+		//cartMsgItem["userId"] = document.getElementById('userId' + cmis[i].itemId).value;
+		//cartMsgItem["quantity"] = document.getElementById('quantity' + cmis[i].itemId).value;
+
+		
+
+	    request.cartMessageItems.push({ 
+	        "itemId"	: document.getElementById('itemId' + cmis[i].itemId).value,
+	        "productId"	: document.getElementById('productId' + cmis[i].itemId).value,
+	        "userId"	: document.getElementById('userId' + cmis[i].itemId).value,
+	        "quantity"	: document.getElementById('quantity' + cmis[i].itemId).value
+	    });
+	}
+	
+
+	//request["cartMessageItems"] = cartMsgItems;
+		        
+	//stompClient.send("/msg/checkoutrequest", {}, JSON.stringify(request));
+
+	document.getElementById("checkoutData").value = JSON.stringify(request);
+	
+	
+	
+	
+	
+	document.getElementById('cart-subtotal').innerHTML = "$" + subtotal.toFixed(2);
+	
+	var tax = subtotal * 0.07;
+	
+	document.getElementById('cart-tax').innerHTML = "$" + tax.toFixed(2);
+	
+	var total = tax + subtotal;
+
+	document.getElementById('cart-total').innerHTML = "$" + total.toFixed(2);	
+
+
+
+
+	console.log("SUBTOTAL: " + subtotal);
+}
+
+
+
+
+
+/*]]>*/
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+/* function sendCheckoutRequest() {
+	console.log("SENDING Checkout Request..");
+	
+	var request = {
+			cartMessageItems: []
+	};
+	
+	//var cartMsgItems = {}
+	
+	cm = /*[[${cartmessage}]]*/;
+	/*cmis = cm.cartMessageItems;
+	
+	
+	for (var i = 0; i < cmis.length; i++) {
+		var cartMsgItem = {};
+		
+		//cartMsgItem["itemId"] = document.getElementById('itemId' + cmis[i].itemId).value;
+		//cartMsgItem["productId"] = document.getElementById('productId' + cmis[i].itemId).value;
+		//cartMsgItem["userId"] = document.getElementById('userId' + cmis[i].itemId).value;
+		//cartMsgItem["quantity"] = document.getElementById('quantity' + cmis[i].itemId).value;
+
+		
+
+	    request.cartMessageItems.push({ 
+	        "itemId"	: document.getElementById('itemId' + cmis[i].itemId).value,
+	        "productId"	: document.getElementById('productId' + cmis[i].itemId).value,
+	        "userId"	: document.getElementById('userId' + cmis[i].itemId).value,
+	        "quantity"	: document.getElementById('quantity' + cmis[i].itemId).value
+	    });
+	}
+	
+
+	//request["cartMessageItems"] = cartMsgItems;
+		        
+	//stompClient.send("/msg/checkoutrequest", {}, JSON.stringify(request));
+
+	document.getElementById("checkoutData").value = JSON.stringify(request);
+	document.getElementById("checkoutForm").submit;
+
+} */
+</script>
+
+</html>

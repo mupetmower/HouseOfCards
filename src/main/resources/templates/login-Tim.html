@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    
+    <!-- Here is how thymeleaf uses its fragments.. I know it looks like a comment, but its not.
+    I can help if you guys want to make any more fragments for stuff that will be on every page, such as 
+    links/src stuff for js, jquery pugins, navigation stuff, etc -->
+    
+    <!-- This specific fragment holds all of the links and sources we need to include on each page.
+    These are things like css files, javascript files, etc.. This is where our bootstrap
+    source links are.  -->
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+
+</head>
+<body>
+	
+	
+	<!-- This is where the top navigation bar is held.. -->
+	
+	<header><!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/--></header>
+    
+    
+    <!-- Start each page body with these two divs.. Also the next div and leftnav -->
+    <div class="container">
+    	<div class="row">
+    	
+    	
+    	<!-- This is the left vertical navigation menu. -->
+    		<div class="col-lg-3">    		
+        		<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        	</div>
+        	
+        	
+        	        	
+         	<!-- Actual Page Body Content goes here -->
+		<div class="col-lg-9">
+			<h2>Login</h2>
+			<div>
+
+			
+			
+			<table class="table table-striped">
+				<tr>
+					<td>Username:</td>
+					<td><input type="text" name="username"></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="text" name="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="login" style="height:25px;width:175px">Login</button></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button type="button" name="forgotlogin" style="height:25px;width:175px">Forgot login</button></td>
+				</tr>
+			</table>
+			
+			
+			
+			
+    		<!-- You can insert more row divs if you want more rows in the first "row" the first
+    		"row is mostly just to get all content lined up -->
+    
+    
+    
+    		<!-- Then end the content with the closing divs for container and row.. You can 
+    		Also add more rows after this if needed, but we shouldnt need to. -->
+    		</div>
+		</div>
+    	</div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer is held in this fragment -->
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+    
+</body>
+</html>

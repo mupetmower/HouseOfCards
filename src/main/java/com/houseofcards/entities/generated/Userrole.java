@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,19 +20,19 @@ import javax.persistence.Table;
 public class Userrole implements java.io.Serializable {
 
 	private Integer pkUserRoleId;
-	private String roleType;
-	private Set<Logininfo> logininfos = new HashSet<Logininfo>(0);
+	private String posRole;
+	private Set<User> users = new HashSet<User>(0);
 
 	public Userrole() {
 	}
 
-	public Userrole(String roleType) {
-		this.roleType = roleType;
+	public Userrole(String posRole) {
+		this.posRole = posRole;
 	}
-
-	public Userrole(String roleType, Set<Logininfo> logininfos) {
-		this.roleType = roleType;
-		this.logininfos = logininfos;
+	
+	public Userrole(String posRole, Set<User> users) {
+		this.posRole = posRole;
+		this.users = users;
 	}
 
 	@Id
@@ -47,22 +47,22 @@ public class Userrole implements java.io.Serializable {
 		this.pkUserRoleId = pkUserRoleId;
 	}
 
-	@Column(name = "RoleType", nullable = false, length = 20)
-	public String getRoleType() {
-		return this.roleType;
+	@Column(name = "PosRole", length = 20)
+	public String getPosRole() {
+		return this.posRole;
 	}
 
-	public void setRoleType(String roleType) {
-		this.roleType = roleType;
+	public void setPosRole(String posRole) {
+		this.posRole = posRole;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userrole")
-	public Set<Logininfo> getLogininfos() {
-		return this.logininfos;
+	public Set<User> getUsers() {
+		return this.users;
 	}
 
-	public void setLogininfos(Set<Logininfo> logininfos) {
-		this.logininfos = logininfos;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 }

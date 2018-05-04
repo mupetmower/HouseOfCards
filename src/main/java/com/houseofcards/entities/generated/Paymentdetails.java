@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ public class Paymentdetails implements java.io.Serializable {
 	private String cardSecurityCode;
 	private String cardHolderName;
 	private Date cardExpiration;
-	private byte[] cardPresent;
+	private Boolean cardPresent;
 
 	public Paymentdetails() {
 	}
@@ -44,7 +44,7 @@ public class Paymentdetails implements java.io.Serializable {
 	}
 
 	public Paymentdetails(User user, String cardType, String cardNumber, String cardSecurityCode, String cardHolderName,
-			Date cardExpiration, byte[] cardPresent) {
+			Date cardExpiration, Boolean cardPresent) {
 		this.user = user;
 		this.cardType = cardType;
 		this.cardNumber = cardNumber;
@@ -123,11 +123,11 @@ public class Paymentdetails implements java.io.Serializable {
 	}
 
 	@Column(name = "CardPresent")
-	public byte[] getCardPresent() {
+	public Boolean getCardPresent() {
 		return this.cardPresent;
 	}
 
-	public void setCardPresent(byte[] cardPresent) {
+	public void setCardPresent(Boolean cardPresent) {
 		this.cardPresent = cardPresent;
 	}
 

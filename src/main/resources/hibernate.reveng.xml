@@ -38,8 +38,12 @@
 		match-catalog="houseofcards">
 	</table-filter>
 	<table-filter match-name="products" match-catalog="houseofcards"></table-filter>
+	<table-filter match-name="role" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="sale" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="saleitems" match-catalog="houseofcards"></table-filter>
+	<table-filter match-name="topproducts"
+		match-catalog="houseofcards">
+	</table-filter>
 	<table-filter match-name="user" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="userrole" match-catalog="houseofcards"></table-filter>
 	<table-filter match-name="ygocards" match-catalog="houseofcards"></table-filter>
@@ -47,9 +51,6 @@
 	<table-filter match-name="ygosetseries"
 		match-catalog="houseofcards">
 	</table-filter>
-	<table-filter match-name="topproducts"
-		match-catalog="houseofcards">
-	</table-filter>
 	<table-filter match-schema="houseofcards" match-name=".*"></table-filter>
-
+	<table-filter match-name="cartitem" match-catalog="houseofcards"></table-filter>
 </hibernate-reverse-engineering>

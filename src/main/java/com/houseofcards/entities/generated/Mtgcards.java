@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -26,12 +26,12 @@ public class Mtgcards implements java.io.Serializable {
 	private Mtgsetseries mtgsetseries;
 	private Products products;
 	private String cardName;
-	private byte[] promo;
+	private boolean promo;
 
 	public Mtgcards() {
 	}
 
-	public Mtgcards(MtgcardsId id, Products products, String cardName, byte[] promo) {
+	public Mtgcards(MtgcardsId id, Products products, String cardName, boolean promo) {
 		this.id = id;
 		this.products = products;
 		this.cardName = cardName;
@@ -39,7 +39,7 @@ public class Mtgcards implements java.io.Serializable {
 	}
 
 	public Mtgcards(MtgcardsId id, Cardcondition cardcondition, Mtgrarity mtgrarity, Mtgsetseries mtgsetseries,
-			Products products, String cardName, byte[] promo) {
+			Products products, String cardName, boolean promo) {
 		this.id = id;
 		this.cardcondition = cardcondition;
 		this.mtgrarity = mtgrarity;
@@ -112,11 +112,11 @@ public class Mtgcards implements java.io.Serializable {
 	}
 
 	@Column(name = "Promo", nullable = false)
-	public byte[] getPromo() {
+	public boolean isPromo() {
 		return this.promo;
 	}
 
-	public void setPromo(byte[] promo) {
+	public void setPromo(boolean promo) {
 		this.promo = promo;
 	}
 

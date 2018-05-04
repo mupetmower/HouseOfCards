@@ -1,0 +1,21 @@
+@charset "ISO-8859-1";
+
+
+body {
+	padding-top: 75px;
+}
+
+
+.item-price {
+	color: #870e22;
+	font-weight: bold;
+}
+
+.remove-item-link {
+	color: #043ce2;
+}
+
+.cart-subtotal {
+	display: block;
+	text-align: right;
+}

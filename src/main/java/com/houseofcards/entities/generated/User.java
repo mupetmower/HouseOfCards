@@ -1,5 +1,5 @@
 package com.houseofcards.entities.generated;
-// Generated Apr 10, 2018 11:28:08 AM by Hibernate Tools 5.2.8.Final
+// Generated Apr 30, 2018 1:29:43 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,20 +22,27 @@ import javax.persistence.Table;
 public class User implements java.io.Serializable {
 
 	private Integer pkUserId;
+	private Logininfo logininfo;
+	private Role role;
+	private Userrole userrole;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
-	private byte[] isPremium;
+	private boolean isPremium;
 	private String email;
 	private Set<Premiumcustomerdetails> premiumcustomerdetailses = new HashSet<Premiumcustomerdetails>(0);
-	private Set<Logininfo> logininfos = new HashSet<Logininfo>(0);
 	private Set<Sale> sales = new HashSet<Sale>(0);
+	private Set<Cartitem> cartitems = new HashSet<Cartitem>(0);
 	private Set<Paymentdetails> paymentdetailses = new HashSet<Paymentdetails>(0);
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String phoneNumber, byte[] isPremium, String email) {
+	public User(Logininfo logininfo, Role role, Userrole userrole, String firstName, String lastName,
+			String phoneNumber, boolean isPremium, String email) {
+		this.logininfo = logininfo;
+		this.role = role;
+		this.userrole = userrole;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -41,17 +50,20 @@ public class User implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public User(String firstName, String lastName, String phoneNumber, byte[] isPremium, String email,
-			Set<Premiumcustomerdetails> premiumcustomerdetailses, Set<Logininfo> logininfos, Set<Sale> sales,
-			Set<Paymentdetails> paymentdetailses) {
+	public User(Logininfo logininfo, Role role, Userrole userrole, String firstName, String lastName,
+			String phoneNumber, boolean isPremium, String email, Set<Premiumcustomerdetails> premiumcustomerdetailses,
+			Set<Sale> sales, Set<Cartitem> cartitems, Set<Paymentdetails> paymentdetailses) {
+		this.logininfo = logininfo;
+		this.role = role;
+		this.userrole = userrole;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.isPremium = isPremium;
 		this.email = email;
 		this.premiumcustomerdetailses = premiumcustomerdetailses;
-		this.logininfos = logininfos;
 		this.sales = sales;
+		this.cartitems = cartitems;
 		this.paymentdetailses = paymentdetailses;
 	}
 
@@ -65,6 +77,36 @@ public class User implements java.io.Serializable {
 
 	public void setPkUserId(Integer pkUserId) {
 		this.pkUserId = pkUserId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_LoginID", nullable = false)
+	public Logininfo getLogininfo() {
+		return this.logininfo;
+	}
+
+	public void setLogininfo(Logininfo logininfo) {
+		this.logininfo = logininfo;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_SpringSecRoleID", nullable = false)
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_UserRoleID", nullable = false)
+	public Userrole getUserrole() {
+		return this.userrole;
+	}
+
+	public void setUserrole(Userrole userrole) {
+		this.userrole = userrole;
 	}
 
 	@Column(name = "FirstName", nullable = false, length = 30)
@@ -95,11 +137,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "IsPremium", nullable = false)
-	public byte[] getIsPremium() {
+	public boolean isIsPremium() {
 		return this.isPremium;
 	}
 
-	public void setIsPremium(byte[] isPremium) {
+	public void setIsPremium(boolean isPremium) {
 		this.isPremium = isPremium;
 	}
 
@@ -122,21 +164,25 @@ public class User implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Logininfo> getLogininfos() {
-		return this.logininfos;
-	}
-
-	public void setLogininfos(Set<Logininfo> logininfos) {
-		this.logininfos = logininfos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public Set<Sale> getSales() {
 		return this.sales;
 	}
 
 	public void setSales(Set<Sale> sales) {
 		this.sales = sales;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	public Set<Cartitem> getCartitems() {
+		return this.cartitems;
+	}
+
+	public void setCartitems(Set<Cartitem> cartitems) {
+		this.cartitems = cartitems;
+	}
+	
+	public void addCartitem(Cartitem cartitem) {
+		this.cartitems.add(cartitem);
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Add A Card</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <!--/*/ <th:block th:include="fragments/headincludes :: head"></th:block> /*/-->
+    
+	<link href="../static/css/products.css" th:href="@{/css/products.css}" rel="stylesheet" media="screen"/>
+	
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    
+    <div class="row">
+    	<div class="col-lg-2">
+        	<leftnav><!--/*/ <th:block th:include="fragments/leftnav :: leftnav"></th:block> /*/--></leftnav>
+        </div>
+        
+        
+        
+    <div class="col-lg-10">
+        
+    
+       	<h2>Search Cards</h2>
+       	
+       	<br>
+       	
+		
+		<label class="col-sm-3" for="searchName">Card Name:</label>
+		<input type="text" id="searchName" name="searchName" />
+		<input type="hidden" id="uid" th:value="${user.pkUserId}"/>
+		<input type="hidden" id="currentUserId" th:value="${premiumid}"/>
+		<button id="btnSearch">Search</button>
+		
+		
+		<br>
+		<br>	
+				
+		<table class="table table-striped">
+						
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>View</th>
+                
+                <th>Add</th>
+            </tr>
+            
+            <tbody id="results-body">
+            
+            
+                
+            </tbody>
+            
+			
+       	</table>
+       	
+       	
+    <div id="modalView" class="w3-modal " onclick="this.style.display='none'">
+		<span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+		<div class="w3-modal-content w3-animate-zoom" style="max-width:35em">
+ 			<img id="modalImage" width="100%">
+		</div>
+	</div>        
+    <script>
+    function onClick(element) {
+       	document.getElementById("modalImage").src = element.src;
+        document.getElementById("modalView").style.display = "block";
+    }
+    </script>
+       	
+       	</div>
+    </div>
+    
+</div>
+
+<!-- Footer -->
+    <footer class="py-5 bg-dark">
+		<!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
+    </footer>
+
+</body>
+
+
+<script>
+
+var stompClient = null;
+var uid = $('#uid').val();
+var premiumId = $('#currentUserId').val();
+
+//Add window loading functions
+if (window.addEventListener) { // Mozilla, Netscape, Firefox
+    window.addEventListener('load', WindowLoad, false);
+} else if (window.attachEvent) { // IE
+    window.attachEvent('onload', WindowLoad);
+}
+
+
+//OnLoad
+function WindowLoad(event) {
+    //alert("Another onload script");
+    console.log('Calling init..');
+    initSockJS();
+}
+
+
+//Init SockJS and topics
+function initSockJS() {
+	
+	 var socket = new SockJS("/sockjs-websocket");
+	    stompClient = Stomp.over(socket);
+	    stompClient.connect({}, function (frame) {
+	        //setConnected(true);
+	        console.log('Connected: ' + frame);
+	        stompClient.subscribe('/topic/premiumcards/search/results/' + uid, function (response) {
+	            //showResponse(JSON.parse(response.body).content);
+	        	updateCardsList((JSON.parse(response.body)));
+	        });	        
+
+	        
+		//Other initializations that need messaging and subscriptions to finish first must go here
+	    document.getElementById("btnSearch").click();
+		
+	    });	    
+}
+
+
+
+document.getElementById("searchName").addEventListener("keyup", function(event) {
+	event.preventDefault();
+	// Number 13 is "Enter" key
+	if (event.keyCode === 13) {
+		document.getElementById("btnSearch").click();
+	}
+});
+
+
+$('#btnSearch').click(function(){
+	sendCardSearch();
+});
+
+function sendCardSearch() {
+	/*<![CDATA[*/
+	console.log("SENDING CardSearch..");
+	
+	var request = {}
+	request["productName"] = $('#searchName').val();
+		        
+	stompClient.send("/msg/premiumcards/search/" + uid, {}, JSON.stringify(request));
+	/*]]>*/
+}
+
+function updateCardsList(response) {
+	/*<![CDATA[*/    	
+		
+	var output = "";	
+	
+	for (var i = 0; i < response.results.length; i++) {
+		output += '<tr>';
+		
+		output += '<td><a href="/product/' + response.results[i].pkProductId + '">' + response.results[i].pkProductId + '</a></td>';
+		output += '<td>' + response.results[i].productName + '</td>';
+		output += '<td>' + response.results[i].productDescription + '</td>';                
+		output += '<td><img class="product-thumbnail" src="' + response.results[i].thumbnailUri + '" style="cursor:zoom-in" onclick="onClick(this)"></td>';
+		output += '<td><a href="/product/' + response.results[i].pkProductId + '">View</a></td>';
+		output += '<td><a href="/admin/topproducts/new/' + response.results[i].pkProductId + '">Add</a></td>';
+        
+    	output += '</tr>';
+	}	
+    
+
+	$('#results-body').html(output);    
+    /*]]>*/
+}
+
+
+</script>
+
+
+
+</html>
