@@ -16,3 +16,7 @@ Dont worry about java stuff, since I will be doing that.
 
 # Other
 This is only for the webplatform. If we end up doing other apps, like our game-buddy app idea, we will create another repo.
+
+
+
+NOTE - unfortunately, there is no DB access/local DB in this project currently. THere might be a local DB soon, and I will update the connections to point to it.
