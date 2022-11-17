@@ -19,4 +19,4 @@ This is only for the webplatform. If we end up doing other apps, like our game-b
 
 
 
-NOTE - unfortunately, there is no DB access/local DB in this project currently. THere might be a local DB soon, and I will update the connections to point to it.
+NOTE - unfortunately, there is no DB access/local DB in this project. No plans to create a local/hosted db for this.
